@@ -1,3 +1,4 @@
+import 'package:dsc_sastra_university/event.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,245 +9,263 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  bool toched = false;
+  bool tochedhome = false;
+  bool tochedevent = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer:  Drawer(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 250,
-                                width: double.infinity,
-                                // color: Colors.blueGrey,
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 64, left: 32),
-                                  child: Column(
-                                    // mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 64,
-                                        width: 64,
-                                        decoration: BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius:
-                                                BorderRadius.circular(64)),
-                                        child: Image.asset(
-                                          "studyjam.png",
-                                          height: 64,
-                                          width: 64,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 32,
-                                      ),
-                                      Text(
-                                        "Ashwin Ram",
-                                        style: TextStyle(fontSize: 24),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "ramashwin36@gmail.com",
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.blueGrey),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Divider(
-                                height: 20,
-                                color: Colors.black,
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.only(left: 32, right: 10, top: 10),
-                                child: Column(
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          toched = !toched;
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: toched == true
-                                                ? Colors.lightBlueAccent
-                                                : Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        height: 40,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.home,
-                                              color: toched == true
-                                                  ? Colors.blue
-                                                  : Colors.blueGrey,
-                                              size: 32,
-                                            ),
-                                            SizedBox(
-                                              width: 24,
-                                            ),
-                                            Text(
-                                              "Home",
-                                              style: TextStyle(fontSize: 20),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.blueGrey,
-                                            size: 32,
-                                          ),
-                                          SizedBox(
-                                            width: 24,
-                                          ),
-                                          Text(
-                                            "Gallery",
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.blueGrey,
-                                            size: 32,
-                                          ),
-                                          SizedBox(
-                                            width: 24,
-                                          ),
-                                          Text(
-                                            "Events",
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.blueGrey,
-                                            size: 32,
-                                          ),
-                                          SizedBox(
-                                            width: 24,
-                                          ),
-                                          Text(
-                                            "Cluster",
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.blueGrey,
-                                            size: 32,
-                                          ),
-                                          SizedBox(
-                                            width: 24,
-                                          ),
-                                          Text(
-                                            "Core team",
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.blueGrey,
-                                            size: 32,
-                                          ),
-                                          SizedBox(
-                                            width: 24,
-                                          ),
-                                          Text(
-                                            "Contact Us",
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.blueGrey,
-                                            size: 32,
-                                          ),
-                                          SizedBox(
-                                            width: 24,
-                                          ),
-                                          Text(
-                                            "About",
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 250,
+              width: double.infinity,
+              // color: Colors.blueGrey,
+              child: Padding(
+                padding: EdgeInsets.only(top: 64, left: 32),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: 64,
+                      width: 64,
+                      decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(64)),
+                      child: Image.asset(
+                        "studyjam.png",
+                        height: 64,
+                        width: 64,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 32,
+                    ),
+                    Text(
+                      "Ashwin Ram",
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "ramashwin36@gmail.com",
+                      style: TextStyle(fontSize: 20, color: Colors.blueGrey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Divider(
+              height: 20,
+              color: Colors.black,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 32, right: 10, top: 10),
+              child: Column(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        tochedhome = !tochedhome;
+                      });
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: tochedhome == true
+                              ? Colors.lightBlueAccent
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      height: 40,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.home,
+                            color: tochedhome == true
+                                ? Colors.blue
+                                : Colors.blueGrey,
+                            size: 32,
                           ),
+                          SizedBox(
+                            width: 24,
+                          ),
+                          Text(
+                            "Home",
+                            style: TextStyle(fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.home,
+                          color: Colors.blueGrey,
+                          size: 32,
                         ),
+                        SizedBox(
+                          width: 24,
+                        ),
+                        Text(
+                          "Gallery",
+                          style: TextStyle(fontSize: 20),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        tochedevent = !tochedevent;
+                      });
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Event()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: tochedevent == true
+                              ? Colors.lightBlueAccent
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      height: 40,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.home,
+                            color: tochedevent == true
+                                ? Colors.blue
+                                : Colors.blueGrey,
+                            size: 32,
+                          ),
+                          SizedBox(
+                            width: 24,
+                          ),
+                          Text(
+                            "Events",
+                            style: TextStyle(fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.home,
+                          color: Colors.blueGrey,
+                          size: 32,
+                        ),
+                        SizedBox(
+                          width: 24,
+                        ),
+                        Text(
+                          "Cluster",
+                          style: TextStyle(fontSize: 20),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.home,
+                          color: Colors.blueGrey,
+                          size: 32,
+                        ),
+                        SizedBox(
+                          width: 24,
+                        ),
+                        Text(
+                          "Core team",
+                          style: TextStyle(fontSize: 20),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.home,
+                          color: Colors.blueGrey,
+                          size: 32,
+                        ),
+                        SizedBox(
+                          width: 24,
+                        ),
+                        Text(
+                          "Contact Us",
+                          style: TextStyle(fontSize: 20),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.home,
+                          color: Colors.blueGrey,
+                          size: 32,
+                        ),
+                        SizedBox(
+                          width: 24,
+                        ),
+                        Text(
+                          "About",
+                          style: TextStyle(fontSize: 20),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
       body: SafeArea(
-              child: SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  InkWell(
-                      child: Icon(Icons.menu, color: Colors.black),
-                      onTap: () {
-                        _scaffoldKey.currentState.openDrawer();
-                       
-                      }),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                        child: Icon(Icons.menu, color: Colors.black),
+                        onTap: () {
+                          _scaffoldKey.currentState.openDrawer();
+                        }),
+                  ),
                   Row(
                     children: <Widget>[
                       Container(
@@ -264,13 +283,16 @@ class _HomePageState extends State<HomePage> {
                               fontStyle: FontStyle.italic)),
                     ],
                   ),
-                  Icon(Icons.settings, color: Colors.black)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.settings, color: Colors.black),
+                  )
                 ],
               ),
               Container(
                 height: 300,
                 width: double.infinity,
-                color: Colors.green,
+                // color: Colors.green,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,7 +337,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 250,
                 width: double.infinity,
-                color: Colors.redAccent,
+                // color: Colors.redAccent,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,9 +355,34 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
+                            decoration: BoxDecoration(
+                                // boxShadow: [
+                                //   BoxShadow(color: Colors.black,
+                                //   blurRadius: 20)
+                                // ],
+                                // color: Colors.pink,
+                                image: DecorationImage(
+                                    image: ExactAssetImage(
+                                        "assets/FlutterIcon.png"),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(10)),
                             height: 75,
                             width: 75,
-                            color: Colors.pink,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+
+                                // color: Colors.pink,
+                                image: DecorationImage(
+                                    image: ExactAssetImage(
+                                        "assets/Android-Icon.png"),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(10)),
+                            height: 75,
+                            width: 75,
                           ),
                           SizedBox(
                             width: 20,
@@ -343,7 +390,13 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             height: 75,
                             width: 75,
-                            color: Colors.pink,
+                            decoration: BoxDecoration(
+
+                                // color: Colors.pink,
+                                image: DecorationImage(
+                                    image: ExactAssetImage("assets/ar.jpg"),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(10)),
                           ),
                           SizedBox(
                             width: 20,
@@ -351,15 +404,14 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             height: 75,
                             width: 75,
-                            color: Colors.pink,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: 75,
-                            width: 75,
-                            color: Colors.pink,
+                            decoration: BoxDecoration(
+
+                                // color: Colors.pink,
+                                image: DecorationImage(
+                                    image: ExactAssetImage(
+                                        "assets/contentWriting.png"),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(10)),
                           ),
                         ],
                       ),
@@ -373,9 +425,15 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
+                            decoration: BoxDecoration(
+                                // color: Colors.pink,
+                                image: DecorationImage(
+                                    image: ExactAssetImage(
+                                        "assets/web-development.png"),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(10)),
                             height: 75,
                             width: 75,
-                            color: Colors.pink,
                           ),
                           SizedBox(
                             width: 20,
@@ -383,7 +441,12 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             height: 75,
                             width: 75,
-                            color: Colors.pink,
+                            decoration: BoxDecoration(
+                                // color: Colors.pink,
+                                image: DecorationImage(
+                                    image: ExactAssetImage("assets/ml.png"),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(10)),
                           ),
                           SizedBox(
                             width: 20,
@@ -410,7 +473,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 150,
                 width: double.infinity,
-                color: Colors.orange,
+                // color: Colors.orange,
               )
             ],
           ),
