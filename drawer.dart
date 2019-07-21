@@ -48,18 +48,16 @@ class _MenuDashboardPageState extends State<MenuDashboardPage>
         children: <Widget>[
           menu(context),
           dashboard(context),
-         
-              
-              Container(
-                width: double.infinity,
-                height: 350,
-                padding: EdgeInsets.only(top: 140),
-                alignment: Alignment.topCenter,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[Home()],
-                ),
-              )
+          Container(
+            width: double.infinity,
+            height: 350,
+            padding: EdgeInsets.only(top: 140),
+            alignment: Alignment.topCenter,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[Home()],
+            ),
+          )
         ],
       ),
     );
@@ -174,42 +172,42 @@ class _MenuDashboardPageState extends State<MenuDashboardPage>
                     height: 20,
                   ),
                   Container(
-                padding: EdgeInsets.only( left: 20),
-                child: Text(
-                  "Recent",
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-                   Container(
-          height: 200,
-          child: PageView(
-            controller: PageController(viewportFraction: 0.8),
-            scrollDirection: Axis.horizontal,
-            pageSnapping: true,
-            children: <Widget>[
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                child: Image.asset("assets/flutter.jpg"),
-                color: Colors.white,
-                width: 100,
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                child: Image.asset("assets/studyjam.jpg"),
-                color: Colors.blueAccent,
-                width: 100,
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                color: Colors.greenAccent,
-                width: 100,
-              ),
-            ],
-          ),
-        ),
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text(
+                      "Recent",
+                      style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    height: 200,
+                    child: PageView(
+                      controller: PageController(viewportFraction: 0.8),
+                      scrollDirection: Axis.horizontal,
+                      pageSnapping: true,
+                      children: <Widget>[
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Image.asset("assets/flutter.jpg"),
+                          color: Colors.white,
+                          width: 100,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Image.asset("assets/studyjam.jpg"),
+                          color: Colors.blueAccent,
+                          width: 100,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          color: Colors.greenAccent,
+                          width: 100,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -225,7 +223,6 @@ class _MenuDashboardPageState extends State<MenuDashboardPage>
         SizedBox(
           height: 20,
         ),
-       
       ],
     );
   }
