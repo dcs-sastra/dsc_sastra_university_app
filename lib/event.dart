@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class Event extends StatefulWidget {
   Event({Key key}) : super(key: key);
 
@@ -17,34 +16,39 @@ class _EventState extends State<Event> {
               Stack(
                 children: <Widget>[
                   Container(
-                    height: 400,
+                    height: 350,
                     color: Colors.white,
                   ),
                   Container(
-                    color: Colors.redAccent,
                     height: 300,
                     width: double.infinity,
-                    child: Image.asset("assets/logo.png"),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: ExactAssetImage("assets/events.jpg"),
+                            fit: BoxFit.cover)),
                   ),
                   Positioned(
-                    top: 280,
+                    top: 250,
                     left: 64,
                     right: 64,
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.lightBlueAccent,
-                      ),
-                      
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: Icon(Icons.search),
-                            hintText: "Search",
-                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 2,
+                              color: Colors.blueGrey,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: Icon(Icons.search),
+                          hintText: "Search",
                         ),
-                      
+                      ),
                     ),
                   )
                 ],

@@ -1,5 +1,6 @@
 import 'package:dsc_sastra_university/event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -11,9 +12,13 @@ class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   bool tochedhome = false;
   bool tochedevent = false;
+  double w, h;
 
   @override
   Widget build(BuildContext context) {
+    w = MediaQuery.of(context).size.width;
+    h = MediaQuery.of(context).size.height;
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
@@ -71,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       setState(() {
                         tochedhome = !tochedhome;
+                        tochedevent = false;
                       });
                       Navigator.pop(context);
                     },
@@ -129,6 +135,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       setState(() {
                         tochedevent = !tochedevent;
+                        tochedhome = false;
                       });
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Event()));
@@ -253,6 +260,7 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -292,7 +300,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 300,
                 width: double.infinity,
-                // color: Colors.green,
+                color: Colors.green,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -312,9 +320,22 @@ class _HomePageState extends State<HomePage> {
                         pageSnapping: true,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Image.asset("assets/flutter.jpg"),
-                            color: Colors.white,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        ExactAssetImage("assets/flutter.jpg"),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 4,
+                                      offset: Offset(0, 4),
+                                      color: Colors.black.withOpacity(0.25))
+                                ]),
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 8),
+                            // child: Image.asset("assets/flutter.jpg"),
+                            // color: Colors.white,
                             width: 100,
                           ),
                           Container(
@@ -334,139 +355,27 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(left: 32, top: 16, bottom: 16),
+                child: Text(
+                  "Cluster",
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              Container(
+                      child: SvgPicture.asset("assets/Freesample.svg", height: 32,width: 32,),
+                      height: 75,
+                      width: 75,
+                    ),
               Container(
                 height: 250,
                 width: double.infinity,
+
                 // color: Colors.redAccent,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: GridView.count(
+                  crossAxisCount: 3,
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 32, top: 16, bottom: 16),
-                      child: Text(
-                        "Cluster",
-                        style: TextStyle(fontSize: 24),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 32),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                // boxShadow: [
-                                //   BoxShadow(color: Colors.black,
-                                //   blurRadius: 20)
-                                // ],
-                                // color: Colors.pink,
-                                image: DecorationImage(
-                                    image: ExactAssetImage(
-                                        "assets/FlutterIcon.png"),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(10)),
-                            height: 75,
-                            width: 75,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-
-                                // color: Colors.pink,
-                                image: DecorationImage(
-                                    image: ExactAssetImage(
-                                        "assets/Android-Icon.png"),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(10)),
-                            height: 75,
-                            width: 75,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: 75,
-                            width: 75,
-                            decoration: BoxDecoration(
-
-                                // color: Colors.pink,
-                                image: DecorationImage(
-                                    image: ExactAssetImage("assets/ar.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: 75,
-                            width: 75,
-                            decoration: BoxDecoration(
-
-                                // color: Colors.pink,
-                                image: DecorationImage(
-                                    image: ExactAssetImage(
-                                        "assets/contentWriting.png"),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 32),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                // color: Colors.pink,
-                                image: DecorationImage(
-                                    image: ExactAssetImage(
-                                        "assets/web-development.png"),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(10)),
-                            height: 75,
-                            width: 75,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: 75,
-                            width: 75,
-                            decoration: BoxDecoration(
-                                // color: Colors.pink,
-                                image: DecorationImage(
-                                    image: ExactAssetImage("assets/ml.png"),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: 75,
-                            width: 75,
-                            color: Colors.pink,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: 75,
-                            width: 75,
-                            color: Colors.pink,
-                          ),
-                        ],
-                      ),
-                    )
+                    
                   ],
                 ),
               ),
@@ -482,3 +391,136 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+//  Column(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: <Widget>[
+//                     Padding(
+//                       padding: EdgeInsets.only(left: 32, top: 16, bottom: 16),
+//                       child: Text(
+//                         "Cluster",
+//                         style: TextStyle(fontSize: 24),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: EdgeInsets.only(left: 32),
+//                       child: Row(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: <Widget>[
+//                           Container(
+//                             decoration: BoxDecoration(
+
+//                                 // boxShadow: [
+//                                 //   BoxShadow(color: Colors.black,
+//                                 //   blurRadius: 20)
+//                                 // ],
+//                                 // color: Colors.pink,
+//                                 image: DecorationImage(
+//                                     image: ExactAssetImage(
+//                                         "assets/FlutterIcon.png"),
+//                                     fit: BoxFit.cover),
+//                                 borderRadius: BorderRadius.circular(10)),
+//                             height: 75,
+//                             width: 75,
+//                           ),
+//                           SizedBox(
+//                             width: 20,
+//                           ),
+//                           Container(
+//                             decoration: BoxDecoration(
+
+//                                 // color: Colors.pink,
+//                                 image: DecorationImage(
+//                                     image: ExactAssetImage(
+//                                         "assets/Android-Icon.png"),
+//                                     fit: BoxFit.cover),
+//                                 borderRadius: BorderRadius.circular(10)),
+//                             height: 75,
+//                             width: 75,
+//                           ),
+//                           SizedBox(
+//                             width: 20,
+//                           ),
+//                           Container(
+//                             height: 75,
+//                             width: 75,
+//                             decoration: BoxDecoration(
+
+//                                 // color: Colors.pink,
+//                                 image: DecorationImage(
+//                                     image: ExactAssetImage("assets/ar.jpg"),
+//                                     fit: BoxFit.cover),
+//                                 borderRadius: BorderRadius.circular(10)),
+//                           ),
+//                           SizedBox(
+//                             width: 20,
+//                           ),
+//                           Container(
+//                             height: 75,
+//                             width: 75,
+//                             decoration: BoxDecoration(
+
+//                                 // color: Colors.pink,
+//                                 image: DecorationImage(
+//                                     image: ExactAssetImage(
+//                                         "assets/contentWriting.png"),
+//                                     fit: BoxFit.cover),
+//                                 borderRadius: BorderRadius.circular(10)),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     SizedBox(
+//                       height: 16,
+//                     ),
+//                     Padding(
+//                       padding: EdgeInsets.only(left: 32),
+//                       child: Row(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: <Widget>[
+//                           Container(
+//                             decoration: BoxDecoration(
+//                                 // color: Colors.pink,
+//                                 image: DecorationImage(
+//                                     image: ExactAssetImage(
+//                                         "assets/web-development.png"),
+//                                     fit: BoxFit.cover),
+//                                 borderRadius: BorderRadius.circular(10)),
+//                             height: 75,
+//                             width: 75,
+//                           ),
+//                           SizedBox(
+//                             width: 20,
+//                           ),
+//                           Container(
+//                             height: 75,
+//                             width: 75,
+//                             decoration: BoxDecoration(
+//                                 // color: Colors.pink,
+//                                 image: DecorationImage(
+//                                     image: ExactAssetImage("assets/ml.png"),
+//                                     fit: BoxFit.cover),
+//                                 borderRadius: BorderRadius.circular(10)),
+//                           ),
+//                           SizedBox(
+//                             width: 20,
+//                           ),
+//                           Container(
+//                             height: 75,
+//                             width: 75,
+//                             color: Colors.pink,
+//                           ),
+//                           SizedBox(
+//                             width: 20,
+//                           ),
+//                           Container(
+//                             height: 75,
+//                             width: 75,
+//                             color: Colors.pink,
+//                           ),
+//                         ],
+//                       ),
+//                     )
+//                   ],
+//                 ),
