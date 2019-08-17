@@ -50,7 +50,7 @@ class Event extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Google Cloud Study Jam",
-          style: TextStyle(fontFamily: "Product Sans"),
+          style: TextStyle(),
         ),
       ),
       body: LayoutBuilder(
@@ -116,7 +116,7 @@ class Event extends StatelessWidget {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 32,
-                          fontFamily: "ProductSans",
+                          // fontFamily: "ProductSans",
                         ),
                       ),
                     ),
@@ -148,7 +148,7 @@ class Event extends StatelessWidget {
                         style: TextStyle(
                           color: Color(0xFFDB4437),
                           fontSize: 18,
-                          fontFamily: "ProductSans",
+                          // fontFamily: "ProductSans",
                         ),
                       ),
                     ),
@@ -158,7 +158,7 @@ class Event extends StatelessWidget {
                       "Speakers",
                       style: TextStyle(
                         fontSize: 32,
-                        fontFamily: "ProductSans",
+                        // fontFamily: "ProductSans",
                       ),
                     ),
                   ),
@@ -183,12 +183,12 @@ class Event extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                      image: AssetImage("assets/sibi.png"),
+                                      image: AssetImage("assets/ar.jpg"),
                                     ),
                                   ),
                                 ),
                                 SizedBox(height: 16),
-                                Text("Sibi N", style: TextStyle(fontSize: 24))
+                                Text("Sibi N", style: TextStyle(fontSize: 16))
                               ],
                             ),
                           ),
