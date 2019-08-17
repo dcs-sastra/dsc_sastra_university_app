@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:dsc_sastra_university/Home.dart';
-
+import 'package:dsc_sastra_university/pages/event.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       
-      home: HomePage(),
+      home: Event("gcp"),
     );
   }
 }

@@ -1,41 +1,41 @@
-import 'package:dsc_sastra/pages/eventList.dart';
+// import 'package:dsc_sastra_university/pages/eventList.dart';
 import 'package:flutter/material.dart';
 
-class Events extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Events",
-          style: TextStyle(fontFamily: "ProductSans"),
-        ),
-      ),
-      body: ListView.builder(
-        itemCount: 5,
-        itemBuilder: (bc, i) {
-          return Internship(
-            about:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget maximus eros. Curabitur mollis hendrerit tincidunt. Praesent tellus lectus, ullamcorper semper libero nec, placerat scelerisque lectus. Suspendisse dictum ultricies nisl, eget laoreet felis placerat et. Maecenas dictum erat ac eros tempor, in scelerisque sem pretium. Praesent sed dui eros. Quisque interdum molestie tempus. Nullam mollis tincidunt orci. In mollis augue eu risus vestibulum facilisis.",
-            available: 2,
-            dates: "Today - tomorrow",
-            isBookmarked: true,
-            isFeatured: true,
-            lastdate: "Tomorrow",
-            perks: "Nothing",
-            posted: "Yesterday",
-            skillsRequired: "Nothing",
-            stipend: "0",
-            subtitle: "Bubbye",
-            tag: "Yoyo",
-            title: "Tiyatle",
-            whoCanApply: "Everyone",
-          );
-        },
-      ),
-    );
-  }
-}
+// class Events extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(
+//           "Events",
+//           style: TextStyle(fontFamily: "ProductSans"),
+//         ),
+//       ),
+//       body: ListView.builder(
+//         itemCount: 5,
+//         itemBuilder: (bc, i) {
+//           return Internship(
+//             about:
+//                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget maximus eros. Curabitur mollis hendrerit tincidunt. Praesent tellus lectus, ullamcorper semper libero nec, placerat scelerisque lectus. Suspendisse dictum ultricies nisl, eget laoreet felis placerat et. Maecenas dictum erat ac eros tempor, in scelerisque sem pretium. Praesent sed dui eros. Quisque interdum molestie tempus. Nullam mollis tincidunt orci. In mollis augue eu risus vestibulum facilisis.",
+//             available: 2,
+//             dates: "Today - tomorrow",
+//             isBookmarked: true,
+//             isFeatured: true,
+//             lastdate: "Tomorrow",
+//             perks: "Nothing",
+//             posted: "Yesterday",
+//             skillsRequired: "Nothing",
+//             stipend: "0",
+//             subtitle: "Bubbye",
+//             tag: "Yoyo",
+//             title: "Tiyatle",
+//             whoCanApply: "Everyone",
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
 
 class Event extends StatelessWidget {
   double w;
