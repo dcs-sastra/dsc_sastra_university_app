@@ -1,14 +1,16 @@
 import 'dart:math';
 
+import 'package:dsc_sastra_university/members.dart';
 import 'package:flutter/material.dart';
 
 class AboutUs extends StatelessWidget {
   double size;
   double dpsize;
+
   @override
   Widget build(BuildContext context) {
     dpsize = (MediaQuery.of(context).size.width - 16) / 3;
-    size = min(dpsize * 1.8, 480);
+    size = min(dpsize * 1.2, 480);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -17,146 +19,52 @@ class AboutUs extends StatelessWidget {
           style: TextStyle(fontFamily: "ProductSans"),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(8),
-        child: GridView.count(
-          childAspectRatio: dpsize / size,
-          crossAxisCount: 3,
-          children: <Widget>[
-            Container(),
-            GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed("/about/sibi"),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(top: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Center(
+                child: lead,
+              ),
+              Container(height: 24),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Android Developers",
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              Container(
+                height: size,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    Hero(
-                      tag: "sibi",
-                      child: CircleAvatar(
-                        radius: dpsize / 2.8,
-                        backgroundImage: AssetImage("assets/sibi.png"),
-                      ),
-                    ),
-                    SizedBox(height: max(16, size * 0.1)),
-                    Text(
-                      "Sibi N",
-                      style: TextStyle(
-                        fontFamily: "ProductSans",
-                        fontSize: max(24, size * 0.1),
-                      ),
-                    ),
-                    Text(
-                      "DSC Lead",
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.visible,
-                      maxLines: 1,
-                      softWrap: false,
-                      style: TextStyle(
-                        fontFamily: "ProductSans",
-                        fontSize: max(16, size * 0.05),
-                      ),
-                    ),
+                    Container(width: 8),
+                    ...members["Android Developers"]
                   ],
                 ),
               ),
-            ),
-            Container(),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: dpsize / 2.8,
-                    backgroundImage: AssetImage("assets/sibi.png"),
-                  ),
-                  SizedBox(height: max(16, size * 0.1)),
-                  Text(
-                    "Sibi N",
-                    style: TextStyle(
-                      fontFamily: "ProductSans",
-                      fontSize: max(24, size * 0.1),
-                    ),
-                  ),
-                  Text(
-                    "Android Lead",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: "ProductSans",
-                      fontSize: max(16, size * 0.05),
-                    ),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Android Developers",
+                  style: TextStyle(fontSize: 24),
+                ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: dpsize / 2.8,
-                    backgroundImage: AssetImage("assets/sibi.png"),
-                  ),
-                  SizedBox(height: max(16, size * 0.1)),
-                  Text(
-                    "Sibi N",
-                    style: TextStyle(
-                      fontFamily: "ProductSans",
-                      fontSize: max(24, size * 0.1),
-                    ),
-                  ),
-                  Text(
-                    "Web Lead",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.visible,
-                    maxLines: 1,
-                    softWrap: false,
-                    style: TextStyle(
-                      fontFamily: "ProductSans",
-                      fontSize: max(16, size * 0.05),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: dpsize / 2.8,
-                    backgroundImage: AssetImage("assets/sibi.png"),
-                  ),
-                  SizedBox(height: max(16, size * 0.1)),
-                  Text(
-                    "Sibi N",
-                    style: TextStyle(
-                      fontFamily: "ProductSans",
-                      fontSize: max(24, size * 0.1),
-                    ),
-                  ),
-                  Text(
-                    "ML Lead",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.visible,
-                    maxLines: 1,
-                    softWrap: false,
-                    style: TextStyle(
-                      fontFamily: "ProductSans",
-                      fontSize: max(16, size * 0.05),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+              Container(
+                height: size,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    Container(width: 8),
+                    ...members["Android Developers"]
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

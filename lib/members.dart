@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Member extends StatelessWidget {
@@ -19,7 +20,7 @@ class Member extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dpsize = (MediaQuery.of(context).size.width - 16) / 3;
-    size = min(dpsize * 1.8, 480);
+    size = min(dpsize * 1.2, 480);
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
@@ -27,23 +28,24 @@ class Member extends StatelessWidget {
           builder: (_) {
             return Container(
               height: 100,
+              alignment: Alignment.center,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   IconButton(
                     onPressed: () => _launchURL(github),
-                    icon: Image.asset("assets/ar.jpg"),
+                    icon: SvgPicture.asset("assets/gh.svg"),
                   ),
                   IconButton(
                     onPressed: () => _launchURL(linkedin),
-                    icon: Image.asset("assets/ar.jpg"),
+                    icon: Image.asset("assets/tw.svg"),
                   ),
                   IconButton(
                     onPressed:
-                        dribble.isNotEmpty ? () => _launchURL(dribble) : null,
+                        dribble != null ? () => _launchURL(dribble) : null,
                     icon: Image.asset(
                       "assets/ar.jpg",
-                      color: dribble.isNotEmpty ? null : Colors.grey,
+                      color: dribble == null ? null : Colors.grey,
                     ),
                   ),
                 ],
@@ -99,14 +101,58 @@ class Member extends StatelessWidget {
   }
 }
 
-//Dei sibi get the data from backend and create a map of list as shown below da and dont forget to cache things
+// Dei sibi get the data from backend and create a map of list as shown below da and dont forget to cache things
 
-// const Map<String, List<Member>> members = {
-//   "Android Developers" : [
-//     Member(
-//       name: "Kathir Thaniyarasu",
-//       image: null,
-//       linkedin: "",
-//     )
-//   ]
-// };
+Member lead = Member(
+  name: "Kavin Raju",
+  image:
+      "https://dsc-sastra-university.github.io/DSC-Website/static/media/Kavin%20Raju.49f2f013.jpg",
+  github: null,
+  dribble: null,
+  linkedin: null,
+);
+
+Map<String, List<Member>> members = {
+  "Android Developers": [
+    Member(
+      name: "Sibi N",
+      image:
+          "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
+      linkedin: "",
+      dribble: null,
+      github: "",
+    ),
+    Member(
+      name: "Sibi N",
+      image:
+          "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
+      linkedin: "",
+      dribble: null,
+      github: "",
+    ),
+    Member(
+      name: "Sibi N",
+      image:
+          "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
+      linkedin: "",
+      dribble: null,
+      github: "",
+    ),
+    Member(
+      name: "Sibi N",
+      image:
+          "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
+      linkedin: "",
+      dribble: null,
+      github: "",
+    ),
+    Member(
+      name: "Sibi N",
+      image:
+          "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
+      linkedin: "",
+      dribble: null,
+      github: "",
+    ),
+  ]
+};
