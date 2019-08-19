@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                         tochedhome = false;
                       });
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Event()));
+                          MaterialPageRoute(builder: (context) => Event("home")));
                     },
                     child: Container(
                       decoration: BoxDecoration(
