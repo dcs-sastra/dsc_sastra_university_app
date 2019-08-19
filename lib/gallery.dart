@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'dart:math';
 
 class Gallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Container(
-      child: GridView.extent(
-        maxCrossAxisExtent: 200.0,
-        mainAxisSpacing: 15.0,
-        crossAxisSpacing: 15.0,
-        padding: const EdgeInsets.all(5.0),
-        children: _buildGridTitle(20),
+      child:StaggeredGridView.countBuilder(
+        crossAxisCount: 4,
+  itemCount: 8,
+  itemBuilder: (BuildContext context, int index) => new Container(
+      color: Colors.green,
+      child: new Center(
+        child: new CircleAvatar(
+          backgroundColor: Colors.white,
+          child: new Text('$index'),
+        ),
+      )),
+  staggeredTileBuilder: (int index) =>
+      new StaggeredTile.count(2, index.isEven ? 2 : 1),
+  mainAxisSpacing: 4.0,
+  crossAxisSpacing: 4.0,
       ),
     );
   }
 }
 
 List<Widget> _buildGridTitle(numberOfTitles) {
-  var rand= Random();
-  
+  var rand = Random();
+
   List<Container> containers =
       new List<Container>.generate(numberOfTitles, (int index) {
     final imageName = 'images/image${index + 1}.jpg';
