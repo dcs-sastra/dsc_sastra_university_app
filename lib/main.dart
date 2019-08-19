@@ -1,14 +1,11 @@
-
-
 import 'package:dsc_sastra_university/pages/home.dart' as prefix0;
+import 'package:dsc_sastra_university/pages/team.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_sastra_university/Home.dart';
 import 'package:dsc_sastra_university/pages/event.dart';
 import 'package:dsc_sastra_university/pages/aboutus.dart';
 import 'package:dsc_sastra_university/pages/aboutMember.dart';
 import 'package:dsc_sastra_university/pages/Home.dart';
-
-
 
 void main() => runApp(MyApp());
 
@@ -22,10 +19,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       //for event :Event
+      // home: Event("Google Cloud Platform"),
+
       //for aboutMember : use AboutMember
+      // home: AboutMember("sibi")
+      routes: {
+        // "/": (_) => HomePage(),
+        // "/": (_) => AboutUs(),
+        "/": (_) => Team("sibi"),
+      },
+
       //for about us : use about us
-      home: Event("Google Cloud Platform"),
+      // home: AboutUs()
     );
   }
 }
-

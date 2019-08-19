@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class AboutMember extends StatelessWidget {
   String name;
   AboutMember(this.name);
+  double w;
 
   @override
   Widget build(BuildContext context) {
+    w = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -42,21 +44,45 @@ class AboutMember extends StatelessWidget {
                     style: TextStyle(fontSize: 28, fontFamily: "ProductSans"),
                   ),
                   SizedBox(height: 16),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Github",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Image.asset(
-                        "assets/ghlogo.png",
-                        color: Colors.white,
-                        fit: BoxFit.cover,
-                        height: 32,
-                      ),
-                    ],
+                  RaisedButton.icon(
+                    shape: StadiumBorder(),
+                    color: Colors.white,
+                    onPressed: () {},
+                    label: Text("Github"),
+                    icon: Image.asset(
+                      "assets/ar.jpg",
+                      height: w * 0.1,
+                    ),
+                  ),
+                  RaisedButton.icon(
+                    shape: StadiumBorder(),
+                    color: Colors.white,
+                    onPressed: () {},
+                    label: Text("Github"),
+                    icon: Image.asset(
+                      "assets/ar.jpg",
+                      height: w * 0.1,
+                    ),
+                  ),
+                  RaisedButton.icon(
+                    shape: StadiumBorder(),
+                    color: Colors.white,
+                    onPressed: () {},
+                    label: Text("Github"),
+                    icon: Image.asset(
+                      "assets/ar.jpg",
+                      height: w * 0.1,
+                    ),
+                  ),
+                  RaisedButton.icon(
+                    shape: StadiumBorder(),
+                    color: Colors.white,
+                    onPressed: () {},
+                    label: Text("Github"),
+                    icon: Image.asset(
+                      "assets/ar.jpg",
+                      height: w * 0.1,
+                    ),
                   )
                 ],
               ),

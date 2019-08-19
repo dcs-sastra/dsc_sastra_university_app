@@ -363,10 +363,14 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                      child: SvgPicture.asset("assets/Freesample.svg", height: 32,width: 32,),
-                      height: 75,
-                      width: 75,
-                    ),
+                child: SvgPicture.asset(
+                  "assets/Freesample.svg",
+                  height: 32,
+                  width: 32,
+                ),
+                height: 75,
+                width: 75,
+              ),
               Container(
                 height: 250,
                 width: double.infinity,
@@ -374,9 +378,7 @@ class _HomePageState extends State<HomePage> {
                 // color: Colors.redAccent,
                 child: GridView.count(
                   crossAxisCount: 3,
-                  children: <Widget>[
-                    
-                  ],
+                  children: <Widget>[],
                 ),
               ),
               Container(
