@@ -20,71 +20,73 @@ class Member extends StatelessWidget {
   Widget build(BuildContext context) {
     dpsize = (MediaQuery.of(context).size.width - 16) / 3;
     size = min(dpsize * 1.8, 480);
-    return GestureDetector(
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          builder: (_) {
-            return Container(
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    onPressed: () => _launchURL(github),
-                    icon: Image.asset("assets/ar.jpg"),
-                  ),
-                  IconButton(
-                    onPressed: () => _launchURL(linkedin),
-                    icon: Image.asset("assets/ar.jpg"),
-                  ),
-                  IconButton(
-                    onPressed:
-                        dribble.isNotEmpty ? () => _launchURL(dribble) : null,
-                    icon: Image.asset(
-                      "assets/ar.jpg",
-                      color: dribble.isNotEmpty ? null : Colors.grey,
+    return Scaffold(
+          body: GestureDetector(
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (_) {
+              return Container(
+                height: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () => _launchURL(github),
+                      icon: Image.asset("assets/ar.jpg"),
                     ),
-                  ),
-                ],
+                    IconButton(
+                      onPressed: () => _launchURL(linkedin),
+                      icon: Image.asset("assets/ar.jpg"),
+                    ),
+                    IconButton(
+                      onPressed:
+                          dribble.isNotEmpty ? () => _launchURL(dribble) : null,
+                      icon: Image.asset(
+                        "assets/ar.jpg",
+                        color: dribble.isNotEmpty ? null : Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Hero(
+                tag: name,
+                child: CircleAvatar(
+                  radius: dpsize / 2.8,
+                  backgroundImage: AssetImage("assets/$name.png"),
+                ),
               ),
-            );
-          },
-        );
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Hero(
-              tag: name,
-              child: CircleAvatar(
-                radius: dpsize / 2.8,
-                backgroundImage: AssetImage("assets/$name.png"),
+              SizedBox(height: max(16, size * 0.1)),
+              Text(
+                name,
+                style: TextStyle(
+                  fontFamily: "ProductSans",
+                  fontSize: max(24, size * 0.1),
+                ),
               ),
-            ),
-            SizedBox(height: max(16, size * 0.1)),
-            Text(
-              name,
-              style: TextStyle(
-                fontFamily: "ProductSans",
-                fontSize: max(24, size * 0.1),
-              ),
-            ),
-            // Text(
-            //   ,
-            //   textAlign: TextAlign.center,
-            //   overflow: TextOverflow.visible,
-            //   maxLines: 1,
-            //   softWrap: false,
-            //   style: TextStyle(
-            //     fontFamily: "ProductSans",
-            //     fontSize: max(16, size * 0.05),
-            //   ),
-            // ),
-          ],
+              // Text(
+              //   ,
+              //   textAlign: TextAlign.center,
+              //   overflow: TextOverflow.visible,
+              //   maxLines: 1,
+              //   softWrap: false,
+              //   style: TextStyle(
+              //     fontFamily: "ProductSans",
+              //     fontSize: max(16, size * 0.05),
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
     );

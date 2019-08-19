@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: "ProductSans",
         primarySwatch: Colors.blue,
       ),
       //for event :Event
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
       // home: AboutMember("sibi")
       routes: {
         // "/": (_) => HomePage(),
-        // "/": (_) => AboutUs(),
-        "/": (_) => Event("Machine learning club"),
+        "/": (_) => AboutMember(),
+        // "/": (_) => Member(dpsize: 16,name: 'ashwin',github: "",dribble: "",linkedin: "",image: "assets/ar.jpg",size: 20,team: "Android",),
       },
 
       //for about us : use about us
