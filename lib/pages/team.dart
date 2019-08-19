@@ -21,7 +21,7 @@ class Team extends StatelessWidget {
           crossAxisCount: 3,
           children: <Widget>[
             Container(),
-            Member(dpsize: dpsize, size: size),
+            // Member(dpsize: dpsize, size: size),
             Container(),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8),
@@ -183,7 +183,6 @@ class Member extends StatelessWidget {
                     ],
                   ),
                 ),
-                
               ],
             ),
           ),
