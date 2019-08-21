@@ -14,9 +14,11 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
         title: Text(
           "About Us",
-          style: TextStyle(fontFamily: "ProductSans"),
+          style: TextStyle(fontFamily: "ProductSans", color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
