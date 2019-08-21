@@ -11,14 +11,63 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+class DrawerItem extends StatelessWidget {
+  final String title, route;
+  final IconData icon;
+
+  DrawerItem(this.title, this.route, this.icon);
+
+  @override
+  Widget build(BuildContext context) {
+    Color color = title == "Home" ? Colors.blue : Colors.black;
+    Color bgColor =
+        title == "Home" ? Colors.blue.withOpacity(0.2) : Colors.white;
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed(route),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        margin: EdgeInsets.only(right: 16, top: 16),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(32),
+            bottomRight: Radius.circular(32),
+          ),
+        ),
+        child: Row(
+          children: <Widget>[
+            Icon(
+              icon,
+              color: color,
+              size: 26,
+            ),
+            SizedBox(
+              width: 24,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 18,
+                color: color,
+                fontWeight:
+                    title == "Home" ? FontWeight.bold : FontWeight.normal,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+List<DrawerItem> drawerItems = [
+  DrawerItem("Home", "/home", Icons.home),
+  DrawerItem("Events", "/events", Icons.event),
+  DrawerItem("About Us", "/aboutus", Icons.info),
+];
+
 class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
-  bool tochedhome = false;
-  bool tochedevent = false;
-  bool tochedgal = false;
-  bool tochedcore = false;
-  bool tochedabt = false;
 
   int c = 0;
   double w, h;
@@ -30,434 +79,34 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 200,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/backgroud.jpg"),
-                      fit: BoxFit.fill),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 64, left: 32),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        height: 64,
-                        width: 64,
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(64)),
-                        child: Image.asset(
-                          "",
-                          height: 64,
-                          width: 64,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        "Ashwin Ram",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontFamily: "ProductSans",
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "ramashwin36@gmail.com",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontFamily: "ProductSans",
-                            fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 10, top: 16),
-                child: Column(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          tochedhome = !tochedhome;
-                          tochedevent =
-                              tochedgal = tochedabt = tochedcore = false;
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: tochedhome == true
-                                ? Colors.lightBlueAccent.withOpacity(.2)
-                                : Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(32),
-                                bottomRight: Radius.circular(32))),
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 32),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.home,
-                                color: tochedhome == true
-                                    ? Colors.blue
-                                    : Colors.blueGrey,
-                                size: 26,
-                              ),
-                              SizedBox(
-                                width: 24,
-                              ),
-                              Text(
-                                "Home",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "ProductSans",
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          tochedgal = !tochedgal;
-                          tochedevent =
-                              tochedhome = tochedabt = tochedcore = false;
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: tochedgal == true
-                                ? Colors.lightBlueAccent.withOpacity(0.2)
-                                : Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(32),
-                                bottomRight: Radius.circular(32))),
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 32),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.contacts,
-                                color: tochedgal == true
-                                    ? Colors.blue
-                                    : Colors.blueGrey,
-                                size: 26,
-                              ),
-                              SizedBox(
-                                width: 24,
-                              ),
-                              Text(
-                                "Gallery",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "ProductSans",
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          tochedevent = !tochedevent;
-                          tochedhome =
-                              tochedgal = tochedabt = tochedcore = false;
-                        });
-                        // Navigator.pop(context);
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (c) => EventDisplay()));
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: tochedevent == true
-                                ? Colors.blueAccent.withOpacity(0.2)
-                                : Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(32),
-                                bottomRight: Radius.circular(32))),
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 32),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.home,
-                                color: tochedevent == true
-                                    ? Colors.blue
-                                    : Colors.blueGrey,
-                                size: 26,
-                              ),
-                              SizedBox(
-                                width: 24,
-                              ),
-                              Text(
-                                "Events",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "ProductSans",
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          tochedcore = !tochedcore;
-                          tochedevent =
-                              tochedgal = tochedabt = tochedhome = false;
-                        });
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (c) => AboutMember()));
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: tochedcore == true
-                                ? Colors.lightBlueAccent.withOpacity(0.2)
-                                : Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(32),
-                                bottomRight: Radius.circular(32))),
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 32),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.home,
-                                color: tochedcore == true
-                                    ? Colors.blue
-                                    : Colors.blueGrey,
-                                size: 26,
-                              ),
-                              SizedBox(
-                                width: 24,
-                              ),
-                              Text(
-                                "Core members",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "ProductSans",
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          tochedabt = !tochedabt;
-                          tochedevent =
-                              tochedgal = tochedhome = tochedcore = false;
-                        });
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (c) => AboutUs()));
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: tochedabt == true
-                                ? Colors.lightBlueAccent.withOpacity(0.2)
-                                : Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(32),
-                                bottomRight: Radius.circular(32))),
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 32),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.home,
-                                color: tochedabt == true
-                                    ? Colors.blue
-                                    : Colors.blueGrey,
-                                size: 26,
-                              ),
-                              SizedBox(
-                                width: 24,
-                              ),
-                              Text(
-                                "About Us",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "ProductSans",
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 130,
-              ),
-              Center(
-                child: Container(
-                  height: 110,
-                  width: 200,
-                  // color: Colors.green,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              color: Colors.black45,
-                              height: 2,
-                              width: 30,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 5.0, left: 5),
-                              child: Text("Connect",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                  )),
-                            ),
-                            Container(
-                              color: Colors.black45,
-                              height: 2,
-                              width: 30,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              height: 40,
-                              width: 40,
-                              // color: Colors.green,
-                              child: SvgPicture.asset(
-                                "assets/linkedin.svg",
-                                color: Colors.blue,
-                              ),
-                            ),
-                            Container(
-                              height: 40,
-                              width: 40,
-                              child: SvgPicture.asset(
-                                "assets/twitter.svg",
-                                color: Colors.blue,
-                              ),
-                            ),
-                            Container(
-                              height: 40,
-                              width: 40,
-                              child: SvgPicture.asset(
-                                "assets/instagram.svg",
-                                // color: Colors.redAccent,
-                              ),
-                            ),
-                            // Image.asset("assets/logo.png")
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        title: FlatButton.icon(
+          icon: Image.asset("assets/logo.png"),
+          label: Text(
+            "DSC SASTRA",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          disabledTextColor: Colors.black,
+          onPressed: null,
         ),
+        centerTitle: true,
       ),
+      drawer: buildDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                          child: Icon(Icons.menu, color: Colors.black),
-                          onTap: () {
-                            _scaffoldKey.currentState.openDrawer();
-                          }),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                            // color: Colors.white,
-                            height: 50,
-                            width: 50,
-                            child: Image.asset("assets/logo.png")),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("DSC SASTRA",
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.black,
-                                fontStyle: FontStyle.italic)),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(Icons.settings, color: Colors.black),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                height: 300,
-                width: double.infinity,
-                // color: Colors.green,
+                padding: EdgeInsets.all(16),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -469,10 +118,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
-                      width: double.infinity,
-                      height: 200,
+                      height: h * 0.3,
                       child: PageView(
-                        controller: PageController(viewportFraction: 0.9),
+                        controller: PageController(viewportFraction: 0.8),
                         scrollDirection: Axis.horizontal,
                         pageSnapping: true,
                         children: <Widget>[
@@ -482,8 +130,7 @@ class _HomePageState extends State<HomePage> {
                                     builder: (c) =>
                                         Event("Google cloud platform")));
                               },
-                              child: Recent("assets/flutter.jpg"),
-                              ),
+                              child: Recent("assets/flutter.jpg")),
                           Recent("assets/events.jpg"),
                         ],
                       ),
@@ -499,10 +146,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                height: 250,
-                width: double.infinity,
+                height: h * 0.5,
                 // color: Colors.redAccent,
                 child: GridView.count(
+                  physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 3,
                   childAspectRatio: 1,
                   padding: EdgeInsets.only(left: 32, right: 32, top: 16),
@@ -511,9 +158,11 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (c) =>
-                                  ClusterDisplay("App Devlopment")));
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (c) => ClusterDisplay("App Devlopment"),
+                            ),
+                          );
                         },
                         child: Cluster(
                             "assets/icons/android-logo.svg", 0xff0F9D58)),
@@ -569,6 +218,140 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  Drawer buildDrawer() {
+    return Drawer(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: h * 0.3,
+              padding: const EdgeInsets.all(16.0),
+              width: double.infinity,
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/backgroud.jpg"),
+                  fit: BoxFit.fill,
+                  colorFilter:
+                      ColorFilter.mode(Colors.black54, BlendMode.srcATop),
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Image.asset(
+                      "assets/logo.png",
+                      height: h * 0.05,
+                      width: h * 0.05,
+                    ),
+                  ),
+                  Text(
+                    "DSC",
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Developers Student Club",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
+            ),
+            ...drawerItems,
+            Expanded(child: Container()),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      color: Colors.black45,
+                      height: 2,
+                      width: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5.0, left: 5),
+                      child: Text("Connect",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          )),
+                    ),
+                    Container(
+                      color: Colors.black45,
+                      height: 2,
+                      width: 30,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Container(
+                      height: 40,
+                      width: 40,
+                      // color: Colors.green,
+                      child: SvgPicture.asset(
+                        "assets/linkedin.svg",
+                        color: Colors.blue,
+                      ),
+                    ),
+                    Container(
+                      height: 40,
+                      width: 40,
+                      child: SvgPicture.asset(
+                        "assets/twitter.svg",
+                        color: Colors.blue,
+                      ),
+                    ),
+                    Container(
+                      height: 40,
+                      width: 40,
+                      child: SvgPicture.asset(
+                        "assets/instagram.svg",
+                        // color: Colors.redAccent,
+                      ),
+                    ),
+                    // Image.asset("assets/logo.png")
+                  ],
+                )
+              ],
+            ),
+            Container(height: h * 0.05),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class Cluster extends StatelessWidget {
@@ -607,7 +390,6 @@ class Recent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       decoration: BoxDecoration(
           image: DecorationImage(
               image: ExactAssetImage(poster), fit: BoxFit.cover),
