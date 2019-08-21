@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       //for aboutMember : use AboutMember
       // home: AboutMember("sibi")
       routes: {
-        "/": (_) => EventDisplay(),
+        "/": (_) => HomePage(),
         // "/": (_) => Event("Machine learning"),
         // "/": (_) => Member(dpsize: 16,name: 'ashwin',github: "",dribble: "",linkedin: "",image: "assets/ar.jpg",size: 20,team: "Android",),
       },

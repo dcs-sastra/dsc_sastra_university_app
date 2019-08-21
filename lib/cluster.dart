@@ -1,16 +1,16 @@
 import 'package:dsc_sastra_university/gallery.dart';
 import 'package:flutter/material.dart';
 
-class Event extends StatefulWidget {
+class ClusterDisplay extends StatefulWidget {
   String clubname;
-  Event(clubname) {
+  ClusterDisplay(clubname) {
     this.clubname = clubname;
   }
 
-  _EventState createState() => _EventState();
+  _ClusterDisplayState createState() => _ClusterDisplayState();
 }
 
-class _EventState extends State<Event> {
+class _ClusterDisplayState extends State<ClusterDisplay> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;

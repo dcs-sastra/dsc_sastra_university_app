@@ -1,41 +1,7 @@
 // import 'package:dsc_sastra_university/pages/eventList.dart';
 import 'package:flutter/material.dart';
 
-// class Events extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(
-//           "Events",
-//           style: TextStyle(fontFamily: "ProductSans"),
-//         ),
-//       ),
-//       body: ListView.builder(
-//         itemCount: 5,
-//         itemBuilder: (bc, i) {
-//           return Internship(
-//             about:
-//                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget maximus eros. Curabitur mollis hendrerit tincidunt. Praesent tellus lectus, ullamcorper semper libero nec, placerat scelerisque lectus. Suspendisse dictum ultricies nisl, eget laoreet felis placerat et. Maecenas dictum erat ac eros tempor, in scelerisque sem pretium. Praesent sed dui eros. Quisque interdum molestie tempus. Nullam mollis tincidunt orci. In mollis augue eu risus vestibulum facilisis.",
-//             available: 2,
-//             dates: "Today - tomorrow",
-//             isBookmarked: true,
-//             isFeatured: true,
-//             lastdate: "Tomorrow",
-//             perks: "Nothing",
-//             posted: "Yesterday",
-//             skillsRequired: "Nothing",
-//             stipend: "0",
-//             subtitle: "Bubbye",
-//             tag: "Yoyo",
-//             title: "Tiyatle",
-//             whoCanApply: "Everyone",
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
+
 
 class Event extends StatelessWidget {
   double w;
@@ -134,7 +100,7 @@ class Event extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 18, horizontal: 0),
                     child: Container(
-                      width: w * 0.3,
+                      width: w * 0.4,
                       alignment: Alignment.centerRight,
                       padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -158,12 +124,12 @@ class Event extends StatelessWidget {
                       "Speakers",
                       style: TextStyle(
                         fontSize: 32,
-                        // fontFamily: "ProductSans",
+                        fontFamily: "ProductSans",
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                     child: Container(
                       height: w * 0.4,
                       child: ListView(

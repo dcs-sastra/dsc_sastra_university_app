@@ -1,11 +1,13 @@
-import 'package:dsc_sastra_university/event.dart';
+import 'package:dsc_sastra_university/cluster.dart';
+import 'package:dsc_sastra_university/eventDisplay.dart';
+import 'package:dsc_sastra_university/pages/aboutMember.dart';
+import 'package:dsc_sastra_university/pages/aboutus.dart';
+import 'package:dsc_sastra_university/pages/event.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
-
   _HomePageState createState() => _HomePageState();
 }
 
@@ -190,7 +192,10 @@ class _HomePageState extends State<HomePage> {
                           tochedhome =
                               tochedgal = tochedabt = tochedcore = false;
                         });
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
+                         Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (c) =>
+                                        EventDisplay()));
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -202,6 +207,7 @@ class _HomePageState extends State<HomePage> {
                                 bottomRight: Radius.circular(32))),
                         height: 40,
                         child: Padding(
+                        
                           padding: const EdgeInsets.only(left: 32),
                           child: Row(
                             children: <Widget>[
@@ -236,8 +242,13 @@ class _HomePageState extends State<HomePage> {
                           tochedcore = !tochedcore;
                           tochedevent =
                               tochedgal = tochedabt = tochedhome = false;
-                        });
-                        Navigator.pop(context);
+                        }
+                      
+                        );
+                        Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (c) =>
+                                        AboutMember()));
+                        // Navigator.pop(context);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -408,40 +419,43 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                        child: Icon(Icons.menu, color: Colors.black),
-                        onTap: () {
-                          _scaffoldKey.currentState.openDrawer();
-                        }),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Container(
-                          // color: Colors.white,
-                          height: 50,
-                          width: 50,
-                          child: Image.asset("assets/logo.png")),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text("DSC SASTRA",
-                          style: TextStyle(
-                              fontSize: 24,
-                              color: Colors.black,
-                              fontStyle: FontStyle.italic)),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.settings, color: Colors.black),
-                  )
-                ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                          child: Icon(Icons.menu, color: Colors.black),
+                          onTap: () {
+                            _scaffoldKey.currentState.openDrawer();
+                          }),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                            // color: Colors.white,
+                            height: 50,
+                            width: 50,
+                            child: Image.asset("assets/logo.png")),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("DSC SASTRA",
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.black,
+                                fontStyle: FontStyle.italic)),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.settings, color: Colors.black),
+                    )
+                  ],
+                ),
               ),
               Container(
                 height: 300,
@@ -465,36 +479,14 @@ class _HomePageState extends State<HomePage> {
                         scrollDirection: Axis.horizontal,
                         pageSnapping: true,
                         children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        ExactAssetImage("assets/flutter.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 4,
-                                      offset: Offset(0, 4),
-                                      color: Colors.black.withOpacity(0.25))
-                                ]),
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 8),
-                            // child: Image.asset("assets/flutter.jpg"),
-                            // color: Colors.white,
-                            width: 100,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Image.asset("assets/studyjam.jpg"),
-                            color: Colors.blueAccent,
-                            width: 100,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            color: Colors.greenAccent,
-                            width: 100,
-                          ),
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (c) =>
+                                        Event("Google cloud platform")));
+                              },
+                              child: Recent("assets/flutter.jpg")),
+                          Recent("assets/events.jpg"),
                         ],
                       ),
                     ),
@@ -519,7 +511,14 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSpacing: 32,
                   crossAxisSpacing: 32,
                   children: <Widget>[
-                    Cluster("assets/icons/android-logo.svg", 0xff0F9D58),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (c) =>
+                                  ClusterDisplay("App Devlopment")));
+                        },
+                        child: Cluster(
+                            "assets/icons/android-logo.svg", 0xff0F9D58)),
                     Cluster("assets/icons/web-programming (1).svg", 0xffDB4437),
                     Container(
                       decoration: BoxDecoration(
@@ -604,135 +603,24 @@ class Cluster extends StatelessWidget {
   }
 }
 
-//  Column(
-//                   mainAxisAlignment: MainAxisAlignment.start,
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: <Widget>[
-//                     Padding(
-//                       padding: EdgeInsets.only(left: 32, top: 16, bottom: 16),
-//                       child: Text(
-//                         "Cluster",
-//                         style: TextStyle(fontSize: 24),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: EdgeInsets.only(left: 32),
-//                       child: Row(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: <Widget>[
-//                           Container(
-//                             decoration: BoxDecoration(
-
-//                                 // boxShadow: [
-//                                 //   BoxShadow(color: Colors.black,
-//                                 //   blurRadius: 20)
-//                                 // ],
-//                                 // color: Colors.pink,
-//                                 image: DecorationImage(
-//                                     image: ExactAssetImage(
-//                                         "assets/FlutterIcon.png"),
-//                                     fit: BoxFit.cover),
-//                                 borderRadius: BorderRadius.circular(10)),
-//                             height: 75,
-//                             width: 75,
-//                           ),
-//                           SizedBox(
-//                             width: 20,
-//                           ),
-//                           Container(
-//                             decoration: BoxDecoration(
-
-//                                 // color: Colors.pink,
-//                                 image: DecorationImage(
-//                                     image: ExactAssetImage(
-//                                         "assets/Android-Icon.png"),
-//                                     fit: BoxFit.cover),
-//                                 borderRadius: BorderRadius.circular(10)),
-//                             height: 75,
-//                             width: 75,
-//                           ),
-//                           SizedBox(
-//                             width: 20,
-//                           ),
-//                           Container(
-//                             height: 75,
-//                             width: 75,
-//                             decoration: BoxDecoration(
-
-//                                 // color: Colors.pink,
-//                                 image: DecorationImage(
-//                                     image: ExactAssetImage("assets/ar.jpg"),
-//                                     fit: BoxFit.cover),
-//                                 borderRadius: BorderRadius.circular(10)),
-//                           ),
-//                           SizedBox(
-//                             width: 20,
-//                           ),
-//                           Container(
-//                             height: 75,
-//                             width: 75,
-//                             decoration: BoxDecoration(
-
-//                                 // color: Colors.pink,
-//                                 image: DecorationImage(
-//                                     image: ExactAssetImage(
-//                                         "assets/contentWriting.png"),
-//                                     fit: BoxFit.cover),
-//                                 borderRadius: BorderRadius.circular(10)),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       height: 16,
-//                     ),
-//                     Padding(
-//                       padding: EdgeInsets.only(left: 32),
-//                       child: Row(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: <Widget>[
-//                           Container(
-//                             decoration: BoxDecoration(
-//                                 // color: Colors.pink,
-//                                 image: DecorationImage(
-//                                     image: ExactAssetImage(
-//                                         "assets/web-development.png"),
-//                                     fit: BoxFit.cover),
-//                                 borderRadius: BorderRadius.circular(10)),
-//                             height: 75,
-//                             width: 75,
-//                           ),
-//                           SizedBox(
-//                             width: 20,
-//                           ),
-//                           Container(
-//                             height: 75,
-//                             width: 75,
-//                             decoration: BoxDecoration(
-//                                 // color: Colors.pink,
-//                                 image: DecorationImage(
-//                                     image: ExactAssetImage("assets/ml.png"),
-//                                     fit: BoxFit.cover),
-//                                 borderRadius: BorderRadius.circular(10)),
-//                           ),
-//                           SizedBox(
-//                             width: 20,
-//                           ),
-//                           Container(
-//                             height: 75,
-//                             width: 75,
-//                             color: Colors.pink,
-//                           ),
-//                           SizedBox(
-//                             width: 20,
-//                           ),
-//                           Container(
-//                             height: 75,
-//                             width: 75,
-//                             color: Colors.pink,
-//                           ),
-//                         ],
-//                       ),
-//                     )
-//                   ],
-//                 ),
+class Recent extends StatelessWidget {
+  String poster;
+  Recent(this.poster);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: ExactAssetImage(poster), fit: BoxFit.cover),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 4,
+                offset: Offset(0, 4),
+                color: Colors.black.withOpacity(0.25))
+          ]),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      width: 100,
+    );
+  }
+}
