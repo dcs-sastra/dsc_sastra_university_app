@@ -60,12 +60,9 @@ class Member extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Hero(
-              tag: name,
-              child: CircleAvatar(
-                radius: dpsize / 2.8,
-                backgroundImage: AssetImage("assets/$name.png"),
-              ),
+            CircleAvatar(
+              radius: dpsize / 2.8,
+              backgroundImage: AssetImage("assets/$name.png"),
             ),
             SizedBox(height: max(16, size * 0.1)),
             Text(
