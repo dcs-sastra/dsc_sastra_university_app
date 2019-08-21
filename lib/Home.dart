@@ -81,7 +81,8 @@ class _HomePageState extends State<HomePage> {
                             fontSize: 16,
                             color: Colors.white,
                             fontFamily: "ProductSans",
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w500,
+                            ),
                       ),
                     ],
                   ),
@@ -243,7 +244,6 @@ class _HomePageState extends State<HomePage> {
                         });
                         Navigator.of(context).push(
                             MaterialPageRoute(builder: (c) => AboutMember()));
-                        // Navigator.pop(context);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -469,9 +469,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
+                      width: double.infinity,
                       height: 200,
                       child: PageView(
-                        controller: PageController(viewportFraction: 0.8),
+                        controller: PageController(viewportFraction: 0.9),
                         scrollDirection: Axis.horizontal,
                         pageSnapping: true,
                         children: <Widget>[
@@ -481,7 +482,8 @@ class _HomePageState extends State<HomePage> {
                                     builder: (c) =>
                                         Event("Google cloud platform")));
                               },
-                              child: Recent("assets/flutter.jpg")),
+                              child: Recent("assets/flutter.jpg"),
+                              ),
                           Recent("assets/events.jpg"),
                         ],
                       ),
@@ -605,6 +607,7 @@ class Recent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       decoration: BoxDecoration(
           image: DecorationImage(
               image: ExactAssetImage(poster), fit: BoxFit.cover),
