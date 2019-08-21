@@ -1,15 +1,16 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Member extends StatelessWidget {
-  final String name, github, dribble, linkedin, image;
+  final String name, github, twitter, linkedin, image;
   Member({
     @required this.name,
     @required this.github,
-    @required this.dribble,
+    @required this.twitter,
     @required this.linkedin,
     @required this.image,
   });
@@ -33,19 +34,23 @@ class Member extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   IconButton(
-                    onPressed: () => _launchURL(github),
-                    icon: SvgPicture.asset("assets/gh.svg"),
+                    onPressed: () async {
+                      _launchURL(github);
+                    },
+                    icon: SvgPicture.asset("assets/icons/gh.svg"),
                   ),
                   IconButton(
-                    onPressed: () => _launchURL(linkedin),
-                    icon: Image.asset("assets/tw.svg"),
+                    onPressed: () async {
+                      _launchURL(linkedin);
+                    },
+                    icon: Image.asset("assets/li.png"),
                   ),
                   IconButton(
-                    onPressed:
-                        dribble != null ? () => _launchURL(dribble) : null,
+                    onPressed: () async {
+                      _launchURL(twitter);
+                    },
                     icon: Image.asset(
-                      "assets/ar.jpg",
-                      color: dribble == null ? null : Colors.grey,
+                      "assets/twitter.png",
                     ),
                   ),
                 ],
@@ -60,12 +65,9 @@ class Member extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Hero(
-              tag: name,
-              child: CircleAvatar(
-                radius: dpsize / 2.8,
-                backgroundImage: AssetImage("assets/$name.png"),
-              ),
+            CircleAvatar(
+              radius: dpsize / 2.8,
+              backgroundImage: CachedNetworkImageProvider(image),
             ),
             SizedBox(height: max(16, size * 0.1)),
             Text(
@@ -107,9 +109,9 @@ Member lead = Member(
   name: "Kavin Raju",
   image:
       "https://dsc-sastra-university.github.io/DSC-Website/static/media/Kavin%20Raju.49f2f013.jpg",
-  github: null,
-  dribble: null,
-  linkedin: null,
+  github: "https://github.com/ZeshanGIT/",
+  twitter: "https://github.com/ZeshanGIT/",
+  linkedin: "https://github.com/ZeshanGIT/",
 );
 
 Map<String, List<Member>> members = {
@@ -119,7 +121,15 @@ Map<String, List<Member>> members = {
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
       linkedin: "",
-      dribble: null,
+      twitter: null,
+      github: "https://github.com/ZeshanGIT/",
+    ),
+    Member(
+      name: "Sibi N",
+      image:
+          "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
+      linkedin: "",
+      twitter: null,
       github: "",
     ),
     Member(
@@ -127,7 +137,17 @@ Map<String, List<Member>> members = {
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
       linkedin: "",
-      dribble: null,
+      twitter: null,
+      github: "",
+    ),
+  ],
+  "Flutter Developers": [
+    Member(
+      name: "Sibi N",
+      image:
+          "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
+      linkedin: "",
+      twitter: null,
       github: "",
     ),
     Member(
@@ -135,7 +155,7 @@ Map<String, List<Member>> members = {
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
       linkedin: "",
-      dribble: null,
+      twitter: null,
       github: "",
     ),
     Member(
@@ -143,15 +163,7 @@ Map<String, List<Member>> members = {
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
       linkedin: "",
-      dribble: null,
-      github: "",
-    ),
-    Member(
-      name: "Sibi N",
-      image:
-          "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
-      linkedin: "",
-      dribble: null,
+      twitter: null,
       github: "",
     ),
   ]

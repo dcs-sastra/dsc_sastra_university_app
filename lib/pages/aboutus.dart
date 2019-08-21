@@ -29,40 +29,32 @@ class AboutUs extends StatelessWidget {
                 child: lead,
               ),
               Container(height: 24),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  "Android Developers",
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-              Container(
-                height: size,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
+              ...List.generate(members.keys.length, (i) {
+                String title = members.keys.elementAt(i);
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(width: 8),
-                    ...members["Android Developers"]
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        title,
+                        style: TextStyle(fontSize: max(24, size * 0.15)),
+                      ),
+                    ),
+                    Container(
+                      height: size,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          Container(width: 8),
+                          ...members[title]
+                        ],
+                      ),
+                    ),
                   ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  "Android Developers",
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-              Container(
-                height: size,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    Container(width: 8),
-                    ...members["Android Developers"]
-                  ],
-                ),
-              )
+                );
+              })
             ],
           ),
         ),
