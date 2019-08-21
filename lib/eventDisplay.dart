@@ -14,8 +14,18 @@ class _EventDisplayState extends State<EventDisplay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("Event Display"),
+        textTheme: TextTheme(
+            title: TextStyle(
+          color: Colors.black,
+        )),
+        iconTheme: IconThemeData(color: Colors.grey),
+        elevation: 2,
+        backgroundColor: Colors.white,
+        centerTitle: false,
+        title: Text(
+          "Event Display",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -30,7 +40,7 @@ class _EventDisplayState extends State<EventDisplay> {
                     "Flutter",
                     style: TextStyle(
                         fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                         fontFamily: "ProductSans"),
                   ),
                   GestureDetector(
@@ -43,10 +53,7 @@ class _EventDisplayState extends State<EventDisplay> {
                       },
                       child: Text(
                         "Expand",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red),
+                        style: TextStyle(fontSize: 16, color: Colors.red),
                       )),
                 ],
               ),
@@ -76,7 +83,9 @@ class _EventDisplayState extends State<EventDisplay> {
                 children: <Widget>[
                   Text(
                     "Android workshop",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
                   ),
                   GestureDetector(
                       onTap: () {
@@ -88,10 +97,7 @@ class _EventDisplayState extends State<EventDisplay> {
                       },
                       child: Text(
                         "Expand",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red),
+                        style: TextStyle(fontSize: 16, color: Colors.red),
                       )),
                 ],
               ),
@@ -121,7 +127,9 @@ class _EventDisplayState extends State<EventDisplay> {
                 children: <Widget>[
                   Text(
                     "Machine Learning",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
                   ),
                   GestureDetector(
                       onTap: () {
@@ -133,10 +141,7 @@ class _EventDisplayState extends State<EventDisplay> {
                       },
                       child: Text(
                         "Expand",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red),
+                        style: TextStyle(fontSize: 16, color: Colors.red),
                       )),
                 ],
               ),

@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         decoration: BoxDecoration(
                             color: tochedgal == true
-                                ? Colors.lightBlueAccent
+                                ? Colors.lightBlueAccent.withOpacity(0.2)
                                 : Colors.white,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(32),
@@ -193,21 +193,19 @@ class _HomePageState extends State<HomePage> {
                               tochedgal = tochedabt = tochedcore = false;
                         });
                         // Navigator.pop(context);
-                         Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (c) =>
-                                        EventDisplay()));
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (c) => EventDisplay()));
                       },
                       child: Container(
                         decoration: BoxDecoration(
                             color: tochedevent == true
-                                ? Colors.lightBlueAccent
+                                ? Colors.blueAccent.withOpacity(0.2)
                                 : Colors.white,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(32),
                                 bottomRight: Radius.circular(32))),
                         height: 40,
                         child: Padding(
-                        
                           padding: const EdgeInsets.only(left: 32),
                           child: Row(
                             children: <Widget>[
@@ -242,18 +240,15 @@ class _HomePageState extends State<HomePage> {
                           tochedcore = !tochedcore;
                           tochedevent =
                               tochedgal = tochedabt = tochedhome = false;
-                        }
-                      
-                        );
-                        Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (c) =>
-                                        AboutMember()));
+                        });
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (c) => AboutMember()));
                         // Navigator.pop(context);
                       },
                       child: Container(
                         decoration: BoxDecoration(
                             color: tochedcore == true
-                                ? Colors.lightBlueAccent
+                                ? Colors.lightBlueAccent.withOpacity(0.2)
                                 : Colors.white,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(32),
@@ -295,12 +290,13 @@ class _HomePageState extends State<HomePage> {
                           tochedevent =
                               tochedgal = tochedhome = tochedcore = false;
                         });
-                        Navigator.pop(context);
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (c) => AboutUs()));
                       },
                       child: Container(
                         decoration: BoxDecoration(
                             color: tochedabt == true
-                                ? Colors.lightBlueAccent
+                                ? Colors.lightBlueAccent.withOpacity(0.2)
                                 : Colors.white,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(32),

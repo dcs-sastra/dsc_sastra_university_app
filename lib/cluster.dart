@@ -21,14 +21,17 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              iconTheme: IconThemeData(color: Colors.grey),
+              backgroundColor: Colors.white,
+              // title:Text(widget.clubname) ,
               expandedHeight: 200.0,
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
+                  
                   title: Text(widget.clubname,
                       style: TextStyle(
-                        color: Colors.white,
+                        color:  Colors.black,
                         fontSize: 16.0,
                       )),
                   background: Image.asset(

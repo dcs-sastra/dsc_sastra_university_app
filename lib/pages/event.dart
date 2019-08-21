@@ -14,9 +14,17 @@ class Event extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        textTheme: TextTheme(
+            title: TextStyle(
+          color: Colors.black,
+        )),
+        iconTheme: IconThemeData(color: Colors.grey),
+        elevation: 2,
+        backgroundColor: Colors.white,
+        centerTitle: false,
         title: Text(
-          "Google Cloud Study Jam",
-          style: TextStyle(),
+          title,
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
         ),
       ),
       body: LayoutBuilder(
