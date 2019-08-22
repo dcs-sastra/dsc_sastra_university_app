@@ -6,17 +6,12 @@ class EventDisplay extends StatefulWidget {
 }
 
 class _EventDisplayState extends State<EventDisplay> {
-  double _animatedHeightFlutter = 150.0;
-  double _animatedHeightAndroid = 150.0;
-  double _animatedHeightMl = 150.0;
+  
 
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-
-
-
       appBar: AppBar(
         textTheme: TextTheme(
             title: TextStyle(
@@ -32,7 +27,6 @@ class _EventDisplayState extends State<EventDisplay> {
         ),
       ),
       body: SingleChildScrollView(
-        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -40,7 +34,7 @@ class _EventDisplayState extends State<EventDisplay> {
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: Container(
                 width: double.infinity,
-                height: 200,
+                height: w*0.6,
                 child: PageView(
                   controller: PageController(viewportFraction: 0.9),
                   scrollDirection: Axis.horizontal,
@@ -52,7 +46,7 @@ class _EventDisplayState extends State<EventDisplay> {
                         //     builder: (c) =>
                         //         Event("Google cloud platform")));
                       },
-                      child: Recent("assets/flutter.jpg"),
+                      child: Recent("assets/studyjam.jpg"),
                     ),
                     Recent("assets/events.jpg"),
                   ],
@@ -67,11 +61,8 @@ class _EventDisplayState extends State<EventDisplay> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "Trending",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "ProductSans"),
+                    "Up Coming",
+                    style: TextStyle(fontSize: 24, fontFamily: "Product Sans"),
                   ),
                 ],
               ),
@@ -80,7 +71,7 @@ class _EventDisplayState extends State<EventDisplay> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 // color: Colors.black,
-                height: 200,
+                height: w*0.55,
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -99,7 +90,8 @@ class _EventDisplayState extends State<EventDisplay> {
                         children: <Widget>[
                           Text(
                             "Google Cloud",
-                            style: TextStyle(fontSize: 18),
+
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
                           ),
                           SizedBox(
                             height: 8,
@@ -123,7 +115,7 @@ class _EventDisplayState extends State<EventDisplay> {
                               color: Colors.blue[300],
                               shape: StadiumBorder(),
                               child: Text(
-                                "Register",
+                                "Know more",
                                 style: TextStyle(
                                     color: Colors.white.withOpacity(1)),
                               ),
@@ -141,7 +133,6 @@ class _EventDisplayState extends State<EventDisplay> {
             Animated(1)
           ],
         ),
-      
       ),
     );
   }
@@ -154,9 +145,10 @@ class Animated extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.all(0),
-      height: 200,
+      height: w *0.6,
       child: GridView.count(
           crossAxisCount: 1,
           childAspectRatio: 1,
@@ -252,8 +244,8 @@ class TitleOfClub extends StatelessWidget {
             title,
             style: TextStyle(
                 fontSize: 24,
-                fontWeight: FontWeight.w400,
-                fontFamily: "ProductSans"),
+                // fontWeight: FontWeight.bold,
+                fontFamily: "Product Sans"),
           ),
           IconButton(
             icon: Icon(

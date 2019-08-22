@@ -103,40 +103,36 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 32, top: 16, bottom: 16),
-                      child: Text(
-                        "Recent",
-                        style: TextStyle(fontSize: 24),
-                      ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: 32, top: 16, bottom: 16),
+                    child: Text(
+                      "Recent",
+                      style: TextStyle(fontSize: 24),
                     ),
-                    Container(
-                      height: h * 0.3,
-                      child: PageView(
-                        controller: PageController(viewportFraction: 0.8),
-                        scrollDirection: Axis.horizontal,
-                        pageSnapping: true,
-                        children: <Widget>[
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (c) =>
-                                        Event("Google cloud platform")));
-                              },
-                              child: Recent("assets/flutter.jpg")),
-                          Recent("assets/events.jpg"),
-                        ],
-                      ),
+                  ),
+                  Container(
+                    height: h * 0.3,
+                    child: PageView(
+                      controller: PageController(viewportFraction: 0.8),
+                      scrollDirection: Axis.horizontal,
+                      pageSnapping: true,
+                      children: <Widget>[
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (c) => EventDisplay()));
+                            },
+                            child: Recent("assets/flutter.jpg")),
+                        Recent("assets/events.jpg"),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.only(left: 32, top: 16, bottom: 16),
@@ -204,14 +200,11 @@ class _HomePageState extends State<HomePage> {
                     Cluster(
                         "assets/icons/artificial-intelligence.svg", 0xff0F9D58),
                     Cluster("assets/icons/pen.svg", 0xffDB4437),
+                    Cluster("assets/clusters/report.svg", 0xffDB4437),
+                    Cluster("assets/clusters/article.svg", 0xffDB4437)
                   ],
                 ),
               ),
-              Container(
-                height: 150,
-                width: double.infinity,
-                // color: Colors.orange,
-              )
             ],
           ),
         ),

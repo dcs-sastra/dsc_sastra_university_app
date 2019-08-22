@@ -1,4 +1,5 @@
 import 'package:dsc_sastra_university/gallery.dart';
+
 import 'package:flutter/material.dart';
 
 class ClusterDisplay extends StatefulWidget {
@@ -11,6 +12,20 @@ class ClusterDisplay extends StatefulWidget {
 }
 
 class _ClusterDisplayState extends State<ClusterDisplay> {
+  Color color = Colors.black;
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      setState(() {
+        color = Color.lerp(
+            Colors.white, Colors.black, scrollController.position.pixels / 200);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -18,27 +33,32 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: NestedScrollView(
+        controller: scrollController,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
               iconTheme: IconThemeData(color: Colors.grey),
               backgroundColor: Colors.white,
-              // title:Text(widget.clubname) ,
-              expandedHeight: 200.0,
+              title: Text(
+                widget.clubname,
+                style: TextStyle(color: color),
+              ),
+              expandedHeight: w * 0.5,
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                  
-                  title: Text(widget.clubname,
-                      style: TextStyle(
-                        color:  Colors.black,
-                        fontSize: 16.0,
-                      )),
-                  background: Image.asset(
-                    "assets/ar.jpg",
-                    fit: BoxFit.cover,
-                    
-                  )),
+                title: Text("",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    )),
+                background: Image.asset(
+                  "assets/ar.jpg",
+                  fit: BoxFit.cover,
+                  // color: Colors.white54,
+                  colorBlendMode: BlendMode.srcATop,
+                ),
+              ),
             ),
           ];
         },
@@ -83,7 +103,7 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
                     ),
                     Container(
                       child: Gallery(),
-                      height: 250,
+                      height: w * 0.7,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 8, top: 16),
