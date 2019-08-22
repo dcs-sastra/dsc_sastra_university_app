@@ -12,7 +12,11 @@ class _EventDisplayState extends State<EventDisplay> {
 
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
+
+
+
       appBar: AppBar(
         textTheme: TextTheme(
             title: TextStyle(
@@ -28,144 +32,116 @@ class _EventDisplayState extends State<EventDisplay> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
+        
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              child: Container(
+                width: double.infinity,
+                height: 200,
+                child: PageView(
+                  controller: PageController(viewportFraction: 0.9),
+                  scrollDirection: Axis.horizontal,
+                  pageSnapping: true,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (c) =>
+                        //         Event("Google cloud platform")));
+                      },
+                      child: Recent("assets/flutter.jpg"),
+                    ),
+                    Recent("assets/events.jpg"),
+                  ],
+                ),
+              ),
+            ),
+            TitleOfClub("Flutter"),
+            Animated(1),
+            Padding(
+              padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "Flutter",
+                    "Trending",
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                         fontFamily: "ProductSans"),
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _animatedHeightFlutter != 150.0
-                              ? _animatedHeightFlutter = 150.0
-                              : _animatedHeightFlutter = 300.0;
-                        });
-                      },
-                      child: Text(
-                        "Expand",
-                        style: TextStyle(fontSize: 16, color: Colors.red),
-                      )),
                 ],
               ),
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 16,
-                  ),
-                  new AnimatedContainer(
-                    transform: Matrix4.translationValues(0, 0, -1),
-                    curve: Curves.easeOut,
-                    duration: const Duration(milliseconds: 120),
-                    child: new Animated(_animatedHeightFlutter == 150 ? 1 : 2),
-                    height: _animatedHeightFlutter,
-                    // color: Colors.tealAccent,
-                    width: double.infinity,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 32,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    "Android workshop",
-                    style: TextStyle(
-                      fontSize: 24,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                // color: Colors.black,
+                height: 200,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: ExactAssetImage("assets/flutter.jpg"),
+                            fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      width: 175,
                     ),
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _animatedHeightAndroid != 150.0
-                              ? _animatedHeightAndroid = 150.0
-                              : _animatedHeightAndroid = 300.0;
-                        });
-                      },
-                      child: Text(
-                        "Expand",
-                        style: TextStyle(fontSize: 16, color: Colors.red),
-                      )),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 32, left: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Google Cloud",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "12/11/19",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text("Tifa core auditorium",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          ButtonTheme(
+                            height: 35,
+                            minWidth: 100,
+                            child: RaisedButton(
+                              color: Colors.blue[300],
+                              shape: StadiumBorder(),
+                              child: Text(
+                                "Register",
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(1)),
+                              ),
+                              onPressed: () {},
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 16,
-                  ),
-                  new AnimatedContainer(
-                    transform: Matrix4.translationValues(0, 0, -1),
-                    curve: Curves.easeOut,
-                    duration: const Duration(milliseconds: 120),
-                    child: new Animated(_animatedHeightAndroid == 150 ? 1 : 2),
-                    height: _animatedHeightAndroid,
-                    // color: Colors.tealAccent,
-                    width: double.infinity,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 32,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    "Machine Learning",
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _animatedHeightMl != 150.0
-                              ? _animatedHeightMl = 150.0
-                              : _animatedHeightMl = 300.0;
-                        });
-                      },
-                      child: Text(
-                        "Expand",
-                        style: TextStyle(fontSize: 16, color: Colors.red),
-                      )),
-                ],
-              ),
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 16,
-                  ),
-                  new AnimatedContainer(
-                    transform: Matrix4.translationValues(0, 0, -1),
-                    curve: Curves.easeOut,
-                    duration: const Duration(milliseconds: 120),
-                    child: new Animated(_animatedHeightMl == 150 ? 1 : 2),
-                    height: _animatedHeightMl,
-                    // color: Colors.tealAccent,
-                    width: double.infinity,
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+            TitleOfClub("Machine Learning"),
+            Animated(1)
+          ],
         ),
+      
       ),
     );
   }
@@ -180,25 +156,41 @@ class Animated extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(0),
-      height: 100,
+      height: 200,
       child: GridView.count(
-          crossAxisCount: count,
+          crossAxisCount: 1,
           childAspectRatio: 1,
           scrollDirection: Axis.horizontal,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: ExactAssetImage("assets/flutter.jpg"),
+                      fit: BoxFit.fill),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 1,
+                      offset: Offset(0, 4),
+                      color: Colors.black.withOpacity(0.2),
+                    )
+                  ]),
+              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              width: 300,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: ExactAssetImage("assets/flutter.jpg"),
                       fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
-                        blurRadius: 1,
+                        blurRadius: 4,
                         offset: Offset(0, 4),
-                        color: Colors.black.withOpacity(0.2))
+                        color: Colors.black.withOpacity(0.25))
                   ]),
               margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               width: 100,
@@ -216,28 +208,63 @@ class Animated extends StatelessWidget {
                         color: Colors.black.withOpacity(0.25))
                   ]),
               margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              // child: Image.asset("assets/flutter.jpg"),
-              // color: Colors.white,
-              width: 100,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: ExactAssetImage("assets/flutter.jpg"),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 4,
-                        offset: Offset(0, 4),
-                        color: Colors.black.withOpacity(0.25))
-                  ]),
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              // child: Image.asset("assets/flutter.jpg"),
-              // color: Colors.white,
               width: 100,
             ),
           ]),
+    );
+  }
+}
+
+class Recent extends StatelessWidget {
+  String poster;
+  Recent(this.poster);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: ExactAssetImage(poster), fit: BoxFit.cover),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 4,
+                offset: Offset(0, 4),
+                color: Colors.black.withOpacity(0.25))
+          ]),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      width: 100,
+    );
+  }
+}
+
+class TitleOfClub extends StatelessWidget {
+  String title;
+  TitleOfClub(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16, left: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w400,
+                fontFamily: "ProductSans"),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.arrow_forward,
+              color: Colors.grey,
+              size: 32,
+            ),
+            onPressed: () {},
+          )
+        ],
+      ),
     );
   }
 }
