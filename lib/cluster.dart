@@ -3,17 +3,18 @@ import 'package:dsc_sastra_university/gallery.dart';
 import 'package:flutter/material.dart';
 
 class ClusterDisplay extends StatefulWidget {
-  String clubname, about;
-  ClusterDisplay(clubname,about) {
+  String clubname, about, background;
+  ClusterDisplay(clubname, about, background) {
     this.clubname = clubname;
     this.about = about;
+    this.background = background;
   }
 
   _ClusterDisplayState createState() => _ClusterDisplayState();
 }
 
 class _ClusterDisplayState extends State<ClusterDisplay> {
-  Color color = Colors.black;
+  Color color = Colors.white;
   ScrollController scrollController = ScrollController();
   @override
   void initState() {
@@ -49,13 +50,13 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text("",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                    )),
+                // title: Text("",
+                //     style: TextStyle(
+                //       color: Colors.black,
+                //       fontSize: 16.0,
+                //     )),
                 background: Image.asset(
-                  "assets/ar.jpg",
+                  widget.background,
                   fit: BoxFit.cover,
                   // color: Colors.white54,
                   colorBlendMode: BlendMode.srcATop,

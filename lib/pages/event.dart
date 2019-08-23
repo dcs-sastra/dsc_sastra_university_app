@@ -1,8 +1,6 @@
 // import 'package:dsc_sastra_university/pages/eventList.dart';
 import 'package:flutter/material.dart';
 
-
-
 class Event extends StatelessWidget {
   double w;
   String title;
@@ -24,7 +22,10 @@ class Event extends StatelessWidget {
         centerTitle: false,
         title: Text(
           title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          style: TextStyle(
+              fontSize: 20,
+              fontFamily: "Product Sans",
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: LayoutBuilder(
@@ -53,7 +54,7 @@ class Event extends StatelessWidget {
                           "16th August, 2019",
                           style: TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w400,
                           ),
                         )
                       ],
@@ -70,13 +71,15 @@ class Event extends StatelessWidget {
                         SizedBox(width: 16),
                         Text(
                           "Venue : ",
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
                         ),
                         Text(
                           "CTV 110",
                           style: TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w400,
                           ),
                         )
                       ],

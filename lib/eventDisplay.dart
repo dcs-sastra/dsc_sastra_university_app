@@ -155,7 +155,7 @@ class Animated extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: ExactAssetImage("assets/flutter.jpg"),
+                      image: ExactAssetImage("assets/dsc/mlWorkshop.jpg"),
                       fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
@@ -171,7 +171,7 @@ class Animated extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: ExactAssetImage("assets/flutter.jpg"),
+                      image: ExactAssetImage("assets/dsc/Web.jpg"),
                       fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
@@ -186,7 +186,7 @@ class Animated extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: ExactAssetImage("assets/flutter.jpg"),
+                      image: ExactAssetImage("assets/events/liveStream.jpg"),
                       fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
@@ -232,7 +232,7 @@ class TitleOfClub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 16, left: 16),
+      padding: const EdgeInsets.only(right: 16, left: 16,top: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -243,14 +243,14 @@ class TitleOfClub extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontFamily: "Product Sans"),
           ),
-          IconButton(
-            icon: Icon(
-              Icons.arrow_forward,
-              color: Colors.grey,
-              size: 32,
-            ),
-            onPressed: () {},
-          )
+          // IconButton(
+          //   icon: Icon(
+          //     Icons.arrow_forward,
+          //     color: Colors.grey,
+          //     size: 32,
+          //   ),
+          //   onPressed: () {},
+          // )
         ],
       ),
     );

@@ -8,7 +8,7 @@ class Gallery extends StatelessWidget {
     return Container(
       child: StaggeredGridView.countBuilder(
         crossAxisCount: 4,
-        itemCount: 8,
+        itemCount: 12,
         itemBuilder: (BuildContext context, int index) =>
             new Container(child: _buildGridTitle(index + 1)[index]),
         staggeredTileBuilder: (int index) =>
