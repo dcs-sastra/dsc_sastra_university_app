@@ -3,9 +3,10 @@ import 'package:dsc_sastra_university/gallery.dart';
 import 'package:flutter/material.dart';
 
 class ClusterDisplay extends StatefulWidget {
-  String clubname;
+  String clubname, about;
   ClusterDisplay(clubname) {
     this.clubname = clubname;
+    this.about = about;
   }
 
   _ClusterDisplayState createState() => _ClusterDisplayState();
@@ -14,7 +15,6 @@ class ClusterDisplay extends StatefulWidget {
 class _ClusterDisplayState extends State<ClusterDisplay> {
   Color color = Colors.black;
   ScrollController scrollController = ScrollController();
-
   @override
   void initState() {
     scrollController.addListener(() {
@@ -28,6 +28,8 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
 
   @override
   Widget build(BuildContext context) {
+    String about = widget.about;
+
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -86,7 +88,7 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recentl",
+                        "\t $about",
                         style: TextStyle(fontSize: 16),
                       ),
                     ),

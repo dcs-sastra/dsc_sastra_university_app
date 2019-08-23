@@ -127,8 +127,9 @@ class _HomePageState extends State<HomePage> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (c) => EventDisplay()));
                             },
-                            child: Recent("assets/flutter.jpg")),
-                        Recent("assets/events.jpg"),
+                            child: Recent("assets/events/liveStream.jpg")),
+                        Recent("assets/events/ml.jpg"),
+                        // Recent("ass")
                       ],
                     ),
                   ),
@@ -137,12 +138,12 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.only(left: 32, top: 16, bottom: 16),
                 child: Text(
-                  "Cluster",
+                  "Clusters",
                   style: TextStyle(fontSize: 24),
                 ),
               ),
               Container(
-                height: h * 0.5,
+                height: h * 0.6,
                 // color: Colors.redAccent,
                 child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
@@ -199,9 +200,59 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Cluster(
                         "assets/icons/artificial-intelligence.svg", 0xff0F9D58),
-                    Cluster("assets/icons/pen.svg", 0xffDB4437),
-                    Cluster("assets/clusters/report.svg", 0xffDB4437),
-                    Cluster("assets/clusters/article.svg", 0xffDB4437)
+                    Cluster("assets/clusters/setting.svg", 0xff4285F4),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(
+                          0xff4285F4,
+                        ).withOpacity(0.25),
+                      ),
+                      child: Center(
+                        child: Container(
+                            child: SvgPicture.asset(
+                          "assets/clusters/report.svg",
+                          height: 40,
+                          width: 40,
+                          fit: BoxFit.contain,
+                        )),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(
+                          0xff0F9D58,
+                        ).withOpacity(0.25),
+                      ),
+                      child: Center(
+                        child: Container(
+                            child: SvgPicture.asset(
+                          "assets/clusters/article.svg",
+                          height: 40,
+                          width: 40,
+                          fit: BoxFit.contain,
+                        )),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(
+                          0xff4285F4,
+                        ).withOpacity(0.25),
+                      ),
+                      child: Center(
+                        child: Container(
+                            child: SvgPicture.asset(
+                          "assets/clusters/tools.svg",
+                          height: 40,
+                          width: 40,
+                          fit: BoxFit.contain,
+                        )),
+                      ),
+                    ),
+                    Cluster("assets/icons/pen.svg", 0xff0F9D58)
                   ],
                 ),
               ),
@@ -322,8 +373,8 @@ class _HomePageState extends State<HomePage> {
                       height: 40,
                       width: 40,
                       child: SvgPicture.asset(
-                        "assets/twitter.svg",
-                        color: Colors.blue,
+                        "assets/medium.svg",
+                        color: Colors.black,
                       ),
                     ),
                     Container(
