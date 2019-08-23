@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Member extends StatelessWidget {
+class MyMember extends StatelessWidget {
   final String name, github, twitter, linkedin, image;
-  Member({
+  MyMember({
     @required this.name,
     @required this.github,
     @required this.twitter,
@@ -105,7 +105,7 @@ class Member extends StatelessWidget {
 
 // Dei sibi get the data from backend and create a map of list as shown below da and dont forget to cache things
 
-Member lead = Member(
+MyMember lead = MyMember(
   name: "Kavin Raju",
   image:
       "https://dsc-sastra-university.github.io/DSC-Website/static/media/Kavin%20Raju.49f2f013.jpg",
@@ -114,9 +114,9 @@ Member lead = Member(
   linkedin: "https://github.com/ZeshanGIT/",
 );
 
-Map<String, List<Member>> members = {
+Map<String, List<MyMember>> members = {
   "Android Developers": [
-    Member(
+    MyMember(
       name: "Sibi N",
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
@@ -124,7 +124,7 @@ Map<String, List<Member>> members = {
       twitter: null,
       github: "https://github.com/ZeshanGIT/",
     ),
-    Member(
+    MyMember(
       name: "Sibi N",
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
@@ -132,7 +132,7 @@ Map<String, List<Member>> members = {
       twitter: null,
       github: "",
     ),
-    Member(
+    MyMember(
       name: "Sibi N",
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
@@ -142,7 +142,7 @@ Map<String, List<Member>> members = {
     ),
   ],
   "Flutter Developers": [
-    Member(
+    MyMember(
       name: "Sibi N",
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
@@ -150,7 +150,7 @@ Map<String, List<Member>> members = {
       twitter: null,
       github: "",
     ),
-    Member(
+    MyMember(
       name: "Sibi N",
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
@@ -158,7 +158,7 @@ Map<String, List<Member>> members = {
       twitter: null,
       github: "",
     ),
-    Member(
+    MyMember(
       name: "Sibi N",
       image:
           "https://dsc-sastra-university.github.io/DSC-Website/static/media/Sibi%20Nehru.e1a413ec.jpg",
