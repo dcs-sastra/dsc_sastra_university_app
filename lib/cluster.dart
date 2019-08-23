@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ClusterDisplay extends StatefulWidget {
   String clubname, about;
-  ClusterDisplay(clubname) {
+  ClusterDisplay(clubname,about) {
     this.clubname = clubname;
     this.about = about;
   }

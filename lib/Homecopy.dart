@@ -513,7 +513,7 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (c) =>
-                                  ClusterDisplay("App Devlopment")));
+                                  ClusterDisplay("App Devlopment","")));
                         },
                         child: Cluster(
                             "assets/icons/android-logo.svg", 0xff0F9D58)),

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
+
+import 'package:flutter/material.dart' as prefix0;
 
 class EventDisplay extends StatefulWidget {
   @override
   _EventDisplayState createState() => _EventDisplayState();
 }
 
-class _EventDisplayState extends State<EventDisplay> {
-  
+double w;
 
+class _EventDisplayState extends State<EventDisplay> {
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
+    w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         textTheme: TextTheme(
@@ -23,37 +26,15 @@ class _EventDisplayState extends State<EventDisplay> {
         centerTitle: false,
         title: Text(
           "Event Display",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          style: TextStyle(fontSize: 20,fontFamily: "Product Sans", fontWeight: FontWeight.w400),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16),
-              child: Container(
-                width: double.infinity,
-                height: w*0.6,
-                child: PageView(
-                  controller: PageController(viewportFraction: 0.9),
-                  scrollDirection: Axis.horizontal,
-                  pageSnapping: true,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (c) =>
-                        //         Event("Google cloud platform")));
-                      },
-                      child: Recent("assets/studyjam.jpg"),
-                    ),
-                    Recent("assets/events.jpg"),
-                  ],
-                ),
-              ),
-            ),
-            TitleOfClub("Flutter"),
+          
+            TitleOfClub("On Going Events"),
             Animated(1),
             Padding(
               padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
@@ -61,7 +42,7 @@ class _EventDisplayState extends State<EventDisplay> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "Up Coming",
+                    "Next Event",
                     style: TextStyle(fontSize: 24, fontFamily: "Product Sans"),
                   ),
                 ],
@@ -71,14 +52,14 @@ class _EventDisplayState extends State<EventDisplay> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 // color: Colors.black,
-                height: w*0.55,
+                height: w * 0.55,
                 child: Row(
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: ExactAssetImage("assets/flutter.jpg"),
-                            fit: BoxFit.fill),
+                            image: ExactAssetImage("assets/studyjam.jpg"),
+                            fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       width: 175,
@@ -90,20 +71,20 @@ class _EventDisplayState extends State<EventDisplay> {
                         children: <Widget>[
                           Text(
                             "Google Cloud",
-
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                           SizedBox(
                             height: 8,
                           ),
                           Text(
-                            "12/11/19",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            "Expected November",
+                            style: TextStyle(),
                           ),
                           SizedBox(
                             height: 8,
                           ),
-                          Text("Tifa core auditorium",
+                          Text("Mention Later",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           SizedBox(
                             height: 30,
@@ -129,8 +110,23 @@ class _EventDisplayState extends State<EventDisplay> {
                 ),
               ),
             ),
-            TitleOfClub("Machine Learning"),
-            Animated(1)
+            TitleOfClub("Up Coming"),
+            Container(
+              margin: EdgeInsets.all(0),
+              height: w * 0.6,
+              child: GridView.count(
+                  crossAxisCount: 1,
+                  childAspectRatio: 1,
+                  scrollDirection: Axis.horizontal,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  children: <Widget>[
+                    UpComing("assets/github.png", "Github Session"),
+                    UpComing("assets/FlutterIcon.png", "Flutter Session"),
+                    UpComing("assets/cloud.png", "GCP Session"),
+                    UpComing("assets/Android-Icon.png", "Android Session"),
+                  ]),
+            ),
           ],
         ),
       ),
@@ -148,7 +144,7 @@ class Animated extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.all(0),
-      height: w *0.6,
+      height: w * 0.6,
       child: GridView.count(
           crossAxisCount: 1,
           childAspectRatio: 1,
@@ -244,7 +240,7 @@ class TitleOfClub extends StatelessWidget {
             title,
             style: TextStyle(
                 fontSize: 24,
-                // fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.bold,
                 fontFamily: "Product Sans"),
           ),
           IconButton(
@@ -255,6 +251,43 @@ class TitleOfClub extends StatelessWidget {
             ),
             onPressed: () {},
           )
+        ],
+      ),
+    );
+  }
+}
+
+class UpComing extends StatelessWidget {
+  String image, title;
+  UpComing(this.image, this.title);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: new Stack(
+        children: <Widget>[
+          new ConstrainedBox(
+              constraints: const BoxConstraints.expand(),
+              child: Image.asset(image)),
+          new Center(
+            child: new ClipRect(
+              child: new BackdropFilter(
+                filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                child: new Container(
+                  width: w * 0.6,
+                  height: w * 0.6,
+                  decoration: new BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey.shade200.withOpacity(0.5)),
+                  child: new Center(
+                    child: new Text(
+                      title,
+                      style: Theme.of(context).textTheme.display3,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

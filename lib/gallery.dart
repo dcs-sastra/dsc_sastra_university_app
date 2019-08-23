@@ -9,14 +9,8 @@ class Gallery extends StatelessWidget {
       child: StaggeredGridView.countBuilder(
         crossAxisCount: 4,
         itemCount: 8,
-        itemBuilder: (BuildContext context, int index) => new Container(
-            color: Colors.green,
-            child: new Center(
-              child: new CircleAvatar(
-                backgroundColor: Colors.white,
-                child: new Text('$index'),
-              ),
-            )),
+        itemBuilder: (BuildContext context, int index) =>
+            new Container(child: _buildGridTitle(index + 1)[index]),
         staggeredTileBuilder: (int index) =>
             new StaggeredTile.count(2, index.isEven ? 2 : 1),
         mainAxisSpacing: 4.0,
@@ -27,19 +21,18 @@ class Gallery extends StatelessWidget {
 }
 
 List<Widget> _buildGridTitle(numberOfTitles) {
-  var rand = Random();
+  // var rand = Random();
 
   List<Container> containers =
       new List<Container>.generate(numberOfTitles, (int index) {
-    final imageName = 'images/image${index + 1}.jpg';
+    final imageName = 'assets/dsc/cloud (${index + 1}).jpg';
 
     return new Container(
       // height: 100,
       // width: 100,
 
       child: new Image.asset(
-        // imageName,
-        "assets/flutter.jpg",
+        imageName,
         fit: BoxFit.cover,
       ),
     );
