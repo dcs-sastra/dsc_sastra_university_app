@@ -26,14 +26,16 @@ class _EventDisplayState extends State<EventDisplay> {
         centerTitle: false,
         title: Text(
           "Event Display",
-          style: TextStyle(fontSize: 20,fontFamily: "Product Sans", fontWeight: FontWeight.w400),
+          style: TextStyle(
+              fontSize: 20,
+              fontFamily: "Product Sans",
+              fontWeight: FontWeight.w400),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-          
             TitleOfClub("On Going Events"),
             Animated(1),
             Padding(
@@ -111,6 +113,9 @@ class _EventDisplayState extends State<EventDisplay> {
               ),
             ),
             TitleOfClub("Up Coming"),
+            SizedBox(
+              height: 16,
+            ),
             Container(
               margin: EdgeInsets.all(0),
               height: w * 0.6,
@@ -232,7 +237,7 @@ class TitleOfClub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 16, left: 16,top: 16),
+      padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

@@ -5,6 +5,9 @@ import 'package:dsc_sastra_university/pages/aboutMember.dart';
 import 'package:dsc_sastra_university/pages/aboutus.dart';
 import 'package:dsc_sastra_university/pages/event.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'aboutCluster.dart';
@@ -434,29 +437,45 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
-                      height: 40,
-                      width: 40,
-                      // color: Colors.green,
-                      child: SvgPicture.asset(
-                        "assets/linkedin.svg",
-                        color: Colors.blue,
+                    GestureDetector(
+                      onTap: () {
+                        _linkedinURL();
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        // color: Colors.green,
+                        child: SvgPicture.asset(
+                          "assets/linkedin.svg",
+                          color: Colors.blue,
+                        ),
                       ),
                     ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      child: SvgPicture.asset(
-                        "assets/medium.svg",
-                        color: Colors.black,
+                    GestureDetector(
+                      onTap: () {
+                        _mediumURL();
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        child: SvgPicture.asset(
+                          "assets/medium.svg",
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      child: SvgPicture.asset(
-                        "assets/instagram.svg",
-                        // color: Colors.redAccent,
+
+                    GestureDetector(
+                      onTap: () {
+                        _instaURL();
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        child: SvgPicture.asset(
+                          "assets/instagram.svg",
+                          // color: Colors.redAccent,
+                        ),
                       ),
                     ),
                     // Image.asset("assets/logo.png")
@@ -519,7 +538,34 @@ class Recent extends StatelessWidget {
                 color: Colors.black.withOpacity(0.25))
           ]),
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      width: 100,
+      // width: 100,
     );
+  }
+}
+
+_mediumURL() async {
+  const url = 'https://medium.com/@dsc.sastra.university';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+_linkedinURL() async {
+  const url = 'https://www.linkedin.com/company/dsc-sastra/';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+_instaURL() async {
+  const url = 'https://www.instagram.com/dsc_sastra_university/';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
