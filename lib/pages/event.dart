@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 
 class Event extends StatelessWidget {
   double w;
-  String title;
-  Event(this.title);
+  var date, venue;
+  String title,discription;
+
+  
+  Event(this.title,this.date,this.venue,this.discription,this.speaker);
+  var speaker = new List(3);
 
   @override
   Widget build(BuildContext context) {
+    speaker = ["Vishal R", "Anju", "Sreenithi"];
     w = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -51,7 +56,7 @@ class Event extends StatelessWidget {
                           style: TextStyle(fontSize: 20),
                         ),
                         Text(
-                          "16th August, 2019",
+                          date,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
@@ -76,7 +81,7 @@ class Event extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "CTV 110",
+                          venue,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
@@ -102,7 +107,7 @@ class Event extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget maximus eros. Curabitur mollis hendrerit tincidunt. Praesent tellus lectus, ullamcorper semper libero nec, placerat scelerisque lectus. Suspendisse dictum ultricies nisl, eget laoreet felis placerat et. Maecenas dictum erat ac eros tempor, in scelerisque sem pretium. Praesent sed dui eros. Quisque interdum molestie tempus. Nullam mollis tincidunt orci. In mollis augue eu risus vestibulum facilisis.",
+                        "\t$discription",
                         textAlign: TextAlign.justify,
                         style: TextStyle(fontSize: 18),
                       ),
@@ -146,7 +151,7 @@ class Event extends StatelessWidget {
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: List.generate(
-                          10,
+                          3,
                           (i) => Container(
                             width: w * 0.3,
                             height: double.maxFinite,
@@ -165,7 +170,7 @@ class Event extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 16),
-                                Text("Sibi N", style: TextStyle(fontSize: 16))
+                                Text(speaker[i], style: TextStyle(fontSize: 16))
                               ],
                             ),
                           ),

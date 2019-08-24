@@ -106,50 +106,50 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
                     ),
                     Container(
                       child: Gallery(),
-                      height: w * 0.7,
+                      height: w ,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 8, top: 16),
-                      child: Text(
-                        "Members",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "ProductSans",
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: w * 0.4,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(
-                          10,
-                          (i) => Container(
-                            width: w * 0.3,
-                            height: double.maxFinite,
-                            padding: EdgeInsets.all(16),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Container(
-                                  height: w * 0.2,
-                                  width: w * 0.2,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage("assets/ar.jpg"),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                Text("Sibi N", style: TextStyle(fontSize: 16))
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 8, top: 16),
+                    //   child: Text(
+                    //     "Members",
+                    //     style: TextStyle(
+                    //       fontSize: 20,
+                    //       fontWeight: FontWeight.bold,
+                    //       fontFamily: "ProductSans",
+                    //     ),
+                    //   ),
+                    // ),
+                    // Container(
+                    //   height: w * 0.4,
+                    //   child: ListView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     children: List.generate(
+                    //       10,
+                    //       (i) => Container(
+                    //         width: w * 0.3,
+                    //         height: double.maxFinite,
+                    //         padding: EdgeInsets.all(16),
+                    //         child: Column(
+                    //           mainAxisSize: MainAxisSize.min,
+                    //           children: <Widget>[
+                    //             Container(
+                    //               height: w * 0.2,
+                    //               width: w * 0.2,
+                    //               decoration: BoxDecoration(
+                    //                 shape: BoxShape.circle,
+                    //                 image: DecorationImage(
+                    //                   image: AssetImage("assets/ar.jpg"),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             SizedBox(height: 16),
+                    //             Text("Sibi N", style: TextStyle(fontSize: 16))
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               )

@@ -9,6 +9,8 @@ import 'package:dsc_sastra_university/pages/event.dart';
 import 'package:dsc_sastra_university/pages/aboutus.dart';
 import 'package:dsc_sastra_university/pages/aboutMember.dart';
 import 'package:dsc_sastra_university/pages/Home.dart';
+import 'package:splashscreen/splashscreen.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      
       title: 'Flutter Demo',
       theme: ThemeData(
         
