@@ -1,4 +1,7 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:dsc_sastra_university/aboutCluster.dart';
+import 'package:dsc_sastra_university/api/eventApi.dart';
+import 'package:dsc_sastra_university/api/membersApi.dart';
 import 'package:dsc_sastra_university/cluster.dart';
 import 'package:dsc_sastra_university/eventDisplay.dart';
 import 'package:dsc_sastra_university/pages/aboutMember.dart';
@@ -11,6 +14,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'aboutCluster.dart';
+
+import 'api/clusterApi.dart';
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
@@ -73,7 +78,7 @@ List<DrawerItem> drawerItems = [
   DrawerItem("About Us", "/aboutus", Icons.info),
 ];
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   var speakerDSC = new List(3);
   var speakerGCP = new List(3);
 
@@ -85,6 +90,13 @@ class _HomePageState extends State<HomePage> {
 
   int c = 0;
   double w, h;
+
+  @override
+  void afterFirstLayout(BuildContext context) async {
+    // ClusterApi.getClusters();
+    // EventApi.getEvents();
+    // MemberApi.getMembers();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +121,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           disabledTextColor: Colors.black,
-          onPressed: null,
+          onPressed: () => Navigator.of(context).popAndPushNamed("/"),
         ),
         centerTitle: true,
       ),

@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:after_layout/after_layout.dart';
-import 'package:dsc_sastra_university/api/Api.dart';
-import 'package:dsc_sastra_university/api/Member.dart';
+import 'package:dsc_sastra_university/api/membersApi.dart';
+// import 'package:dsc_sastra_university/api/Api.dart';
+// import 'package:dsc_sastra_university/api/Member.dart';
 import 'package:dsc_sastra_university/members.dart';
 import 'package:flutter/material.dart';
 
@@ -14,43 +15,46 @@ class AboutUs extends StatefulWidget {
 class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
   double size;
   double dpsize;
-  APIHelper apiHelper = APIHelper();
   Map<String, List<MyMember>> members;
 
   @override
   void afterFirstLayout(BuildContext context) async {
-    var mems = (await apiHelper.getAllMembers()).members;
-    List<String> clusts = mems.map((f) => f.cluster).toList().toSet().toList();
+    Map<String, dynamic> mems = (await MemberApi.getMembers());
+    List<String> clusts = mems.keys.toList();
 
     var clusters = {
-      "mob": "Android Development",
+      "app": "Android Development",
+      "flutter": "Flutter",
       "web": "Web Development",
       "ml": "Machine Learning",
-      "gcp": "Google Cloud Platform",
-      "graphics": "Graphic Designing",
+      "cloud": "Google Cloud Platform",
+      "graphic": "Graphic Designing",
       "content": "Content Writing",
       "events": "Event Management",
       "marketing": "Marketing"
     };
 
-    setState(() {
-      members = Map.fromIterable(clusts,
-          key: (f) => clusters[f],
-          value: (f) {
-            return mems
-                .where((test) => test.cluster == f)
-                .map(
-                  (f) => MyMember(
-                    name: f.name,
-                    image: f.imageURL,
-                    linkedin: f.links[0],
-                    github: f.links[1],
-                    twitter: f.links[2],
-                  ),
-                )
-                .toList();
-          });
-    });
+    // setState(() {
+    //members
+    var k = clusts.map(
+      (clust) {
+        // print("Cluster: $clust");
+        // return clust;
+        if (clusters.keys.toList().contains(clust))
+          mems[clust].map((clustMem) {
+            // print("Clust Mem: $clustMem");
+            return MyMember(
+              github: "",
+              linkedin: "",
+              twitter: "",
+              image: clustMem["imgUrl"],
+              name: clustMem["name"],
+            );
+          }).toList();
+      },
+    ).toList();
+    print(k);
+    // });
   }
 
   @override
@@ -59,6 +63,10 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
     size = min(dpsize * 1.2, 480);
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.refresh),
+        onPressed: () => Navigator.of(context).popAndPushNamed("/aboutus"),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
