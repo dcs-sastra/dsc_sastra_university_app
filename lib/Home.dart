@@ -99,11 +99,13 @@ class ZeshEvent extends StatelessWidget {
               event.main,
               event.speakers,
               event.register_link,
+              event.id,
+              event.poster,
             ),
           ),
         );
       },
-      child: Thumbnail(event.poster, event.name),
+      child: Thumbnail(event.poster, event.name, event.id),
     );
   }
 }
@@ -139,7 +141,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
-  
     w = MediaQuery.of(context).size.width;
     h = MediaQuery.of(context).size.height;
 
@@ -224,7 +225,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                               builder: (c) => ClusterDisplay(
                                   "App Devlopment",
                                   aboutclus.android,
-                                  "assets/clusterBackground/androidBackground.jpg"),
+                                  "assets/clusterBackground/appdy.jpg"),
                             ),
                           );
                         },
@@ -237,7 +238,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                               builder: (c) => ClusterDisplay(
                                   "web Devlopment",
                                   aboutclus.web,
-                                  "assets/clusterBackground/webBackground.jpg"),
+                                  "assets/clusterBackground/wedy.jpg"),
                             ),
                           );
                         },
@@ -568,36 +569,40 @@ class Cluster extends StatelessWidget {
 }
 
 class Thumbnail extends StatelessWidget {
-  String poster, title;
-  Thumbnail(this.poster, this.title);
+  String poster, title, id;
+  Thumbnail(this.poster, this.title, this.id);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: CachedNetworkImageProvider(poster),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black54,
-            BlendMode.srcATop,
+    return Hero(
+      tag: id,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            // image: AssetImage("mlposter.jpeg"),
+            image: CachedNetworkImageProvider(poster),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black54,
+              BlendMode.srcATop,
+            ),
           ),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 4,
+              offset: Offset(0, 4),
+              color: Colors.black.withOpacity(0.25),
+            )
+          ],
         ),
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 4,
-            offset: Offset(0, 4),
-            color: Colors.black.withOpacity(0.25),
-          )
-        ],
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      // width: 100,
-      alignment: Alignment.bottomLeft,
-      child: Text(
-        title,
-        style: TextStyle(fontSize: 32, color: Colors.white),
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        // width: 100,
+        alignment: Alignment.bottomLeft,
+        child: Text(
+          title,
+          style: TextStyle(fontSize: 32, color: Colors.white),
+        ),
       ),
     );
   }

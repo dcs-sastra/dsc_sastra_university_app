@@ -41,7 +41,7 @@ class _EventDisplayState extends State<EventDisplay> with AfterLayoutMixin {
         backgroundColor: Colors.white,
         centerTitle: false,
         title: Text(
-          "Event Display",
+          "Events",
           style: TextStyle(
               fontSize: 20,
               fontFamily: "Product Sans",

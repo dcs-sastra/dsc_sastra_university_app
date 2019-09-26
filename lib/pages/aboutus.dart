@@ -124,6 +124,7 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
                     Container(height: 24),
                     ...List.generate(members.keys.length, (i) {
                       String title = members.keys.elementAt(i);
+                      print(members[title].length);
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,13 +144,15 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: title1(title),
-                              itemBuilder: (bc, i) => Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Container(width: 8),
-                                  members[title][i],
-                                ],
-                              ),
+                              itemBuilder: (bc, i) {
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Container(width: 8),
+                                    members[title][i],
+                                  ],
+                                );
+                              },
                             ),
                           ),
                         ],

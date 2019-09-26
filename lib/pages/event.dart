@@ -1,14 +1,19 @@
 // import 'package:dsc_sastra_university/pages/eventList.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:date_format/date_format.dart';
+import 'package:dsc_sastra_university/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class Event extends StatelessWidget {
   double w;
-  String date, venue, title, discription, speakers, reg_link;
+  String date, venue, title, discription, speakers, reg_link, id;
+  bool thumbnail;
 
+  String poster;
   Event(this.title, this.date, this.venue, this.discription, this.speakers,
-      this.reg_link);
+      this.reg_link, this.id, this.poster);
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -120,6 +125,27 @@ class Event extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Hero(
+                    tag: id,
+                    child: Container(
+                      margin: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                            color: Colors.black.withOpacity(0.25),
+                          )
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image(
+                          image: CachedNetworkImageProvider(poster),
+                        ),
+                      ),
+                    ),
+                  ),
                   GestureDetector(
                     onTap: () => _launchURL(reg_link),
                     child: Padding(
@@ -182,8 +208,6 @@ class Event extends StatelessWidget {
                                 ),
                                 SizedBox(height: 16),
                                 AutoSizeText(
-                                  
-                                  
                                   speakers.split(",")[i],
                                   style: TextStyle(fontSize: 8),
                                 ),
