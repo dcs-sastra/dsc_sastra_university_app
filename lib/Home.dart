@@ -102,7 +102,7 @@ class ZeshEvent extends StatelessWidget {
           ),
         );
       },
-      child: Thumbnail(event.poster),
+      child: Thumbnail(event.poster, event.name),
     );
   }
 }
@@ -570,23 +570,37 @@ class Cluster extends StatelessWidget {
 }
 
 class Thumbnail extends StatelessWidget {
-  String poster;
-  Thumbnail(this.poster);
+  String poster, title;
+  Thumbnail(this.poster, this.title);
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: ExactAssetImage(poster), fit: BoxFit.cover),
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 4,
-                offset: Offset(0, 4),
-                color: Colors.black.withOpacity(0.25))
-          ]),
+        image: DecorationImage(
+          image: ExactAssetImage(poster),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Colors.black54,
+            BlendMode.srcATop,
+          ),
+        ),
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4,
+            offset: Offset(0, 4),
+            color: Colors.black.withOpacity(0.25),
+          )
+        ],
+      ),
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       // width: 100,
+      alignment: Alignment.bottomLeft,
+      child: Text(
+        title,
+        style: TextStyle(fontSize: 32, color: Colors.white),
+      ),
     );
   }
 }

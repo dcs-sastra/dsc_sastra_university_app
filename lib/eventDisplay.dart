@@ -49,8 +49,12 @@ class _EventDisplayState extends State<EventDisplay> with AfterLayoutMixin {
         ),
       ),
       body: isLoaded
-          ? ListView(
-              children: events,
+          ? ListView.builder(
+              itemCount: events.length,
+              itemBuilder: (bc, i) => Container(
+                height: MediaQuery.of(context).size.height / 3,
+                child: events[i],
+              ),
             )
           : Container(
               child: Center(
