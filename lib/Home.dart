@@ -209,8 +209,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 ),
               ),
               Container(
-                height: h * 0.6,
-                // color: Colors.redAccent,
+                height: h * 0.75,
                 child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 3,
