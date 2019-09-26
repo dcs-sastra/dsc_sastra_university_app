@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:after_layout/after_layout.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dsc_sastra_university/api/membersApi.dart';
 // import 'package:dsc_sastra_university/api/Api.dart';
 // import 'package:dsc_sastra_university/api/Member.dart';
@@ -83,7 +84,7 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
       },
     ).toList();
     print("#####Final Mem#####");
-    print(members);
+    print(members["Android Development"].length);
 
     setState(() {
       isLoaded = true;
@@ -129,7 +130,7 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Text(
+                            child: AutoSizeText(
                               title,
                               style: TextStyle(
                                 fontSize: max(24, size * 0.15),
@@ -141,7 +142,7 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
                             height: size,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: members[title].length - 1,
+                              itemCount: title1(title),
                               itemBuilder: (bc, i) => Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
@@ -164,5 +165,27 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
               ),
             ),
     );
+  }
+
+  int title1(title) {
+    print(title);
+    switch (title) {
+      case "Android Development":
+        return 4;
+      case "Web Development":
+        return 6;
+      case "Flutter":
+        return 1;
+      case "Machine Learning":
+        return 6;
+      case "Google Cloud Platform":
+        return 1;
+      case "Graphic Designing":
+        return 0;
+      case "Content Writing":
+        return 2;
+      case "Marketing":
+        return 4;
+    }
   }
 }

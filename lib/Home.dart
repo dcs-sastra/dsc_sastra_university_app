@@ -8,6 +8,7 @@ import 'package:dsc_sastra_university/pages/aboutMember.dart';
 import 'package:dsc_sastra_university/pages/aboutus.dart';
 import 'package:dsc_sastra_university/pages/event.dart';
 import 'package:flutter/foundation.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -138,9 +139,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
-    speakerDSC = ["Jaikanth", "Sivaneshwar", "Kathir"];
-    speakerGCP = ["Vishal", "Kappil", "Sreenithi"];
-    speakerML = ["Anju", "Gokul", "Vishal R"];
+  
     w = MediaQuery.of(context).size.width;
     h = MediaQuery.of(context).size.height;
 
@@ -578,7 +577,7 @@ class Thumbnail extends StatelessWidget {
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: ExactAssetImage(poster),
+          image: CachedNetworkImageProvider(poster),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
             Colors.black54,
