@@ -1,18 +1,24 @@
 // import 'package:dsc_sastra_university/pages/eventList.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Event extends StatelessWidget {
   double w;
-  var date, venue;
-  String title,discription;
+  String date, venue, title, discription, speakers, reg_link;
 
-  
-  Event(this.title,this.date,this.venue,this.discription,this.speaker);
-  var speaker = new List(3);
+  Event(this.title, this.date, this.venue, this.discription, this.speakers,
+      this.reg_link);
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    speaker = ["Vishal R", "Anju", "Sreenithi"];
     w = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -113,24 +119,28 @@ class Event extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 18, horizontal: 0),
-                    child: Container(
-                      width: w * 0.4,
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFDB4437).withOpacity(0.25),
-                        borderRadius: BorderRadius.horizontal(
-                          right: Radius.circular(50),
+                  GestureDetector(
+                    onTap: () => _launchURL(reg_link),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 18, horizontal: 0),
+                      child: Container(
+                        width: w * 0.4,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFDB4437).withOpacity(0.25),
+                          borderRadius: BorderRadius.horizontal(
+                            right: Radius.circular(50),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        "Register",
-                        style: TextStyle(
-                          color: Color(0xFFDB4437),
-                          fontSize: 18,
-                          // fontFamily: "ProductSans",
+                        child: Text(
+                          "Register",
+                          style: TextStyle(
+                            color: Color(0xFFDB4437),
+                            fontSize: 18,
+                            // fontFamily: "ProductSans",
+                          ),
                         ),
                       ),
                     ),
@@ -151,7 +161,7 @@ class Event extends StatelessWidget {
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: List.generate(
-                          3,
+                          speakers.split(",").length,
                           (i) => Container(
                             width: w * 0.3,
                             height: double.maxFinite,
@@ -170,7 +180,10 @@ class Event extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 16),
-                                Text(speaker[i], style: TextStyle(fontSize: 16))
+                                Text(
+                                  speakers.split(",")[i],
+                                  style: TextStyle(fontSize: 16),
+                                ),
                               ],
                             ),
                           ),

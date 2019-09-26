@@ -1,7 +1,11 @@
+import 'package:after_layout/after_layout.dart';
+import 'package:dsc_sastra_university/api/eventApi.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
 import 'package:flutter/material.dart' as prefix0;
+
+import 'Home.dart';
 
 class EventDisplay extends StatefulWidget {
   @override
@@ -10,7 +14,19 @@ class EventDisplay extends StatefulWidget {
 
 double w;
 
-class _EventDisplayState extends State<EventDisplay> {
+class _EventDisplayState extends State<EventDisplay> with AfterLayoutMixin {
+  List<Widget> events = [];
+
+  bool isLoaded = false;
+
+  @override
+  void afterFirstLayout(BuildContext context) async {
+    events = (await EventApi.getEvents()).map((f) => ZeshEvent(f)).toList();
+    setState(() {
+      isLoaded = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     w = MediaQuery.of(context).size.width;
@@ -32,109 +48,118 @@ class _EventDisplayState extends State<EventDisplay> {
               fontWeight: FontWeight.w400),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TitleOfClub("On Going Events"),
-            Animated(1),
-            Padding(
-              padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    "Next Event",
-                    style: TextStyle(fontSize: 24, fontFamily: "Product Sans"),
-                  ),
-                ],
+      body: isLoaded
+          ? ListView(
+              children: events,
+            )
+          : Container(
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                // color: Colors.black,
-                height: w * 0.55,
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: ExactAssetImage("assets/studyjam.jpg"),
-                            fit: BoxFit.cover),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      width: 175,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 32, left: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Google Cloud",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "Expected November",
-                            style: TextStyle(),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text("Mention Later",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          ButtonTheme(
-                            height: 35,
-                            minWidth: 100,
-                            child: RaisedButton(
-                              color: Colors.blue[300],
-                              shape: StadiumBorder(),
-                              child: Text(
-                                "Know more",
-                                style: TextStyle(
-                                    color: Colors.white.withOpacity(1)),
-                              ),
-                              onPressed: () {},
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            TitleOfClub("Up Coming"),
-            SizedBox(
-              height: 16,
-            ),
-            Container(
-              margin: EdgeInsets.all(0),
-              height: w * 0.6,
-              child: GridView.count(
-                  crossAxisCount: 1,
-                  childAspectRatio: 1,
-                  scrollDirection: Axis.horizontal,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  children: <Widget>[
-                    UpComing("assets/github.png", "Github Session"),
-                    UpComing("assets/FlutterIcon.png", "Flutter Session"),
-                    UpComing("assets/cloud.png", "GCP Session"),
-                    UpComing("assets/Android-Icon.png", "Android Session"),
-                  ]),
-            ),
-          ],
-        ),
-      ),
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: <Widget>[
+      //       TitleOfClub("On Going Events"),
+      //       Animated(1),
+      //       Padding(
+      //         padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
+      //         child: Row(
+      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //           children: <Widget>[
+      //             Text(
+      //               "Next Event",
+      //               style: TextStyle(fontSize: 24, fontFamily: "Product Sans"),
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //       Padding(
+      //         padding: const EdgeInsets.all(8.0),
+      //         child: Container(
+      //           // color: Colors.black,
+      //           height: w * 0.55,
+      //           child: Row(
+      //             children: <Widget>[
+      //               Container(
+      //                 decoration: BoxDecoration(
+      //                   image: DecorationImage(
+      //                       image: ExactAssetImage("assets/studyjam.jpg"),
+      //                       fit: BoxFit.cover),
+      //                   borderRadius: BorderRadius.circular(8),
+      //                 ),
+      //                 width: 175,
+      //               ),
+      //               Padding(
+      //                 padding: const EdgeInsets.only(top: 32, left: 16),
+      //                 child: Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: <Widget>[
+      //                     Text(
+      //                       "Google Cloud",
+      //                       style: TextStyle(
+      //                           fontWeight: FontWeight.bold, fontSize: 18),
+      //                     ),
+      //                     SizedBox(
+      //                       height: 8,
+      //                     ),
+      //                     Text(
+      //                       "Expected November",
+      //                       style: TextStyle(),
+      //                     ),
+      //                     SizedBox(
+      //                       height: 8,
+      //                     ),
+      //                     Text("Mention Later",
+      //                         style: TextStyle(fontWeight: FontWeight.bold)),
+      //                     SizedBox(
+      //                       height: 30,
+      //                     ),
+      //                     ButtonTheme(
+      //                       height: 35,
+      //                       minWidth: 100,
+      //                       child: RaisedButton(
+      //                         color: Colors.blue[300],
+      //                         shape: StadiumBorder(),
+      //                         child: Text(
+      //                           "Know more",
+      //                           style: TextStyle(
+      //                               color: Colors.white.withOpacity(1)),
+      //                         ),
+      //                         onPressed: () {},
+      //                       ),
+      //                     )
+      //                   ],
+      //                 ),
+      //               )
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //       TitleOfClub("Up Coming"),
+      //       SizedBox(
+      //         height: 16,
+      //       ),
+      //       Container(
+      //         margin: EdgeInsets.all(0),
+      //         height: w * 0.6,
+      //         child: GridView.count(
+      //             crossAxisCount: 1,
+      //             childAspectRatio: 1,
+      //             scrollDirection: Axis.horizontal,
+      //             mainAxisSpacing: 8,
+      //             crossAxisSpacing: 8,
+      //             children: <Widget>[
+      //               UpComing("assets/github.png", "Github Session"),
+      //               UpComing("assets/FlutterIcon.png", "Flutter Session"),
+      //               UpComing("assets/cloud.png", "GCP Session"),
+      //               UpComing("assets/Android-Icon.png", "Android Session"),
+      //             ]),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

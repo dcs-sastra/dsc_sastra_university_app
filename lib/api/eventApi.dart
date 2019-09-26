@@ -3,30 +3,25 @@ import 'package:http/http.dart' as http;
 import 'env.dart';
 
 class EventPODO {
-  String id,
-      name,
-      date,
-      description,
-      main,
-      venue,
-      speakers,
-      poster,
-      register_link,
-      createdAt,
-      updatedAt;
+  String id, name, description, main, venue, speakers, poster, register_link;
+  DateTime date, createdAt, updatedAt;
 
   EventPODO.fromMap(Map<String, dynamic> json) {
     id = json["id"];
     name = json["name"];
-    date = json["date"];
     description = json["description"];
     main = json["main"];
     venue = json["venue"];
     speakers = json["speakers"];
     poster = json["poster"];
     register_link = json["register_link"];
-    createdAt = json["createdAt"];
-    updatedAt = json["updatedAt"];
+    date = parseDate(json["date"]);
+    createdAt = parseDate(json["createdAt"]);
+    updatedAt = parseDate(json["updatedAt"]);
+  }
+
+  DateTime parseDate(String dateStr) {
+    return DateTime.parse(dateStr.substring(0, dateStr.length - 1));
   }
 
   @override
@@ -50,11 +45,14 @@ class EventPODO {
 }
 
 class EventApi {
-  static getEvents() async {
-    List temp = jsonDecode((await http.get(baseURL + "/events")).body)
-        .map((f) => EventPODO.fromMap(f))
-        .toList();
-    print(temp);
-    return temp;
+  static Future<List<EventPODO>> getEvents() async {
+    List tempList = jsonDecode((await http.get(baseURL + "/events")).body);
+    List<EventPODO> events = [];
+    for (var temp in tempList) {
+      events.add(EventPODO.fromMap(temp));
+    }
+    events.sort((a, b) => a.date.difference(b.date).inHours);
+    print(events);
+    return events;
   }
 }

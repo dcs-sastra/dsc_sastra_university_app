@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'aboutCluster.dart';
 
+import 'package:date_format/date_format.dart';
 import 'api/clusterApi.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,6 +79,34 @@ List<DrawerItem> drawerItems = [
   DrawerItem("About Us", "/aboutus", Icons.info),
 ];
 
+class ZeshEvent extends StatelessWidget {
+  final EventPODO event;
+
+  const ZeshEvent(this.event);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        print("Tap registerd !");
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => Event(
+              event.name,
+              formatDate(event.date, [d, ' ', MM, ' ', yy, ', ', DD]),
+              event.venue,
+              event.main,
+              event.speakers,
+              event.register_link,
+            ),
+          ),
+        );
+      },
+      child: Thumbnail(event.poster),
+    );
+  }
+}
+
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   var speakerDSC = new List(3);
   var speakerGCP = new List(3);
@@ -91,11 +120,20 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   int c = 0;
   double w, h;
 
+  List<Widget> recents = [];
+
+  bool isLoaded = false;
+
   @override
   void afterFirstLayout(BuildContext context) async {
     // ClusterApi.getClusters();
     // EventApi.getEvents();
-    // MemberApi.getMembers();
+    // print(
+    //     "+-+-+-+-+-+-+-EventApi.getEvents().runtimeType: ${(await EventApi.getEvents()).runtimeType}");
+    recents = (await EventApi.getEvents()).map((f) => ZeshEvent(f)).toList();
+    setState(() {
+      isLoaded = true;
+    });
   }
 
   @override
@@ -150,72 +188,15 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       controller: PageController(viewportFraction: 0.8),
                       scrollDirection: Axis.horizontal,
                       pageSnapping: true,
-                      children: <Widget>[
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (c) => Event(
-                                      "Google DSC Summit",
-                                      "24th August, 2019",
-                                      "NMV audi ",
-                                      """We’re gonna have one of the most exciting Saturday ever! 
-
-We have planned for an EXCLUSIVE Live Stream of the Developer Student Club (DSC) Summit'19, India which includes:
-●  Inspirational Keynotes
-●  Expert talks on the current technologies (Android, Web, Cloud & Machine Learning )
-●  Career Panel Discussion by Google Developer Experts
-
-Date: 24th August'19 (Saturday)
-Time: 9:30 AM to 1:00 PM
-Venue: Will be sent in the confirmation mail.
-Registration link: bit.ly/dscsummitlivestream 
-
-NOTE: Since we have only Limited Seats, preference will be First Come First Serve.
-
-#dsc #developersclub #dscsummit2019 #indiadscsummit  #developersclub #developer #dsc19 #google #summit2019 """,
-                                      speakerDSC)));
-                            },
-                            child: Recent("assets/events/liveStream.jpg")),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (c) => Event(
-                                      "CareerReadinessProgram",
-                                      "9th August, 2019",
-                                      "TifaCore ",
-                                      """Bringing up #CareerReadinessProgram for Shanmugha Arts, Science, Technology and Research Academy students in collaboration with SASTRA's Technology Business Incubator.
-
-Participate in this #CloudStudyJam and the successful candidates will get a chance to be a part of this #CareerReadinessProgram and become Google Cloud Platform Certified Candidate.
-
-Thanks to Sowmya Kannan Nandhini Rangan for bringing this initiative to our campus and  Vijayaraghavan Parthasarathy for supporting. 
-
-A Special Thanks to Sridharan VenkataRamanan for implementing on our campus.
-
-Seats are limited! Do Hurry Up Guys!
-
-#googlecloudplatform #googlecloud""",
-                                      speakerGCP)));
-                            },
-                            child: Recent("assets/events/gcp.jpg")),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (c) => Event(
-                                      "Machine Learning Workshop",
-                                      "16th April, 2019",
-                                      "TifaCore ",
-                                      """In recent years, the tech world is abuzz with *Machine Learning*. But what exactly is it?
-
-We, the "Developer Student Club" at SASTRA warmly welcome students who are interested in the imbuing field of ML. This is a great opportunity to develop a deep understanding of ML and to solve real-world challenges.
-An introductory session on ML and key insights on the various resources available will be covered by the Core Team Members.Interested students can register for this *free* workshop.
-We absolutely don't want you to miss this chance!
-
-_Limited seats_ only, register ASAP""",
-                                      speakerML)));
-                            },
-                            child: Recent("assets/events/ml.jpg")),
-                        // Recent("ass")
-                      ],
+                      children: isLoaded
+                          ? recents
+                          : [
+                              Container(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
+                            ],
                     ),
                   ),
                 ],
@@ -588,9 +569,9 @@ class Cluster extends StatelessWidget {
   }
 }
 
-class Recent extends StatelessWidget {
+class Thumbnail extends StatelessWidget {
   String poster;
-  Recent(this.poster);
+  Thumbnail(this.poster);
   @override
   Widget build(BuildContext context) {
     return Container(
