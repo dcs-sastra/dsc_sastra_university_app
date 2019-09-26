@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (c) => ClusterDisplay(
-                                  "web Devlopment",
+                                  "Web Devlopment",
                                   aboutclus.web,
                                   "assets/clusterBackground/wedy.jpg"),
                             ),
