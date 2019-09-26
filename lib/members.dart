@@ -71,7 +71,13 @@ class MyMember extends StatelessWidget {
             ),
             SizedBox(height: max(16, size * 0.1)),
             Text(
-              name,
+              name
+                  .split(" ")
+                  .sublist(0, 2)
+                  .toString()
+                  .replaceAll("[", "")
+                  .replaceAll("]", "")
+                  .replaceAll(",", ""),
               style: TextStyle(
                 fontFamily: "ProductSans",
                 fontSize: max(24, size * 0.1),
@@ -104,15 +110,6 @@ class MyMember extends StatelessWidget {
 }
 
 // Dei sibi get the data from backend and create a map of list as shown below da and dont forget to cache things
-
-MyMember lead = MyMember(
-  name: "Kavin Raju",
-  image:
-      "https://dsc-sastra-university.github.io/DSC-Website/static/media/Kavin%20Raju.49f2f013.jpg",
-  github: "https://github.com/ZeshanGIT/",
-  twitter: "https://github.com/ZeshanGIT/",
-  linkedin: "https://github.com/ZeshanGIT/",
-);
 
 Map<String, List<MyMember>> members = {
   "Android Developers": [

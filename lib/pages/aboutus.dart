@@ -15,7 +15,10 @@ class AboutUs extends StatefulWidget {
 class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
   double size;
   double dpsize;
-  Map<String, List<MyMember>> members;
+  Map<String, List<MyMember>> members = {};
+  MyMember lead;
+
+  bool isLoaded = false;
 
   @override
   void afterFirstLayout(BuildContext context) async {
@@ -38,22 +41,54 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
     //members
     var k = clusts.map(
       (clust) {
-        // print("Cluster: $clust");
-        // return clust;
-        if (clusters.keys.toList().contains(clust))
-          mems[clust].map((clustMem) {
-            // print("Clust Mem: $clustMem");
-            return MyMember(
-              github: "",
-              linkedin: "",
-              twitter: "",
-              image: clustMem["imgUrl"],
-              name: clustMem["name"],
+        if (clusters.containsKey(clust)) {
+          List<MyMember> memList = [];
+          print("*******$clust*****");
+          print(mems[clust]);
+          for (var item in mems[clust]) {
+            memList.add(
+              MyMember(
+                github: "",
+                linkedin: "",
+                twitter: "",
+                image: item["imgUrl"],
+                name: item["name"],
+              ),
             );
-          }).toList();
+          }
+
+          members[clusters[clust]] = memList;
+        }
+
+        var leadMap = mems["lead"];
+
+        lead = MyMember(
+          github: "",
+          linkedin: "",
+          twitter: "",
+          image: leadMap["imgUrl"],
+          name: leadMap["name"],
+        );
+
+        //   mems[clust].map((clustMem) {
+        //     // print("Clust Mem: $clustMem");
+        //     return MyMember(
+        //       github: "",
+        //       linkedin: "",
+        //       twitter: "",
+        //       image: clustMem["imgUrl"],
+        //       name: clustMem["name"],
+        //     );
+        //   }).toList();
       },
     ).toList();
-    print(k);
+    print("#####Final Mem#####");
+    print(members);
+
+    setState(() {
+      isLoaded = true;
+    });
+
     // });
   }
 
@@ -75,47 +110,59 @@ class _AboutUsState extends State<AboutUs> with AfterLayoutMixin<AboutUs> {
           style: TextStyle(fontFamily: "ProductSans", color: Colors.black),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(top: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Center(
-                child: lead,
+      body: isLoaded
+          ? SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Center(
+                      child: lead,
+                    ),
+                    Container(height: 24),
+                    ...List.generate(members.keys.length, (i) {
+                      String title = members.keys.elementAt(i);
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              title,
+                              style: TextStyle(
+                                fontSize: max(24, size * 0.15),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: size,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: members[title].length - 1,
+                              itemBuilder: (bc, i) => Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(width: 8),
+                                  members[title][i],
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    })
+                  ],
+                ),
               ),
-              Container(height: 24),
-              if (members != null)
-                ...List.generate(members.keys.length, (i) {
-                  String title = members.keys.elementAt(i);
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          title,
-                          style: TextStyle(fontSize: max(24, size * 0.15)),
-                        ),
-                      ),
-                      Container(
-                        height: size,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: <Widget>[
-                            Container(width: 8),
-                            ...members[title]
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
-                })
-            ],
-          ),
-        ),
-      ),
+            )
+          : Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
     );
   }
 }
