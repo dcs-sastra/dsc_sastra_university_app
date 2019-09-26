@@ -1,6 +1,7 @@
 // import 'package:dsc_sastra_university/pages/eventList.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Event extends StatelessWidget {
   double w;
@@ -180,9 +181,11 @@ class Event extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 16),
-                                Text(
+                                AutoSizeText(
+                                  
+                                  
                                   speakers.split(",")[i],
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(fontSize: 8),
                                 ),
                               ],
                             ),
