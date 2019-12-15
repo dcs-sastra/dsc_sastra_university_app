@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'aboutUsDisplay.dart';
 import 'eventsDisplay.dart';
 import 'homeDisplay.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       // home: AboutMember("sibi")
       routes: {
         "/": (_) => HomePage(),
-        //"/aboutus": (_) => AboutUsDisplay(),
+        "/aboutus": (_) => AboutUsDisplay(),
         "/events": (_) => EventsDisplay(),
         // "/": (_) => Event("Machine learning"),
         // "/": (_) => Member(dpsize: 16,name: 'ashwin',github: "",dribble: "",linkedin: "",image: "assets/ar.jpg",size: 20,team: "Android",),
