@@ -1,3 +1,4 @@
+import 'package:dsc_sastra_university/teamDisplay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         "/": (_) => HomePage(),
         "/aboutus": (_) => AboutUsDisplay(),
         "/events": (_) => EventsDisplay(),
+        "/team": (_) => TeamDisplay()
         // "/": (_) => Event("Machine learning"),
         // "/": (_) => Member(dpsize: 16,name: 'ashwin',github: "",dribble: "",linkedin: "",image: "assets/ar.jpg",size: 20,team: "Android",),
       },
