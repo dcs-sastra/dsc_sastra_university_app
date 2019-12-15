@@ -1,328 +1,301 @@
-import 'package:after_layout/after_layout.dart';
-import 'package:dsc_sastra_university/api/eventApi.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dsc_sastra_university/widgets/event.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:flutter/material.dart' as prefix0;
+class Event extends StatefulWidget {
+  double w;
+  String date, venue, title, main, description, speakers, reg_link, id;
+  bool thumbnail, canRegister;
 
-import 'Home.dart';
+  String poster;
 
-class EventDisplay extends StatefulWidget {
+  Event(this.title, this.date, this.venue, this.main, this.description,
+      this.speakers, this.reg_link, this.id, this.poster, this.canRegister);
+
   @override
-  _EventDisplayState createState() => _EventDisplayState();
+  State<StatefulWidget> createState() {
+    return _EventState(
+        this.title,
+        this.date,
+        this.venue,
+        this.main,
+        this.description,
+        this.speakers,
+        this.reg_link,
+        this.id,
+        this.poster,
+        this.canRegister);
+  }
 }
 
-double w;
+class _EventState extends State<Event> {
+  double w;
+  String date, venue, title, main, description, speakers, reg_link, id;
+  bool thumbnail, canRegister;
 
-class _EventDisplayState extends State<EventDisplay> with AfterLayoutMixin {
-  List<Widget> events = [];
+  String poster;
 
-  bool isLoaded = false;
+  _EventState(this.title, this.date, this.venue, this.main, this.description,
+      this.speakers, this.reg_link, this.id, this.poster, this.canRegister);
 
-  @override
-  void afterFirstLayout(BuildContext context) async {
-    events = (await EventApi.getEvents()).map((f) => ZeshEvent(f)).toList();
-    setState(() {
-      isLoaded = true;
-    });
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     w = MediaQuery.of(context).size.width;
+
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         textTheme: TextTheme(
             title: TextStyle(
           color: Colors.black,
         )),
-        iconTheme: IconThemeData(color: Colors.grey),
+        iconTheme: IconThemeData(color: Colors.black),
         elevation: 2,
         backgroundColor: Colors.white,
         centerTitle: false,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.share),
+              splashColor: Colors.lightBlue,
+              onPressed: () {})
+        ],
         title: Text(
-          "Events",
+          title,
           style: TextStyle(
               fontSize: 20,
               fontFamily: "Product Sans",
-              fontWeight: FontWeight.w400),
+              fontWeight: FontWeight.bold),
         ),
       ),
-      body: isLoaded
-          ? ListView.builder(
-              itemCount: events.length,
-              itemBuilder: (bc, i) => Container(
-                height: MediaQuery.of(context).size.height / 3,
-                child: events[i],
-              ),
-            )
-          : Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: <Widget>[
-      //       TitleOfClub("On Going Events"),
-      //       Animated(1),
-      //       Padding(
-      //         padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
-      //         child: Row(
-      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           children: <Widget>[
-      //             Text(
-      //               "Next Event",
-      //               style: TextStyle(fontSize: 24, fontFamily: "Product Sans"),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: Container(
-      //           // color: Colors.black,
-      //           height: w * 0.55,
-      //           child: Row(
-      //             children: <Widget>[
-      //               Container(
-      //                 decoration: BoxDecoration(
-      //                   image: DecorationImage(
-      //                       image: ExactAssetImage("assets/studyjam.jpg"),
-      //                       fit: BoxFit.cover),
-      //                   borderRadius: BorderRadius.circular(8),
-      //                 ),
-      //                 width: 175,
-      //               ),
-      //               Padding(
-      //                 padding: const EdgeInsets.only(top: 32, left: 16),
-      //                 child: Column(
-      //                   crossAxisAlignment: CrossAxisAlignment.start,
-      //                   children: <Widget>[
-      //                     Text(
-      //                       "Google Cloud",
-      //                       style: TextStyle(
-      //                           fontWeight: FontWeight.bold, fontSize: 18),
-      //                     ),
-      //                     SizedBox(
-      //                       height: 8,
-      //                     ),
-      //                     Text(
-      //                       "Expected November",
-      //                       style: TextStyle(),
-      //                     ),
-      //                     SizedBox(
-      //                       height: 8,
-      //                     ),
-      //                     Text("Mention Later",
-      //                         style: TextStyle(fontWeight: FontWeight.bold)),
-      //                     SizedBox(
-      //                       height: 30,
-      //                     ),
-      //                     ButtonTheme(
-      //                       height: 35,
-      //                       minWidth: 100,
-      //                       child: RaisedButton(
-      //                         color: Colors.blue[300],
-      //                         shape: StadiumBorder(),
-      //                         child: Text(
-      //                           "Know more",
-      //                           style: TextStyle(
-      //                               color: Colors.white.withOpacity(1)),
-      //                         ),
-      //                         onPressed: () {},
-      //                       ),
-      //                     )
-      //                   ],
-      //                 ),
-      //               )
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //       TitleOfClub("Up Coming"),
-      //       SizedBox(
-      //         height: 16,
-      //       ),
-      //       Container(
-      //         margin: EdgeInsets.all(0),
-      //         height: w * 0.6,
-      //         child: GridView.count(
-      //             crossAxisCount: 1,
-      //             childAspectRatio: 1,
-      //             scrollDirection: Axis.horizontal,
-      //             mainAxisSpacing: 8,
-      //             crossAxisSpacing: 8,
-      //             children: <Widget>[
-      //               UpComing("assets/github.png", "Github Session"),
-      //               UpComing("assets/FlutterIcon.png", "Flutter Session"),
-      //               UpComing("assets/cloud.png", "GCP Session"),
-      //               UpComing("assets/Android-Icon.png", "Android Session"),
-      //             ]),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-    );
-  }
-}
+      body: LayoutBuilder(
+        builder: (ctx, bc) => SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(top: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  // Date and Venue widget
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 8, bottom: 8, right: 16, left: 16),
+                    child: Card(
+                      elevation: 8.0,
+                      color: Colors.blueAccent,
+                      child: Column(
+                        children: <Widget>[
+                          // Date Widget
+                          Padding(
+                            padding: EdgeInsets.only(top: 16, bottom: 4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.date_range,
+                                  color: Colors.black,
+                                  size: 28,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  date,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
 
-class Animated extends StatelessWidget {
-  int count;
-  Animated(count) {
-    this.count = count;
-  }
-  @override
-  Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
-    return Container(
-      margin: EdgeInsets.all(0),
-      height: w * 0.6,
-      child: GridView.count(
-          crossAxisCount: 1,
-          childAspectRatio: 1,
-          scrollDirection: Axis.horizontal,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: ExactAssetImage("assets/dsc/mlWorkshop.jpg"),
-                      fit: BoxFit.fill),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 1,
-                      offset: Offset(0, 4),
-                      color: Colors.black.withOpacity(0.2),
-                    )
-                  ]),
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              width: 300,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: ExactAssetImage("assets/dsc/Web.jpg"),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 4,
-                        offset: Offset(0, 4),
-                        color: Colors.black.withOpacity(0.25))
-                  ]),
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              width: 100,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: ExactAssetImage("assets/events/liveStream.jpg"),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 4,
-                        offset: Offset(0, 4),
-                        color: Colors.black.withOpacity(0.25))
-                  ]),
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              width: 100,
-            ),
-          ]),
-    );
-  }
-}
-
-class Recent extends StatelessWidget {
-  String poster;
-  Recent(this.poster);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: ExactAssetImage(poster), fit: BoxFit.cover),
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 4,
-                offset: Offset(0, 4),
-                color: Colors.black.withOpacity(0.25))
-          ]),
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      width: 100,
-    );
-  }
-}
-
-class TitleOfClub extends StatelessWidget {
-  String title;
-  TitleOfClub(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: "Product Sans"),
-          ),
-          // IconButton(
-          //   icon: Icon(
-          //     Icons.arrow_forward,
-          //     color: Colors.grey,
-          //     size: 32,
-          //   ),
-          //   onPressed: () {},
-          // )
-        ],
-      ),
-    );
-  }
-}
-
-class UpComing extends StatelessWidget {
-  String image, title;
-  UpComing(this.image, this.title);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: new Stack(
-        children: <Widget>[
-          new ConstrainedBox(
-              constraints: const BoxConstraints.expand(),
-              child: Image.asset(image)),
-          new Center(
-            child: new ClipRect(
-              child: new BackdropFilter(
-                filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                child: new Container(
-                  width: w * 0.6,
-                  height: w * 0.6,
-                  decoration: new BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey.shade200.withOpacity(0.5)),
-                  child: new Center(
-                    child: new Text(
-                      title,
-                      style: Theme.of(context).textTheme.display3,
+                          //Venue Widget
+                          Padding(
+                            padding: EdgeInsets.only(top: 8, bottom: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.location_on,
+                                  color: Colors.black,
+                                  size: 28,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  venue,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+
+                  //Main Widget
+                  MyPadding(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        main,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Description Widget
+                  MyPadding(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "$description",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+
+                  // Poster
+                  Center(
+                    child: MyPadding(
+                      child: Hero(
+                        tag: id,
+                        child: Container(
+                          margin: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 8,
+                                offset: Offset(0, 4),
+                                color: Colors.black.withOpacity(0.25),
+                              )
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image(
+                              image: CachedNetworkImageProvider(poster),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Register Button
+                  GestureDetector(
+                    onTap: () => {if (canRegister) _launchURL(reg_link)},
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 18, horizontal: 0),
+                      child: Container(
+                        width: w * 0.4,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFDB4437).withOpacity(0.3),
+                          borderRadius: BorderRadius.horizontal(
+                            right: Radius.circular(60),
+                          ),
+                        ),
+                        child: Text(
+                          "Register",
+                          style: TextStyle(
+                            color: canRegister
+                                ? Color(0xFFDB4437).withOpacity(1.0)
+                                : Color(0xFFDB4437).withOpacity(0.5),
+                            // Add a condition -> Text opacity = 1.0 if date is available for registration or else Text opacity = 0.5
+                            fontWeight: canRegister
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            // Add a condition -> Text bold if date is available for registration or else normal Text
+                            fontSize: 18,
+                            // fontFamily: "ProductSans",
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Speakers
+                  MyPadding(
+                    child: speakers.length == 0
+                        ? SizedBox(height: 0)
+                        : Text(
+                            "Speakers",
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontFamily: "ProductSans",
+                            ),
+                          ),
+                  ),
+
+                  // Speakers List
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                    child: Container(
+                      height: w * 0.4,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(
+                          speakers.split(",").length,
+                          (i) => Container(
+                            width: w * 0.3,
+                            height: double.maxFinite,
+                            padding: EdgeInsets.all(16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Container(
+                                  height: w * 0.2,
+                                  width: w * 0.2,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/ar.jpg"),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                FittedBox(
+                                  child: AutoSizeText(
+                                    speakers.split(",")[i],
+                                    style: TextStyle(
+                                        fontSize: 8,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

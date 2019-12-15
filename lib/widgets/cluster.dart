@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'dart:math';
 
 class Gallery extends StatelessWidget {
   @override
@@ -18,25 +17,19 @@ class Gallery extends StatelessWidget {
       ),
     );
   }
-}
 
-List<Widget> _buildGridTitle(numberOfTitles) {
-  // var rand = Random();
+  List<Widget> _buildGridTitle(numberOdTitles) {
+    List<Container> containers =
+        new List<Container>.generate(numberOdTitles, (int index) {
+      final imageName = 'assets/dsc/cloud (${index + 1}).jpg';
+      return new Container(
+        child: new Image.asset(
+          imageName,
+          fit: BoxFit.cover,
+        ),
+      );
+    });
 
-  List<Container> containers =
-      new List<Container>.generate(numberOfTitles, (int index) {
-    final imageName = 'assets/dsc/cloud (${index + 1}).jpg';
-
-    return new Container(
-      // height: 100,
-      // width: 100,
-
-      child: new Image.asset(
-        imageName,
-        fit: BoxFit.cover,
-      ),
-    );
-  });
-
-  return containers;
+    return containers;
+  }
 }

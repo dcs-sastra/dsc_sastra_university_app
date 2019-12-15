@@ -1,4 +1,4 @@
-class aboutCluster {
+class AboutCluster {
   String machinelearning =
           "Building statistical models to make the world a better place. We mainly focus on Machine Learning and Deep Learning algorithms while taking the occasional swim in the pool of EDA.",
       design = """We See this World in CMYK!\n
@@ -35,5 +35,8 @@ Chill...\n
 
 That's all possible. \n
 
-We the Virtual Reality and Augmented Reality Cluster of DSC SASTRA develop world that are Non-Indigenous and Fantasy in your space. """;
+We the Virtual Reality and Augmented Reality Cluster of DSC SASTRA develop world that are Non-Indigenous and Fantasy in your space. """,
+      contentWriting = "Content Writing",
+      eventCoverage = "Event Coverage",
+      graphicDesigning = "Graphic Designing";
 }

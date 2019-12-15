@@ -32,7 +32,7 @@ class EventPODO {
         name: $name,
         date: $date,
         description: $description,
-        main: ${main.split(" ").toList().sublist(0, 10).toString().replaceAllMapped("[", (_) => "").replaceAllMapped("]", (_) => "").replaceAllMapped(",", (_) => "")}...,
+        main: $main,
         venue: $venue,
         speakers: $speakers,
         poster: $poster,
@@ -46,12 +46,12 @@ class EventPODO {
 
 class EventApi {
   static Future<List<EventPODO>> getEvents() async {
-    List tempList = jsonDecode((await http.get(baseURL + "/events")).body);
+    List tempList = jsonDecode((await http.get(eventsListURL)).body);
     List<EventPODO> events = [];
     for (var temp in tempList) {
       events.add(EventPODO.fromMap(temp));
     }
-    events.sort((a, b) => a.date.difference(b.date).inHours);
+    events.sort((a, b) => b.date.compareTo(a.date));
     print(events);
     return events;
   }

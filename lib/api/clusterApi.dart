@@ -32,7 +32,7 @@ class ClusterPODO {
 
 class ClusterApi {
   static getClusters() async {
-    List temp = jsonDecode((await http.get(baseURL + "/clusters")).body)
+    List temp = jsonDecode((await http.get(clustersListURL)).body)
         .map((f) => ClusterPODO.fromMap(f))
         .toList();
     print(temp);

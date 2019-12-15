@@ -74,7 +74,6 @@ flutter:
         - asset: assets/Product Sans Regular.ttf
         - asset: assets/Product Sans Italic.ttf
           style: italic
-        #   - family: Trajan Pro
         #     fonts:
         #       - asset: fonts/TrajanPro.ttf
         - asset: assets/Product Sans Bold.ttf
