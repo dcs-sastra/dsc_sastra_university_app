@@ -16,72 +16,76 @@ class _TeamState extends State<Team> {
   }
 }
 
-Widget teamMemberWidget(BuildContext context, String name, String imageURL, String linkedInURL, String githubURL, String twitterURL, double dpsize){
-
+Widget teamMemberWidget(BuildContext context, String name, String imageURL,
+    String linkedInURL, String githubURL, String twitterURL, double dpsize) {
+  /*
+      Team member Widget and Bottom Sheet Widget (which pops up on click of 
+      the Team member widget) implementation 
+   */
   return GestureDetector(
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          elevation: 8.0,
-          backgroundColor: Colors.white,
-          builder: (_) {
-            return Container(
-              height: 100,
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    onPressed: () async {
-                      _launchURL(linkedInURL);
-                    },
-                    icon: Image.asset("assets/li.png"),
+    onTap: () {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        elevation: 8.0,
+        backgroundColor: Colors.white,
+        builder: (_) {
+          return Container(
+            height: 100,
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(
+                  onPressed: () async {
+                    _launchURL(linkedInURL);
+                  },
+                  icon: Image.asset("assets/li.png"),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    _launchURL(githubURL);
+                  },
+                  icon: SvgPicture.asset("assets/icons/gh.svg"),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    _launchURL(twitterURL);
+                  },
+                  icon: Image.asset(
+                    "assets/twitter.png",
                   ),
-                  IconButton(
-                    onPressed: () async {
-                      _launchURL(githubURL);
-                    },
-                    icon: SvgPicture.asset("assets/icons/gh.svg"),
-                  ),
-                  IconButton(
-                    onPressed: () async {
-                      _launchURL(twitterURL);
-                    },
-                    icon: Image.asset(
-                      "assets/twitter.png",
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            CircleAvatar(
-              foregroundColor: Colors.blueAccent,
-              radius: dpsize / 1.9,
-              backgroundImage: CachedNetworkImageProvider(imageURL),
+                ),
+              ],
             ),
-            SizedBox(height: 8),
-
-            Text(name,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-          ],
-        ),
+          );
+        },
+      );
+    },
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          CircleAvatar(
+            foregroundColor: Colors.blueAccent,
+            radius: dpsize / 1.9,
+            backgroundImage: CachedNetworkImageProvider(imageURL),
+          ),
+          SizedBox(height: 8),
+          Text(
+            name,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
+    ),
   );
 }
 
+/*
+    Helper function to launch team member's social media links
+ */
 _launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);

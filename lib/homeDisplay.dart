@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/drawer.dart';
 import 'package:dsc_sastra_university/widgets/home.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,11 @@ import 'clusterDisplay.dart';
 List<DrawerItem> drawerItems = [
   DrawerItem("Home", "/home", Icons.home),
   DrawerItem("Events", "/events", Icons.event),
-  DrawerItem("Team", "/team", Icons.group,),
+  DrawerItem(
+    "Team",
+    "/team",
+    Icons.group,
+  ),
   DrawerItem("Contact Us", "/contactus", Icons.person_pin),
   DrawerItem("About Us", "/aboutus", Icons.info),
 ];
@@ -38,7 +43,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   void afterFirstLayout(BuildContext context) async {
     DateTime nowDateTime = DateTime.now();
 
-    //recents = (await EventApi.getEvents()).map((f) => ZeshEvent(f)).toList();
     List<EventPODO> eventList = (await EventApi.getEvents());
 
     for (EventPODO event in eventList) {
@@ -58,201 +62,205 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
-        title: FlatButton.icon(
-          icon: Image.asset(
-            "assets/logo.png",
-            width: screenWidth * 0.1,
-            height: screenHeight * 0.042,
-          ),
-          label: Text(
-            appBarTitleHomePage,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+          title: FlatButton.icon(
+            icon: Image.asset(
+              "assets/logo.png",
+              width: screenWidth * 0.1,
+              height: screenHeight * 0.042,
             ),
+            label: Text(
+              appBarTitleHomePage,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            disabledTextColor: Colors.black,
+            onPressed: () => Navigator.of(context).popAndPushNamed("/"),
           ),
-          disabledTextColor: Colors.black,
-          onPressed: () => Navigator.of(context).popAndPushNamed("/"),
+          /* actions: <Widget>[
+            PopupMenuButton<String>(
+              onSelected: choiceAction,
+              itemBuilder: (BuildContext context){
+                return Constants.choices.map((String choice){
+                  return PopupMenuItem(
+                    value: choice,
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.share),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(choice),
+                        )
+                      ],
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ],*/
+          centerTitle: true,
         ),
-        /* actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: choiceAction,
-            itemBuilder: (BuildContext context){
-              return Constants.choices.map((String choice){
-                return PopupMenuItem(
-                  value: choice,
-                  child: Row(
-                    children: <Widget>[
-                      Icon(Icons.share),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(choice),
-                      )
-                    ],
-                  ),
-                );
-              }).toList();
-            },
-          ),
-        ],*/
-        centerTitle: true,
-      ),
-      drawer: buildDrawer(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              //Upcoming Events Widget
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  //Upcoming Events
-                  Padding(
-                    padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                    child: Text(
-                      "Upcoming",
-                      style: TextStyle(fontSize: 24),
-                    ),
-                  ),
-
-                  Container(
-                    height: upcomingEvents.length == 0
-                        ? screenHeight * 0.15
-                        : screenHeight * 0.3,
-                    child: upcomingEvents.length == 0
-                        ? showEmptyPlaceHolder(isLoaded)
-                        : showEventsList(isLoaded, upcomingEvents),
-                  )
-                ],
-              ),
-
-              //Recent Events Widget
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  //Upcoming Events
-
-                  Padding(
-                    padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                    child: Text(
-                      "Recent",
-                      style: TextStyle(fontSize: 24),
-                    ),
-                  ),
-
-                  Container(
-                    height: recents.length == 0
-                        ? screenHeight * 0.15
-                        : screenHeight * 0.2,
-                    child: recents.length == 0
-                        ? showEmptyPlaceHolder(isLoaded)
-                        : showEventsList(isLoaded, recents),
-                  )
-                ],
-              ),
-
-              Padding(
-                padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                child: Text(
-                  "Clusters",
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-
-              Container(
-                height: screenHeight * 0.75,
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  physics: NeverScrollableScrollPhysics(),
-                  childAspectRatio: 1,
-                  padding:
-                      EdgeInsets.only(left: 32, top: 8, bottom: 16, right: 32),
-                  mainAxisSpacing: 32,
-                  crossAxisSpacing: 32,
+        drawer: buildDrawer(),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                //Upcoming Events Widget
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    displayClusterIcon(
-                        context,
-                        ClusterDisplay("App Devlopment", aboutCluster.android,
-                            "assets/clusterBackground/appdy.jpg"),
-                        Cluster("assets/icons/android-logo.svg", 0xff0F9D58)),
-                    displayClusterIcon(
-                        context,
-                        ClusterDisplay("Web Devlopment", aboutCluster.web,
-                            "assets/clusterBackground/wedy.jpg"),
-                        Cluster("assets/icons/web-programming (1).svg",
-                            0xffDB4437)),
-                    displaySVGClusterIcon(
-                        context,
-                        ClusterDisplay("Flutter", aboutCluster.flutter,
-                            "assets/clusterBackground/flutterBackground.png"),
-                        0xff4285F4,
-                        "assets/icons/flutter.svg"),
-                    displaySVGClusterIcon(
-                        context,
-                        ClusterDisplay("Agumented Reality", aboutCluster.ar,
-                            "assets/clusterBackground/vrBackground.jpeg"),
-                        0xffF4B400,
-                        "assets/icons/ar.svg"),
-                    displayClusterIcon(
-                        context,
-                        ClusterDisplay(
-                            "Google Cloud Platform",
-                            aboutCluster.gcp,
-                            "assets/clusterBackground/gcpBackground.png"),
-                        Cluster("assets/icons/cloud.svg", 0xff0F9D58)),
-                    displayClusterIcon(
-                        context,
-                        ClusterDisplay(
-                            "Machine Learning",
-                            aboutCluster.machinelearning,
-                            "assets/clusterBackground/mlBackground.png"),
-                        Cluster("assets/icons/setting.svg", 0xff4285F4)),
-                    displaySVGClusterIcon(
-                        context,
-                        ClusterDisplay(
-                            "Graphic Designing",
-                            aboutCluster.graphicDesigning,
-                            "assets/designBackground.jpg"),
-                        0xff0F9D58,
-                        "assets/clusters/tools.svg"),
-                    displaySVGClusterIcon(
-                        context,
-                        ClusterDisplay("Marketing", aboutCluster.marketing,
-                            "assets/eventsStudents.jpg"),
-                        0xff4285F4,
-                        "assets/clusters/report.svg"),
-                    displaySVGClusterIcon(
-                        context,
-                        ClusterDisplay(
-                            "Event Coverage",
-                            aboutCluster.eventCoverage,
-                            "assets/eventsStudents.jpg"),
-                        0xff4285F4,
-                        "assets/clusters/article.svg"),
-                    displaySVGClusterIcon(
-                        context,
-                        ClusterDisplay(
-                            "Content writing",
-                            aboutCluster.contentWriting,
-                            "assets/eventsStudents.jpg"),
-                        0xff0F9D58,
-                        "assets/icons/pen.svg"),
+                    //Upcoming Events
+                    Padding(
+                      padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                      child: Text(
+                        "Upcoming",
+                        style: TextStyle(fontSize: 24),
+                      ),
+                    ),
+
+                    Container(
+                      height: upcomingEvents.length == 0
+                          ? screenHeight * 0.15
+                          : screenHeight * 0.3,
+                      child: upcomingEvents.length == 0
+                          ? showEmptyPlaceHolder(isLoaded)
+                          : showEventsList(isLoaded, upcomingEvents),
+                    )
                   ],
                 ),
-              )
-            ],
+
+                //Recent Events Widget
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    //Upcoming Events
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                      child: Text(
+                        "Recent",
+                        style: TextStyle(fontSize: 24),
+                      ),
+                    ),
+
+                    Container(
+                      height: recents.length == 0
+                          ? screenHeight * 0.15
+                          : screenHeight * 0.2,
+                      child: recents.length == 0
+                          ? showEmptyPlaceHolder(isLoaded)
+                          : showEventsList(isLoaded, recents),
+                    )
+                  ],
+                ),
+
+                // Clusters Widget
+                Padding(
+                  padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
+                  child: Text(
+                    "Clusters",
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+
+                Container(
+                  height: screenHeight * 0.75,
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    physics: NeverScrollableScrollPhysics(),
+                    childAspectRatio: 1,
+                    padding:
+                    EdgeInsets.only(left: 32, top: 8, bottom: 16, right: 32),
+                    mainAxisSpacing: 32,
+                    crossAxisSpacing: 32,
+                    children: <Widget>[
+                      displayClusterIcon(
+                          context,
+                          ClusterDisplay(
+                              "App Development", aboutCluster.android,
+                              "assets/clusterBackground/appdy.jpg"),
+                          Cluster("assets/icons/android-logo.svg", 0xff0F9D58)),
+                      displayClusterIcon(
+                          context,
+                          ClusterDisplay("Web Devlopment", aboutCluster.web,
+                              "assets/clusterBackground/wedy.jpg"),
+                          Cluster("assets/icons/web-programming (1).svg",
+                              0xffDB4437)),
+                      displaySVGClusterIcon(
+                          context,
+                          ClusterDisplay("Flutter", aboutCluster.flutter,
+                              "assets/clusterBackground/flutterBackground.png"),
+                          0xff4285F4,
+                          "assets/icons/flutter.svg"),
+                      displaySVGClusterIcon(
+                          context,
+                          ClusterDisplay("Agumented Reality", aboutCluster.ar,
+                              "assets/clusterBackground/vrBackground.jpeg"),
+                          0xffF4B400,
+                          "assets/icons/ar.svg"),
+                      displayClusterIcon(
+                          context,
+                          ClusterDisplay(
+                              "Google Cloud Platform",
+                              aboutCluster.gcp,
+                              "assets/clusterBackground/gcpBackground.png"),
+                          Cluster("assets/icons/cloud.svg", 0xff0F9D58)),
+                      displayClusterIcon(
+                          context,
+                          ClusterDisplay(
+                              "Machine Learning",
+                              aboutCluster.machinelearning,
+                              "assets/clusterBackground/mlBackground.png"),
+                          Cluster("assets/icons/ml.svg", 0xff4285F4)),
+                      displaySVGClusterIcon(
+                          context,
+                          ClusterDisplay(
+                              "Graphic Designing",
+                              aboutCluster.graphicDesigning,
+                              "assets/designBackground.jpg"),
+                          0xff0F9D58,
+                          "assets/icons/designing.svg"),
+                      displaySVGClusterIcon(
+                          context,
+                          ClusterDisplay("Marketing", aboutCluster.marketing,
+                              "assets/eventsStudents.jpg"),
+                          0xff4285F4,
+                          "assets/icons/report.svg"),
+                      displaySVGClusterIcon(
+                          context,
+                          ClusterDisplay(
+                              "Event Coverage",
+                              aboutCluster.eventCoverage,
+                              "assets/eventsStudents.jpg"),
+                          0xff4285F4,
+                          "assets/icons/article.svg"),
+                      displaySVGClusterIcon(
+                          context,
+                          ClusterDisplay(
+                              "Content writing",
+                              aboutCluster.contentWriting,
+                              "assets/eventsStudents.jpg"),
+                          0xff0F9D58,
+                          "assets/icons/pen.svg"),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -355,7 +363,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        linkedinURL();
+                        launchURL(dscSASTRALinkedInURL);
                       },
                       child: Container(
                         height: 40,
@@ -369,7 +377,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                     ),
                     GestureDetector(
                       onTap: () {
-                        mediumURL();
+                        launchURL(dscSASTRAMediumURL);
                       },
                       child: Container(
                         height: 40,
@@ -383,7 +391,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
                     GestureDetector(
                       onTap: () {
-                        instaURL();
+                        launchURL(dscSASTRAInstaURL);
                       },
                       child: Container(
                         height: 40,
@@ -405,45 +413,4 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       ),
     );
   }
-}
-
-Widget displaySVGClusterIcon(BuildContext context,
-    ClusterDisplay clusterDisplay, int color, String svgFilePath) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (c) => clusterDisplay,
-        ),
-      );
-    },
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Color(color).withOpacity(0.25),
-      ),
-      child: Center(
-        child: Container(
-            child: SvgPicture.asset(
-          svgFilePath,
-          height: 40,
-          width: 40,
-          fit: BoxFit.contain,
-        )),
-      ),
-    ),
-  );
-}
-
-Widget displayClusterIcon(
-    BuildContext context, ClusterDisplay clusterDisplay, Cluster cluster) {
-  return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (c) => clusterDisplay,
-          ),
-        );
-      },
-      child: cluster);
 }

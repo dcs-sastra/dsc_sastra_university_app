@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'api/eventApi.dart';
 
-double screenWidth;
 
 class EventsDisplay extends StatefulWidget {
   @override
@@ -14,7 +13,7 @@ class EventsDisplay extends StatefulWidget {
 
 class _EventsDisplayState extends State<EventsDisplay> with AfterLayoutMixin {
   List<Widget> events = [];
-
+  double screenWidth;
   bool isLoaded = false;
 
   @override
@@ -31,34 +30,40 @@ class _EventsDisplayState extends State<EventsDisplay> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        textTheme: TextTheme(title: TextStyle(color: Colors.black)),
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 2,
-        backgroundColor: Colors.white,
-        centerTitle: false,
-        title: Text(
-          "Events",
-          style: TextStyle(
-              fontSize: 20,
-              fontFamily: "Product Sans",
-              fontWeight: FontWeight.w400),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          textTheme: TextTheme(title: TextStyle(color: Colors.black)),
+          iconTheme: IconThemeData(color: Colors.black),
+          elevation: 2,
+          backgroundColor: Colors.white,
+          centerTitle: false,
+          title: Text(
+            "Events",
+            style: TextStyle(
+                fontSize: 20,
+                fontFamily: "Product Sans",
+                fontWeight: FontWeight.w400),
+          ),
         ),
-      ),
-      body: isLoaded
-          ? ListView.builder(
-              itemCount: events.length,
-              itemBuilder: (bc, i) => Container(
-                height: MediaQuery.of(context).size.height / 3,
+        body: isLoaded
+            ? ListView.builder(
+          itemCount: events.length,
+          itemBuilder: (bc, i) =>
+              Container(
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 3,
                 child: events[i],
               ),
-              physics: BouncingScrollPhysics(),
-            )
-          : Container(
-              child: Center(
+          physics: BouncingScrollPhysics(),
+        )
+            : Container(
+            child: Center(
               child: CircularProgressIndicator(),
             )),
+      ),
     );
   }
 }

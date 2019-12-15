@@ -1,4 +1,4 @@
-import 'package:dsc_sastra_university/widgets/home.dart';
+import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -198,7 +198,7 @@ class AboutUsDisplay extends StatelessWidget {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      linkedinURL();
+                      launchURL(dscSASTRALinkedInURL);
                     },
                     child: Container(
                       height: aboutUsSocialMediaIconSize,
@@ -212,7 +212,7 @@ class AboutUsDisplay extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      mediumURL();
+                      launchURL(dscSASTRAMediumURL);
                     },
                     child: Container(
                       height: aboutUsSocialMediaIconSize,
@@ -225,7 +225,7 @@ class AboutUsDisplay extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      instaURL();
+                      launchURL(dscSASTRAInstaURL);
                     },
                     child: Container(
                       height: aboutUsSocialMediaIconSize,

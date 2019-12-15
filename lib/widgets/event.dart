@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+// Custom padding implementation for event details page
 class MyPadding extends StatelessWidget {
   final Widget child;
 
