@@ -12,7 +12,8 @@ description: A new Flutter application.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
-
+module:
+  androidX: true
 environment:
   sdk: ">=2.2.2 <3.0.0"
 
@@ -20,7 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^5.1.2
-  cached_network_image: ^1.1.1
+  cached_network_image: ^2.0.0-rc
   after_layout: ^1.0.7+2
   date_format: ^1.0.6
   auto_size_text: ^2.1.0
