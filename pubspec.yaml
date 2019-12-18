@@ -71,12 +71,12 @@ flutter:
   fonts:
     - family: Product Sans
       fonts:
-        - asset: assets/Product Sans Regular.ttf
-        - asset: assets/Product Sans Italic.ttf
+        - asset: assets/fonts/Product Sans Regular.ttf
+        - asset: assets/fonts/Product Sans Italic.ttf
           style: italic
         #     fonts:
         #       - asset: fonts/TrajanPro.ttf
-        - asset: assets/Product Sans Bold.ttf
+        - asset: assets/fonts/Product Sans Bold.ttf
           weight: 700
   #
   # For details regarding fonts from package dependencies,

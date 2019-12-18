@@ -10,8 +10,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="dsc_sastra_university"
-        android:icon="@mipmap/ic_launcher">
+        android:label="DSC SASTRA University"
+        android:icon="@mipmap/dsc_app_icon"
+        android:roundIcon="@mipmap/dsc_app_r_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -18,7 +18,7 @@ List<DrawerItem> drawerItems = [
     "/team",
     Icons.group,
   ),
-  DrawerItem("Contact Us", "/contactus", Icons.person_pin),
+  DrawerItem("Resources", "/resources", Icons.bookmark_border),
   DrawerItem("About Us", "/aboutus", Icons.info),
 ];
 
@@ -183,15 +183,16 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                     crossAxisCount: 3,
                     physics: NeverScrollableScrollPhysics(),
                     childAspectRatio: 1,
-                    padding:
-                    EdgeInsets.only(left: 32, top: 8, bottom: 16, right: 32),
+                    padding: EdgeInsets.only(
+                        left: 32, top: 8, bottom: 16, right: 32),
                     mainAxisSpacing: 32,
                     crossAxisSpacing: 32,
                     children: <Widget>[
                       displayClusterIcon(
                           context,
                           ClusterDisplay(
-                              "App Development", aboutCluster.android,
+                              "App Development",
+                              aboutCluster.android,
                               "assets/clusterBackground/appdy.jpg"),
                           Cluster("assets/icons/android-logo.svg", 0xff0F9D58)),
                       displayClusterIcon(
