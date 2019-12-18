@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/event.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
+import 'package:image_downloader/image_downloader.dart';
 // import 'package:share/share.dart';
 
 class Event extends StatefulWidget {
@@ -58,18 +62,31 @@ class _EventState extends State<Event> {
           centerTitle: false,
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.share),
-                splashColor: Colors.lightBlue,
-                onPressed: () {
-                  // Share.share("text",subject: "Loot at mee");
-                })
+              icon: Icon(Icons.share),
+              splashColor: Colors.lightBlue,
+              onPressed: () async {
+                String base64k = await ImageDownloader.downloadImage(
+                  poster,
+                  destination: AndroidDestinationType.custom(directory: "DSC")
+                    ..subDirectory("poster.png"),
+                );
+                print(base64k);
+              },
+            )
           ],
-          title: Text(
-            title,
-            style: TextStyle(
-                fontSize: 20,
-                fontFamily: "Product Sans",
-                fontWeight: FontWeight.bold),
+          title: Hero(
+            tag: id + "appBar",
+            child: Material(
+              color: Colors.transparent,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Product Sans",
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
         ),
         body: LayoutBuilder(
@@ -99,15 +116,16 @@ class _EventState extends State<Event> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.date_range,
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     size: 28,
                                   ),
                                   SizedBox(width: 8),
                                   Text(
                                     date,
                                     style: TextStyle(
+                                      color: Colors.white,
                                       fontSize: 20,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   )
                                 ],
@@ -122,15 +140,16 @@ class _EventState extends State<Event> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.location_on,
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     size: 28,
                                   ),
                                   SizedBox(width: 8),
                                   Text(
                                     venue,
                                     style: TextStyle(
+                                      color: Colors.white,
                                       fontSize: 20,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   )
                                 ],
@@ -273,8 +292,12 @@ class _EventState extends State<Event> {
                                   FittedBox(
                                     child: AutoSizeText(
                                       speakers.split(",")[i],
+                                      maxLines: 2,
+                                      minFontSize: 14,
+                                      maxFontSize: 24,
+                                      softWrap: true,
+                                      wrapWords: true,
                                       style: TextStyle(
-                                          fontSize: 8,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
                                     ),

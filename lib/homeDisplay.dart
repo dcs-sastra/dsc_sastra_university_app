@@ -46,7 +46,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     List<EventPODO> eventList = (await EventApi.getEvents());
 
     for (EventPODO event in eventList) {
-      Widget widget = ZeshEvent(event);
+      ZeshEvent widget = ZeshEvent(event);
+      widget.heroTag = true;
       if (nowDateTime.compareTo(event.date) == -1)
         upcomingEvents.add(widget);
       else
@@ -183,15 +184,16 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                     crossAxisCount: 3,
                     physics: NeverScrollableScrollPhysics(),
                     childAspectRatio: 1,
-                    padding:
-                    EdgeInsets.only(left: 32, top: 8, bottom: 16, right: 32),
+                    padding: EdgeInsets.only(
+                        left: 32, top: 8, bottom: 16, right: 32),
                     mainAxisSpacing: 32,
                     crossAxisSpacing: 32,
                     children: <Widget>[
                       displayClusterIcon(
                           context,
                           ClusterDisplay(
-                              "App Development", aboutCluster.android,
+                              "App Development",
+                              aboutCluster.android,
                               "assets/clusterBackground/appdy.jpg"),
                           Cluster("assets/icons/android-logo.svg", 0xff0F9D58)),
                       displayClusterIcon(

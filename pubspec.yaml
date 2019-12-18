@@ -20,6 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  image_downloader: ^0.19.1
+  flutter_share_me: ^0.8.0
+
   url_launcher:
   cached_network_image: ^2.0.0-rc
   after_layout:
