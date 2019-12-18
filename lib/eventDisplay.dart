@@ -5,8 +5,8 @@ import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/event.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
-import 'package:image_downloader/image_downloader.dart';
+// import 'package:flutter_share_me/flutter_share_me.dart';
+// import 'package:image_downloader/image_downloader.dart';
 // import 'package:share/share.dart';
 
 class Event extends StatefulWidget {
@@ -64,13 +64,13 @@ class _EventState extends State<Event> {
             IconButton(
               icon: Icon(Icons.share),
               splashColor: Colors.lightBlue,
-              onPressed: () async {
-                String base64k = await ImageDownloader.downloadImage(
-                  poster,
-                  destination: AndroidDestinationType.custom(directory: "DSC")
-                    ..subDirectory("poster.png"),
-                );
-                print(base64k);
+              onPressed: () {
+                // String base64k = await ImageDownloader.downloadImage(
+                //   poster,
+                //   destination: AndroidDestinationType.custom(directory: "DSC")
+                //     ..subDirectory("poster.png"),
+                // );
+                // print(base64k);
               },
             )
           ],
