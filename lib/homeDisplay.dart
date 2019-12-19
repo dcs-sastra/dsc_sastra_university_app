@@ -3,10 +3,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:after_layout/after_layout.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/drawer.dart';
 import 'package:dsc_sastra_university/widgets/home.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -164,11 +166,20 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       ),
                     ),
                     buttonOkColor: Colors.blue,
-                    onOkButtonPressed: () {
-                      Share.text(
+                    onOkButtonPressed: () async {
+                      var request = await HttpClient().getUrl(
+                        Uri.parse(
+                          "https://dscmescoe.com/images/DSC-Mescoe.gif",
+                        ),
+                      );
+                      var response = await request.close();
+                      Uint8List bytes =
+                          await consolidateHttpClientResponseBytes(response);
+                      Share.file(
                           "DSC SASTRA University",
                           "*DSC SASTRA University*\n\nDownload our app show your support:\nhttps://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university\n\nVisit us at http://dsc.sastratbi.in/\n\n*Follow us on:*\n\nInstagram\nhttps://www.instagram.com/dsc_sastra_university/\n\nLinkedIn\nhttps://www.linkedin.com/in/dsc-sastra/",
-                          "text/plain");
+                          bytes,
+                          "image/gif");
                       Navigator.pop(context);
                     },
                     onCancelButtonPressed: () => Navigator.pop(context),
@@ -245,14 +256,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       ),
                     ),
 
-                    Container(
-                      height: upcomingEvents.length == 0
-                          ? screenHeight * 0.15
-                          : screenHeight * 0.3,
-                      child: upcomingEvents.length == 0
-                          ? showEmptyPlaceHolder(isLoaded)
-                          : showEventsList(isLoaded, upcomingEvents),
-                    )
+                    buildUpcoming()
                   ],
                 ),
 
@@ -379,6 +383,26 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           ),
         ),
       ),
+    );
+  }
+
+  Container buildUpcoming() {
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result != ConnectivityResult.none) {
+        setState(() {
+          isLoaded = true;
+        });
+      } else
+        setState(() {
+          isLoaded = false;
+        });
+    });
+    return Container(
+      height:
+          upcomingEvents.length == 0 ? screenHeight * 0.15 : screenHeight * 0.3,
+      child: upcomingEvents.length == 0
+          ? showEmptyPlaceHolder(isLoaded)
+          : showEventsList(isLoaded, upcomingEvents),
     );
   }
 
