@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:after_layout/after_layout.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/drawer.dart';
 import 'package:dsc_sastra_university/widgets/home.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'api/aboutCluster.dart';
@@ -66,6 +72,51 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+          actions: <Widget>[
+            InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0)),
+                            title: Text("Please support us"),
+                            content:
+                                Text("Would you consider sharing our app ?"),
+                            actions: <Widget>[
+                              FlatButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("No"),
+                              ),
+                              RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                onPressed: () async {
+                                  ByteData bytes = await rootBundle
+                                      .load('assets/dscsastra.png');
+                                  Share.file(
+                                      "DSC SASTRA University",
+                                      "*DSC SASTRA University*\n\nDownload our app show your support\nhttps://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university\n\nVisit our website at http://dsc.sastratbi.in/\n\nFollow us on:\n\nhttps://www.instagram.com/dsc_sastra_university/\nhttps://www.linkedin.com/in/dsc-sastra/",
+                                      "image/*");
+                                  Navigator.pop(context);
+                                },
+                                color: Colors.blue,
+                                child: Text("Yes"),
+                              ),
+                            ],
+                          ));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(right: 12),
+                  child: Icon(Icons.more_vert),
+                )),
+          ],
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
           title: FlatButton.icon(
@@ -199,8 +250,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           context,
                           ClusterDisplay("Web Devlopment", aboutCluster.web,
                               "assets/clusterBackground/wedy.jpg"),
-                          Cluster("assets/icons/web-programming (1).svg",
-                              0xffDB4437)),
+                          Cluster("assets/icons/webdy.svg", 0xffDB4437)),
                       displaySVGClusterIcon(
                           context,
                           ClusterDisplay("Flutter", aboutCluster.flutter,
@@ -212,7 +262,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           ClusterDisplay("Augmented Reality", aboutCluster.ar,
                               "assets/clusterBackground/vrBackground.jpeg"),
                           0xffF4B400,
-                          "assets/icons/ar.svg"),
+                          "assets/icons/vr.svg"),
                       displayClusterIcon(
                           context,
                           ClusterDisplay(
@@ -310,7 +360,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Image.asset(
-                      "assets/dsc sastra.png",
+                      "assets/dscsastra.png",
                       // height: w * 0.05,
                       // width: w * 0.5,
                     ),

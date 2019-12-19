@@ -325,7 +325,7 @@ Widget displaySVGClusterIcon(BuildContext context,
 }
 
 Widget displayClusterIcon(
-    BuildContext context, ClusterDisplay clusterDisplay, Cluster cluster) {
+    BuildContext context, ClusterDisplay clusterDisplay, Widget cluster) {
   return GestureDetector(
       onTap: () {
         Navigator.of(context).push(

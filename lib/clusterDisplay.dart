@@ -99,13 +99,21 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
                           children: List.generate(
                             12,
                             (i) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4),
+                              return Container(
+                                margin: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 8,
+                                      offset: Offset(0, 4),
+                                      color: Colors.black.withOpacity(0.25),
+                                    )
+                                  ],
+                                ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
                                   child: Image.asset(
-                                      "assets/dsc/cloud (${i + 1}).jpg"),
+                                      "assets/dsc/cloud(${i + 1}).jpg"),
                                 ),
                               );
                             },

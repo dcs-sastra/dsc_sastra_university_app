@@ -96,7 +96,7 @@ class _EventState extends State<Event> {
                   title,
                   '${poster.split("/").last}',
                   bytes,
-                  'image/${poster.split(".").last}',
+                  'image/*',
                   text: "Registration Link:\n$reg_link\n\n$bold \n$description",
                 );
 
@@ -242,15 +242,10 @@ class _EventState extends State<Event> {
                                 )
                               ],
                             ),
-                            child: InkWell(
-                              onTap: () {
-                                File('DSC/$poster').writeAsString('$poster');
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image(
-                                  image: CachedNetworkImageProvider(poster),
-                                ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image(
+                                image: CachedNetworkImageProvider(poster),
                               ),
                             ),
                           ),

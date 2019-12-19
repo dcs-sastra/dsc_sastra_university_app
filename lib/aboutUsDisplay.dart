@@ -40,7 +40,7 @@ class AboutUsDisplay extends StatelessWidget {
                     color: Colors.transparent,
                   ),
                   child: Image.asset(
-                    "assets/dsc sastra.png",
+                    "assets/dscsastra.png",
                   ),
                 )),
             Padding(
@@ -88,7 +88,7 @@ class AboutUsDisplay extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: screenHeight * 0.1,
+              height: screenHeight * 0.01,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -107,15 +107,19 @@ class AboutUsDisplay extends StatelessWidget {
                             fontSize: 16),
                       ),
                     ),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
-                        child: Text(
-                          "dsc.sastra.university@gmail.com",
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                    GestureDetector(
+                      onTap: () =>
+                          launchURL("mailto:dsc.sastra.university@gmail.com"),
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: Text(
+                            "dsc.sastra.university@gmail.com",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
                         ),
                       ),
                     )
