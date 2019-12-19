@@ -199,11 +199,12 @@ class ResourcesApi {
     description.add(
         "Open source workshops that teach web software skills. Do them on your own or at a workshop nearby.");
     category.add("References");
-    /*title.add("");
-  url.add("");
-  imageUrl.add("");
-  description.add("");
-  category.add("References");*/
+
+    title.add("More Resources will be added in futher updates!");
+    url.add("");
+    imageUrl.add("");
+    description.add("Stay tuned for the next app update!");
+    category.add("References");
 
     for (int i = 0; i < title.length; i++) {
       print(title[i]);

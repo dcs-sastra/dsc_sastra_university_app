@@ -40,10 +40,14 @@ class _ResourcesState extends State<Resources> with AfterLayoutMixin {
                 color: Colors.black),
           ),
         ),
-        body: ListView.builder(
+        body: isLoaded ? ListView.builder(
           itemCount: resourcesList.length,
-          itemBuilder: (bc, i) => resourcesList[i],
+          itemBuilder: (buildContext, i) => resourcesList[i],
           physics: BouncingScrollPhysics(),
-        ));
+        )
+            : Center(
+          child: CircularProgressIndicator(),
+        )
+    );
   }
 }

@@ -16,7 +16,7 @@ class ResourceCard extends StatelessWidget {
       margin: EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 8.0),
       elevation: 4.0,
       child: InkWell(
-        splashColor: Colors.blue.withAlpha(90),
+        splashColor: Colors.grey.withAlpha(90),
         onTap: () {
           launchURL(_resource.url);
         },
@@ -24,7 +24,8 @@ class ResourceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Image(
+            _resource.imageUrl == "" ? Container()
+                : Image(
               image: CachedNetworkImageProvider(_resource.imageUrl),
               fit: BoxFit.cover,
               height: MediaQuery.of(context).size.height / 5,

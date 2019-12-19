@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           ClusterDisplay(
                               "Graphic Designing",
                               aboutCluster.graphicDesigning,
-                              "assets/designBackground.jpg"),
+                              "assets/clusterBackground/design_background.png"),
                           0xff0F9D58,
                           "assets/icons/designing.svg"),
                       displaySVGClusterIcon(

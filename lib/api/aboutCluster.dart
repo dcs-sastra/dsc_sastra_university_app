@@ -36,7 +36,7 @@ Chill...\n
 That's all possible. \n
 
 We the Virtual Reality and Augmented Reality Cluster of DSC SASTRA develop world that are Non-Indigenous and Fantasy in your space. """,
-      contentWriting = "Content Writing",
-      eventCoverage = "Event Coverage",
-      graphicDesigning = "Graphic Designing";
+      contentWriting = "We write about community happenings!\nWe inspire developers to write more!\nWe do develop content for our posters, websites, blogs etc. We write a lot, of course, we write it differently to explain stuffs.",
+      eventCoverage = "We do photography to communicate Google’s values of inclusivity, empowerment and strength in our community. We focus on actions that communicate what DSC SASTRA Univesersity is about (people coding together, working on laptops, listening to talks, giving talks, networking), Capture smiling faces, prioritizing out focus on individuals. We try to integrate the developer line art style as needed to reiterate Google’s developer-centric branding.",
+      graphicDesigning = "We do align our community with Google’s brand, aesthetic and mission which helps us to present our community as professional and of a high quality.\n\nYeah we do practice Google Design!";
 }
