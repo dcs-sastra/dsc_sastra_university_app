@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/event.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 // import 'package:flutter_share_me/flutter_share_me.dart';
@@ -47,6 +51,7 @@ class _EventState extends State<Event> {
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -63,7 +68,35 @@ class _EventState extends State<Event> {
             IconButton(
               icon: Icon(Icons.share),
               splashColor: Colors.lightBlue,
-              onPressed: () {
+              onPressed: () async {
+                List<String> strings = main.split("\n");
+                String bold = "";
+                for (var string in strings) {
+                  string = "*$string*\n";
+                  bold += string;
+                }
+                bold += description;
+
+                var request = await HttpClient().getUrl(
+                  Uri.parse(
+                    poster,
+                  ),
+                );
+                var response = await request.close();
+                Uint8List bytes =
+                    await consolidateHttpClientResponseBytes(response);
+                await Share.file(
+                  title,
+                  '${poster.split("/").last}',
+                  bytes,
+                  'image/${poster.split(".").last}',
+                  text: "Registration Link:\n$reg_link\n\n$bold \n$description",
+                );
+
+                // FlutterShareMe().shareToWhatsApp(
+                //   msg: "Registration Link:\n$reg_link\n\n$bold \n$description",
+                //   base64Image: base64.encode(bytes),
+                // );
                 // String base64k = await ImageDownloader.downloadImage(
                 //   poster,
                 //   destination: AndroidDestinationType.custom(directory: "DSC")
@@ -202,10 +235,15 @@ class _EventState extends State<Event> {
                                 )
                               ],
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image(
-                                image: CachedNetworkImageProvider(poster),
+                            child: InkWell(
+                              onTap: () {
+                                File('DSC/$poster').writeAsString('$poster');
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image(
+                                  image: CachedNetworkImageProvider(poster),
+                                ),
                               ),
                             ),
                           ),
