@@ -13,8 +13,8 @@ import '../eventDisplay.dart';
 /*    Events   */
 class ZeshEvent extends StatelessWidget {
   final EventPODO event;
-
-  ZeshEvent(this.event);
+  bool heroTag;
+  ZeshEvent(this.event, {this.heroTag = false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class ZeshEvent extends StatelessWidget {
                 event.description,
                 event.speakers,
                 event.register_link,
-                event.id,
+                heroTag ? event.id : "",
                 event.poster,
                 presentDateTime.compareTo(event.date) == -1)));
       },
@@ -47,37 +47,85 @@ class Thumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: id,
-      child: Container(
-        padding: EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(poster),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              Colors.black54,
-              BlendMode.srcATop,
+    return Stack(
+      children: <Widget>[
+        Hero(
+          tag: id,
+          child: Container(
+            padding: EdgeInsets.all(16),
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: CachedNetworkImageProvider(poster),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black54,
+                  BlendMode.srcATop,
+                ),
+              ),
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                  color: Colors.black.withOpacity(0.25),
+                ),
+              ],
             ),
           ),
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 4,
-              offset: Offset(0, 4),
-              color: Colors.black.withOpacity(0.25),
-            )
-          ],
         ),
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          title,
-          style: TextStyle(
-              fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Hero(
+              tag: id + "appBar",
+              child: Material(
+                color: Colors.transparent,
+                child: Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
+      ],
     );
+    // return Hero(
+    //   tag: id,
+    //   child: Container(
+    //     padding: EdgeInsets.all(16),
+    //     margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+    //     decoration: BoxDecoration(
+    //       image: DecorationImage(
+    //         image: CachedNetworkImageProvider(poster),
+    //         fit: BoxFit.cover,
+    //         colorFilter: ColorFilter.mode(
+    //           Colors.black54,
+    //           BlendMode.srcATop,
+    //         ),
+    //       ),
+    //       borderRadius: BorderRadius.circular(8),
+    //       boxShadow: [
+    //         BoxShadow(
+    //           blurRadius: 4,
+    //           offset: Offset(0, 4),
+    //           color: Colors.black.withOpacity(0.25),
+    //         )
+    //       ],
+    //     ),
+    //     alignment: Alignment.bottomLeft,
+    //     child: Text(
+    //       title,
+    //       style: TextStyle(
+    //           fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+    //     ),
+    //   ),
+    // );
   }
 }
 
@@ -232,11 +280,11 @@ class Cluster extends StatelessWidget {
       child: Center(
         child: Container(
             child: SvgPicture.asset(
-              icon,
-              // height: 10,
-              // width: 10,
-              fit: BoxFit.contain,
-            )),
+          icon,
+          // height: 10,
+          // width: 10,
+          fit: BoxFit.contain,
+        )),
       ),
     );
   }
@@ -265,18 +313,18 @@ Widget displaySVGClusterIcon(BuildContext context,
       child: Center(
         child: Container(
             child: SvgPicture.asset(
-              svgFilePath,
-              height: 40,
-              width: 40,
-              fit: BoxFit.contain,
-            )),
+          svgFilePath,
+          height: 40,
+          width: 40,
+          fit: BoxFit.contain,
+        )),
       ),
     ),
   );
 }
 
-Widget displayClusterIcon(BuildContext context, ClusterDisplay clusterDisplay,
-    Cluster cluster) {
+Widget displayClusterIcon(
+    BuildContext context, ClusterDisplay clusterDisplay, Cluster cluster) {
   return GestureDetector(
       onTap: () {
         Navigator.of(context).push(

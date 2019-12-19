@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     List<EventPODO> eventList = (await EventApi.getEvents());
 
     for (EventPODO event in eventList) {
-      Widget widget = ZeshEvent(event);
+      ZeshEvent widget = ZeshEvent(event, heroTag: true);
       if (nowDateTime.compareTo(event.date) == -1)
         upcomingEvents.add(widget);
       else
