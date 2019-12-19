@@ -57,7 +57,7 @@ delayedFunc(int i, BuildContext context) {
             },
             onCancelButtonPressed: () {
               Navigator.of(context).pop();
-              delayedFunc((i * 1.5).floor(), context);
+              delayedFunc(i * 2, context);
             },
           );
           // return AlertDialog(
@@ -188,20 +188,20 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       ),
                     ),
                     buttonOkColor: Colors.blue,
-                    onOkButtonPressed: () async {
-                      var request = await HttpClient().getUrl(
-                        Uri.parse(
-                          "https://dscmescoe.com/images/DSC-Mescoe.gif",
-                        ),
-                      );
-                      var response = await request.close();
-                      Uint8List bytes =
-                          await consolidateHttpClientResponseBytes(response);
-                      Share.file(
+                    onOkButtonPressed: () {
+                      // var request = await HttpClient().getUrl(
+                      //   Uri.parse(
+                      //     "https://dscmescoe.com/images/DSC-Mescoe.gif",
+                      //   ),
+                      // );
+                      // var response = await request.close();
+                      // Uint8List bytes =
+                      //     await consolidateHttpClientResponseBytes(response);
+                      Share.text(
                           "DSC SASTRA University",
                           "*DSC SASTRA University*\n\nDownload our app show your support:\nhttps://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university\n\nVisit us at http://dsc.sastratbi.in/\n\n*Follow us on:*\n\nInstagram\nhttps://www.instagram.com/dsc_sastra_university/\n\nLinkedIn\nhttps://www.linkedin.com/in/dsc-sastra/",
-                          bytes,
-                          "image/gif");
+                          // bytes,
+                          "text/plain");
                       Navigator.pop(context);
                     },
                     onCancelButtonPressed: () => Navigator.pop(context),
