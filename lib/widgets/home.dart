@@ -202,7 +202,7 @@ Widget showEmptyPlaceHolder(bool isLoaded) {
         )
       : Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: Text("No interent connection"),
           ),
         );
 }

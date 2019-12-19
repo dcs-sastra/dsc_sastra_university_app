@@ -119,9 +119,27 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   List<Widget> upcomingEvents = [];
 
   bool isLoaded = false;
+  bool isConnected;
 
   @override
   void afterFirstLayout(BuildContext context) async {
+    isConnected =
+        (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
+    setState(() {
+      isConnected = isConnected;
+    });
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result != ConnectivityResult.none) {
+        setState(() {
+          isConnected = true;
+        });
+      } else
+        setState(() {
+          isConnected = false;
+        });
+    });
     DateTime nowDateTime = DateTime.now();
 
     List<EventPODO> eventList = (await EventApi.getEvents());
@@ -136,6 +154,14 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     setState(() {
       isLoaded = true;
     });
+  }
+
+  var subscription;
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
   }
 
   @override
@@ -280,8 +306,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       height: recents.length == 0
                           ? screenHeight * 0.15
                           : screenHeight * 0.2,
-                      child: recents.length == 0
-                          ? showEmptyPlaceHolder(isLoaded)
+                      child: recents.length == 0 && isConnected
+                          ? showEmptyPlaceHolder(isConnected)
                           : showEventsList(isLoaded, recents),
                     )
                   ],
@@ -387,22 +413,14 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   Container buildUpcoming() {
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if (result != ConnectivityResult.none) {
-        setState(() {
-          isLoaded = true;
-        });
-      } else
-        setState(() {
-          isLoaded = false;
-        });
-    });
     return Container(
       height:
           upcomingEvents.length == 0 ? screenHeight * 0.15 : screenHeight * 0.3,
-      child: upcomingEvents.length == 0
-          ? showEmptyPlaceHolder(isLoaded)
-          : showEventsList(isLoaded, upcomingEvents),
+      child: isConnected
+          ? (upcomingEvents.length != 0
+              ? showEventsList(true, upcomingEvents)
+              : Container())
+          : showEmptyPlaceHolder(isConnected),
     );
   }
 
