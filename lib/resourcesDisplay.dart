@@ -4,23 +4,21 @@ import 'package:dsc_sastra_university/widgets/resources.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Resources extends StatefulWidget {
+class ResourcesDisplay extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _ResourcesState();
+  State<StatefulWidget> createState() => _ResourcesDisplayState();
 }
 
-class _ResourcesState extends State<Resources> with AfterLayoutMixin {
+class _ResourcesDisplayState extends State<ResourcesDisplay> {
   List<Widget> resourcesList = [];
   bool isLoaded = false;
 
   @override
-  void afterFirstLayout(BuildContext context) async {
-    resourcesList = (await ResourcesApi.getResourcesList())
-        .map((f) => ResourceCard(f))
-        .toList();
-    print("resourcesList.length");
-    print(resourcesList.length);
+  void initState() {
+    resourcesList =
+        ResourcesApi.getResourcesList().map((f) => ResourceCard(f)).toList();
     isLoaded = true;
+    super.initState();
   }
 
   @override

@@ -27,7 +27,7 @@ class ResourcesPODO {
 }
 
 class ResourcesApi {
-  static Future<List<ResourcesPODO>> getResourcesList() async {
+  static List<ResourcesPODO> getResourcesList() {
     print("getResourcesList");
     List<String> category = [],
         title = [],
@@ -41,6 +41,27 @@ class ResourcesApi {
     imageUrl.add("https://i.postimg.cc/vB1yBRVd/codelab.png");
     description.add(
         "Google Developers Codelabs provide a guided, tutorial, hands-on coding experience. Most codelabs will step you through the process of building a small application, or adding a new feature to an existing application. They cover a wide range of topics such as Android Wear, Google Compute Engine, Project Tango, and Google APIs on iOS.");
+    category.add("References");
+
+    title.add("Hash Code");
+    url.add("https://codingcompetitions.withgoogle.com/hashcode");
+    imageUrl.add("https://i.postimg.cc/cCY0T5Yw/hashcode.jpg");
+    description.add(
+        "Google’s team-based programming competition, Hash Code, allows you to share your skills and connect with other coders as you work together to solve a problem modeled off a real Google engineering challenge! In small teams of two to four, coders all over the world will tackle the first problem through an Online Qualification Round. Though this round is hosted online, teams can come together to compete side-by-side in locally coordinated Hash Code hubs. The top teams from this round are invited to join us at an international Google office for our annual Hash Code Final Round.");
+    category.add("References");
+
+    title.add("Kick Start");
+    url.add("https://codingcompetitions.withgoogle.com/kickstart");
+    imageUrl.add("https://i.postimg.cc/qRw8qjgc/kickstart.jpg");
+    description.add(
+        "Kick Start is a global online coding competition, consisting of three-hour rounds of a variety of algorithmic challenges designed by Google engineers. Participants can compete in one or all online rounds held throughout the year, and will have the opportunity to develop and grow their programming abilities while getting a glimpse into the technical skills needed for a career at Google (top participants may be invited to interview at Google).");
+    category.add("References");
+
+    title.add("Google AI");
+    url.add("https://ai.google/");
+    imageUrl.add("https://i.postimg.cc/3JxV1qTG/google-ai.png");
+    description.add(
+        "At Google AI, we’re conducting research that advances the state-of-the-art in the field, applying AI to products and to new domains, and developing tools to ensure that everyone can access AI.");
     category.add("References");
 
     title.add("Tech Dev Guide");
@@ -65,7 +86,7 @@ class ResourcesApi {
     category.add("References");
 
     title.add("Google Could Platform");
-    url.add("https://cloud.google.com/");
+    url.add("https://www.youtube.com/channel/UCJS9pqu9BzkAMNTmzNMNhvg");
     imageUrl.add("https://i.postimg.cc/tCnbyHHd/google-cloud.jpg");
     description.add(
         "Google Cloud Platform lets you build, deploy, and scale applications, websites, and services on the same infrastructure as Google. Helping you build what's next with secure infrastructure, developer tools, APIs, data analytics and machine learning.");
@@ -213,6 +234,51 @@ class ResourcesApi {
     }
 
     print("resourcesList");
+    print(title.length);
+    print(category.length);
+    print(url.length);
+    print(imageUrl.length);
+    print(description.length);
+    print(resourcesList.length);
+
+    return resourcesList;
+  }
+
+  static List<ResourcesPODO> getResourcesList1() {
+    List<String> category = [],
+        title = [],
+        url = [],
+        imageUrl = [],
+        description = [];
+    List<ResourcesPODO> resourcesList = [];
+
+    title.add("Codelabs");
+    url.add("https://codelabs.developers.google.com/");
+    imageUrl.add("https://i.postimg.cc/vB1yBRVd/codelab.png");
+    description.add(
+        "Google Developers Codelabs provide a guided, tutorial, hands-on coding experience. Most codelabs will step you through the process of building a small application, or adding a new feature to an existing application. They cover a wide range of topics such as Android Wear, Google Compute Engine, Project Tango, and Google APIs on iOS.");
+    category.add("References");
+
+    title.add("Hash Code");
+    url.add("https://codingcompetitions.withgoogle.com/hashcode");
+    imageUrl.add("https://i.postimg.cc/cCY0T5Yw/hashcode.jpg");
+    description.add(
+        "Google’s team-based programming competition, Hash Code, allows you to share your skills and connect with other coders as you work together to solve a problem modeled off a real Google engineering challenge! In small teams of two to four, coders all over the world will tackle the first problem through an Online Qualification Round. Though this round is hosted online, teams can come together to compete side-by-side in locally coordinated Hash Code hubs. The top teams from this round are invited to join us at an international Google office for our annual Hash Code Final Round.");
+    category.add("References");
+
+    title.add("Kick Start");
+    url.add("https://codingcompetitions.withgoogle.com/kickstart");
+    imageUrl.add("https://i.postimg.cc/qRw8qjgc/kickstart.jpg");
+    description.add(
+        "Kick Start is a global online coding competition, consisting of three-hour rounds of a variety of algorithmic challenges designed by Google engineers. Participants can compete in one or all online rounds held throughout the year, and will have the opportunity to develop and grow their programming abilities while getting a glimpse into the technical skills needed for a career at Google (top participants may be invited to interview at Google).");
+    category.add("References");
+    for (int i = 0; i < title.length; i++) {
+      print(title[i]);
+      resourcesList.add(ResourcesPODO(
+          category[i], title[i], url[i], imageUrl[i], description[i]));
+    }
+
+    print("resourcesList1");
     print(title.length);
     print(category.length);
     print(url.length);

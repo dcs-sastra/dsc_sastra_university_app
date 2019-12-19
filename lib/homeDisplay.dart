@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           "assets/icons/flutter.svg"),
                       displaySVGClusterIcon(
                           context,
-                          ClusterDisplay("Agumented Reality", aboutCluster.ar,
+                          ClusterDisplay("Augmented Reality", aboutCluster.ar,
                               "assets/clusterBackground/vrBackground.jpeg"),
                           0xffF4B400,
                           "assets/icons/ar.svg"),
