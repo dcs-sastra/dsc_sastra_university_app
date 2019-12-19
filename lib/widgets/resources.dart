@@ -14,6 +14,10 @@ class ResourceCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       margin: EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 8.0),
+      clipBehavior: Clip.hardEdge,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
       elevation: 4.0,
       child: InkWell(
         splashColor: Colors.grey.withAlpha(90),
