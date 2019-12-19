@@ -10,6 +10,7 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 
 import 'api/aboutCluster.dart';
 import 'api/env.dart';
@@ -32,8 +33,80 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+delayedFunc(int i, BuildContext context) {
+  print("Started $i!");
+  Future.delayed(Duration(seconds: i), () {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          print("Here we are $i !!");
+          return AssetGiffyDialog(
+            image: Image.asset(
+              "assets/rate.gif",
+              fit: BoxFit.fill,
+            ),
+            title: Text("Mind rating our app ?"),
+            description: Text("Help us to make our app better"),
+            buttonOkColor: Colors.blue,
+            onOkButtonPressed: () {
+              launchURL(
+                  "https://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university");
+              Navigator.pop(context);
+            },
+            onCancelButtonPressed: () {
+              Navigator.of(context).pop();
+              delayedFunc((i * 1.5).floor(), context);
+            },
+          );
+          // return AlertDialog(
+          //   // contentPadding: EdgeInsets.all(28),
+          //   shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(12.0)),
+          //   title: Text("Please support us"),
+          //   content: Text("Would you consider rating our app ?"),
+          //   actions: <Widget>[
+          //     Padding(
+          //       padding: const EdgeInsets.all(18.0),
+          //       child: FlatButton(
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(18.0),
+          //         ),
+          //         onPressed: () {
+          //           Navigator.of(context).pop();
+          //           delayedFunc((i * 1.5).floor(), context);
+          //         },
+          //         child: Text("No"),
+          //       ),
+          //     ),
+          //     Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: RaisedButton(
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(8.0),
+          //         ),
+          //         onPressed: () {
+          //           launchURL(
+          //               "https://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university");
+          //           Navigator.pop(context);
+          //         },
+          //         color: Colors.blue,
+          //         child: Text("Yes"),
+          //       ),
+          //     ),
+          //   ],
+          // );
+        });
+  });
+}
+
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   var aboutCluster = new AboutCluster();
+
+  @override
+  void initState() {
+    delayedFunc(15, context);
+    super.initState();
+  }
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
@@ -74,48 +147,39 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         appBar: AppBar(
           actions: <Widget>[
             InkWell(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            title: Text("Please support us"),
-                            content:
-                                Text("Would you consider sharing our app ?"),
-                            actions: <Widget>[
-                              FlatButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text("No"),
-                              ),
-                              RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                onPressed: () async {
-                                  ByteData bytes = await rootBundle
-                                      .load('assets/dscsastra.png');
-                                  Share.file(
-                                      "DSC SASTRA University",
-                                      "*DSC SASTRA University*\n\nDownload our app show your support\nhttps://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university\n\nVisit our website at http://dsc.sastratbi.in/\n\nFollow us on:\n\nhttps://www.instagram.com/dsc_sastra_university/\nhttps://www.linkedin.com/in/dsc-sastra/",
-                                      "image/*");
-                                  Navigator.pop(context);
-                                },
-                                color: Colors.blue,
-                                child: Text("Yes"),
-                              ),
-                            ],
-                          ));
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(right: 12),
-                  child: Icon(Icons.more_vert),
-                )),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AssetGiffyDialog(
+                    description: Text("Cause sharing is caring"),
+                    image: Image.asset(
+                      "assets/DSC.gif",
+                      fit: BoxFit.fitWidth,
+                    ),
+                    title: Text(
+                      "Mind sharing our app ?",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    buttonOkColor: Colors.blue,
+                    onOkButtonPressed: () {
+                      Share.text(
+                          "DSC SASTRA University",
+                          "*DSC SASTRA University*\n\nDownload our app show your support:\nhttps://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university\n\nVisit us at http://dsc.sastratbi.in/\n\n*Follow us on:*\n\nInstagram\nhttps://www.instagram.com/dsc_sastra_university/\n\nLinkedIn\nhttps://www.linkedin.com/in/dsc-sastra/",
+                          "text/plain");
+                      Navigator.pop(context);
+                    },
+                    onCancelButtonPressed: () => Navigator.pop(context),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: Icon(Icons.more_vert),
+              ),
+            ),
           ],
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
