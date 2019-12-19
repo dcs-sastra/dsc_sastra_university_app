@@ -47,7 +47,6 @@ class _EventState extends State<Event> {
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
