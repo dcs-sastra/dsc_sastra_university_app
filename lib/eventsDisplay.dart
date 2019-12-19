@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'api/eventApi.dart';
 
-
 class EventsDisplay extends StatefulWidget {
   @override
   _EventsDisplayState createState() => _EventsDisplayState();
@@ -18,7 +17,12 @@ class _EventsDisplayState extends State<EventsDisplay> with AfterLayoutMixin {
 
   @override
   void afterFirstLayout(BuildContext context) async {
-    events = (await EventApi.getEvents()).map((f) => ZeshEvent(f)).toList();
+    events = (await EventApi.getEvents())
+        .map((f) => ZeshEvent(
+              f,
+              heroTag: false,
+            ))
+        .toList();
 
     if (mounted) {
       setState(() {
@@ -48,21 +52,17 @@ class _EventsDisplayState extends State<EventsDisplay> with AfterLayoutMixin {
         ),
         body: isLoaded
             ? ListView.builder(
-          itemCount: events.length,
-          itemBuilder: (bc, i) =>
-              Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height / 3,
-                child: events[i],
-              ),
-          physics: BouncingScrollPhysics(),
-        )
+                itemCount: events.length,
+                itemBuilder: (bc, i) => Container(
+                  height: MediaQuery.of(context).size.height / 3,
+                  child: events[i],
+                ),
+                physics: BouncingScrollPhysics(),
+              )
             : Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            )),
+                child: Center(
+                child: CircularProgressIndicator(),
+              )),
       ),
     );
   }

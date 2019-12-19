@@ -31,7 +31,7 @@ class ZeshEvent extends StatelessWidget {
                 event.description,
                 event.speakers,
                 event.register_link,
-                heroTag ? event.id : "",
+                event.id + (heroTag ? "" : "nah"),
                 event.poster,
                 presentDateTime.compareTo(event.date) == -1)));
       },
