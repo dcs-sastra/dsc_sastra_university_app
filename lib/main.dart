@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         "/aboutus": (_) => AboutUsDisplay(),
         "/events": (_) => EventsDisplay(),
         "/team": (_) => TeamDisplay(),
-        "/resources": (_) => Resources(),
+        "/resources": (_) => ResourcesDisplay(),
       },
     );
   }
