@@ -2,6 +2,7 @@ import 'package:dsc_sastra_university/resourcesDisplay.dart';
 import 'package:dsc_sastra_university/teamDisplay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'aboutUsDisplay.dart';
 import 'eventsDisplay.dart';
@@ -15,13 +16,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       title: 'DSC SASTRA University',
       theme: ThemeData(
-        fontFamily: "Product Sans",
+        textTheme: GoogleFonts.montserratTextTheme(),
         primarySwatch: Colors.blue,
       ),
-
       routes: {
         "/": (_) => HomePage(),
         "/aboutus": (_) => AboutUsDisplay(),
