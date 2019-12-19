@@ -22,8 +22,19 @@ class ZeshEvent extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print("Tap registerd !");
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => Event(
+        Navigator.of(context).push(PageRouteBuilder(
+            transitionsBuilder: (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child,
+            ) =>
+                FadeTransition(
+                  opacity: animation,
+                  child: child,
+                ),
+            transitionDuration: Duration(milliseconds: 300),
+            pageBuilder: (_, __, ___) => Event(
                 event.name,
                 formatDate(event.date, [d, ' ', MM, ' ', yy, ', ', DD]),
                 event.venue,
