@@ -35,22 +35,23 @@ class ZeshEvent extends StatelessWidget {
                 event.poster,
                 presentDateTime.compareTo(event.date) == -1)));
       },
-      child: Thumbnail(event.poster, event.name, event.id),
+      child: Thumbnail(event.poster, event.name, event.id, heroTag),
     );
   }
 }
 
 class Thumbnail extends StatelessWidget {
   String poster, title, id;
+  bool heroTag;
 
-  Thumbnail(this.poster, this.title, this.id);
+  Thumbnail(this.poster, this.title, this.id, this.heroTag);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         Hero(
-          tag: id,
+          tag: id + (heroTag ? "" : "nah"),
           child: Container(
             padding: EdgeInsets.all(16),
             margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -79,7 +80,7 @@ class Thumbnail extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Hero(
-              tag: id + "appBar",
+              tag: id + "appBar" + (heroTag ? "" : "nah"),
               child: Material(
                 color: Colors.transparent,
                 child: Text(

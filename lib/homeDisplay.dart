@@ -328,7 +328,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 ],
               ),
             ),
-            ...drawerItems,
+            SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: drawerItems,
+              ),
+            ),
             Expanded(child: Container()),
             Column(
               mainAxisSize: MainAxisSize.min,
