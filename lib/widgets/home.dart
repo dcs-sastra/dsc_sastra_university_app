@@ -153,56 +153,61 @@ Widget showEventsList(bool isLoaded, List<Widget> events) {
    */
 Widget showEmptyPlaceHolder(bool isLoaded) {
   return isLoaded
-      ? Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              "There are no events to catch up right now!",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                  fontSize: 20),
-            ),
-            Text(
-              "We will update here if there're any...",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                  fontSize: 18),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      ? Padding(
+        padding: const EdgeInsets.only(left:8.0, right:8.0),
+        child: Center(
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Mean while follow us ",
+                  "There are no events to catch up right now!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black54,
-                      fontSize: 16),
+                      color: Colors.blue,
+                      fontSize: 20),
+                ),
+                Text(
+                  "We will update here if there're any...",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                      fontSize: 18),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    socialMediaIconHomePage("assets/linkedin.svg",
-                        dscSASTRALinkedInURL, 16, 16, 8, Colors.blue),
-                    socialMediaIconHomePage("assets/medium.svg",
-                        dscSASTRAMediumURL, 16, 16, 8, Colors.black),
-                    socialMediaIconHomePage("assets/instagram.svg",
-                        dscSASTRAInstaURL, 16, 16, 8, null)
+                    Text(
+                      "Mean while follow us ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                          fontSize: 16),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        socialMediaIconHomePage("assets/linkedin.svg",
+                            dscSASTRALinkedInURL, 16, 16, 8, Colors.blue),
+                        socialMediaIconHomePage("assets/medium.svg",
+                            dscSASTRAMediumURL, 16, 16, 8, Colors.black),
+                        socialMediaIconHomePage("assets/instagram.svg",
+                            dscSASTRAInstaURL, 16, 16, 8, null)
+                      ],
+                    ),
                   ],
-                ),
+                )
               ],
-            )
-          ],
-        )
+            ),
+        ),
+      )
       : Container(
           child: Center(
-            child: Text("No interent connection"),
+            child: CircularProgressIndicator(),
           ),
         );
 }

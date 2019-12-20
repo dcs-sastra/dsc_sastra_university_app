@@ -63,9 +63,8 @@ Widget teamMemberWidget(BuildContext context, String name, String imageURL,
       );
     },
     child: Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           CircleAvatar(
             foregroundColor: Colors.blueAccent,

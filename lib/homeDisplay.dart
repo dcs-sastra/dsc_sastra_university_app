@@ -8,6 +8,7 @@ import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/drawer.dart';
 import 'package:dsc_sastra_university/widgets/home.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -219,13 +220,13 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           title: FlatButton.icon(
             icon: Image.asset(
               "assets/logo.png",
-              width: screenWidth * 0.1,
+              width: screenWidth * 0.06,
               height: screenHeight * 0.042,
             ),
             label: Text(
               appBarTitleHomePage,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: screenWidth * 0.04,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -479,6 +480,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               ),
             ),
             SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: drawerItems,
