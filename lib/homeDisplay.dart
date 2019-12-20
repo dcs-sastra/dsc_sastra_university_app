@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'api/aboutCluster.dart';
 import 'api/env.dart';
@@ -38,7 +39,10 @@ class HomePage extends StatefulWidget {
 
 delayedFunc(int i, BuildContext context) {
   print("Started $i!");
-  Future.delayed(Duration(seconds: i), () {
+  Future.delayed(Duration(seconds: i), () async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (!(prefs.getBool('rated' ?? false)))
+      await prefs.setString('lastShown', DateTime.now().toString());
     showDialog(
         context: context,
         builder: (ctx) {
@@ -51,14 +55,16 @@ delayedFunc(int i, BuildContext context) {
             title: Text("Mind rating our app ?"),
             description: Text("Help us to make our app better"),
             buttonOkColor: Colors.blue,
-            onOkButtonPressed: () {
+            onOkButtonPressed: () async {
               launchURL(
                   "https://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university");
               Navigator.pop(context);
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setBool('rated', true);
             },
-            onCancelButtonPressed: () {
+            onCancelButtonPressed: () async {
               Navigator.of(context).pop();
-              delayedFunc(i * 2, context);
+              // delayedFunc(i * 2, context);
             },
           );
           // return AlertDialog(
@@ -107,7 +113,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   void initState() {
-    delayedFunc(15, context);
     super.initState();
   }
 
@@ -123,6 +128,16 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   void afterFirstLayout(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String lastShown = (prefs.getString('lastShown') ??
+        DateTime.now().subtract(Duration(days: 8)).toString());
+    bool rated = (prefs.getBool('rated') ?? false);
+    if (!rated) if (DateTime.parse(lastShown)
+            .difference(DateTime.now())
+            .inDays >=
+        7) {
+      delayedFunc(5, context);
+    }
     // isLoaded =
     //     (await Connectivity().checkConnectivity()) == ConnectivityResult.none;
     // subscription = Connectivity()
@@ -170,54 +185,58 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          actions: <Widget>[
-            InkWell(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (ctx) => AssetGiffyDialog(
-                    description: Text("Cause sharing is caring"),
-                    image: Image.asset(
-                      "assets/DSC.gif",
-                      fit: BoxFit.fitWidth,
-                    ),
-                    title: Text(
-                      "Mind sharing our app ?",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    buttonOkColor: Colors.blue,
-                    onOkButtonPressed: () {
-                      // var request = await HttpClient().getUrl(
-                      //   Uri.parse(
-                      //     "https://dscmescoe.com/images/DSC-Mescoe.gif",
-                      //   ),
-                      // );
-                      // var response = await request.close();
-                      // Uint8List bytes =
-                      //     await consolidateHttpClientResponseBytes(response);
-                      Share.text(
-                          "DSC SASTRA University",
-                          "*DSC SASTRA University*\n\nDownload our app show your support:\nhttps://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university\n\nVisit us at http://dsc.sastratbi.in/\n\n*Follow us on:*\n\nInstagram\nhttps://www.instagram.com/dsc_sastra_university/\n\nLinkedIn\nhttps://www.linkedin.com/in/dsc-sastra/",
-                          // bytes,
-                          "text/plain");
-                      Navigator.pop(context);
-                    },
-                    onCancelButtonPressed: () => Navigator.pop(context),
-                  ),
-                );
-              },
-              child: Padding(
-                padding: EdgeInsets.only(right: 12),
-                child: Icon(Icons.more_vert),
-              ),
-            ),
-          ],
+          // actions: <Widget>[
+          //   SizedBox(
+          //     width: screenWidth * 0.075,
+          //     child: InkWell(
+          //       onTap: () {
+          //         showDialog(
+          //           context: context,
+          //           builder: (ctx) => AssetGiffyDialog(
+          //             description: Text("Cause sharing is caring"),
+          //             image: Image.asset(
+          //               "assets/DSC.gif",
+          //               fit: BoxFit.fitWidth,
+          //             ),
+          //             title: Text(
+          //               "Mind sharing our app ?",
+          //               style: TextStyle(
+          //                 fontSize: 18,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             ),
+          //             buttonOkColor: Colors.blue,
+          //             onOkButtonPressed: () {
+          //               // var request = await HttpClient().getUrl(
+          //               //   Uri.parse(
+          //               //     "https://dscmescoe.com/images/DSC-Mescoe.gif",
+          //               //   ),
+          //               // );
+          //               // var response = await request.close();
+          //               // Uint8List bytes =
+          //               //     await consolidateHttpClientResponseBytes(response);
+          //               Share.text(
+          //                   "DSC SASTRA University",
+          //                   "*DSC SASTRA University*\n\nDownload our app show your support:\nhttps://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university\n\nVisit us at http://dsc.sastratbi.in/\n\n*Follow us on:*\n\nInstagram\nhttps://www.instagram.com/dsc_sastra_university/\n\nLinkedIn\nhttps://www.linkedin.com/in/dsc-sastra/",
+          //                   // bytes,
+          //                   "text/plain");
+          //               Navigator.pop(context);
+          //             },
+          //             onCancelButtonPressed: () => Navigator.pop(context),
+          //           ),
+          //         );
+          //       },
+          //       child: Padding(
+          //         padding: EdgeInsets.only(right: 12),
+          //         child: Icon(Icons.more_vert),
+          //       ),
+          //     ),
+          //   ),
+          // ],
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
           title: FlatButton.icon(
+            padding: EdgeInsets.zero,
             icon: Image.asset(
               "assets/logo.png",
               width: screenWidth * 0.06,
@@ -233,27 +252,30 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             disabledTextColor: Colors.black,
             onPressed: () => Navigator.of(context).popAndPushNamed("/"),
           ),
-          /* actions: <Widget>[
-            PopupMenuButton<String>(
-              onSelected: choiceAction,
-              itemBuilder: (BuildContext context){
-                return Constants.choices.map((String choice){
-                  return PopupMenuItem(
-                    value: choice,
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.share),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(choice),
-                        )
-                      ],
-                    ),
-                  );
-                }).toList();
-              },
+          actions: <Widget>[
+            Container(
+              width: screenWidth * 0.1,
+              child: PopupMenuButton<String>(
+                onSelected: (String choice) => choiceAction(choice, context),
+                itemBuilder: (BuildContext context) {
+                  return Constants.choices.map((String choice) {
+                    return PopupMenuItem(
+                      value: choice,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.share),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(choice),
+                          )
+                        ],
+                      ),
+                    );
+                  }).toList();
+                },
+              ),
             ),
-          ],*/
+          ],
           centerTitle: true,
         ),
         drawer: buildDrawer(),
@@ -420,153 +442,147 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   Drawer buildDrawer() {
+    print("Screen Height : ${(screenWidth / screenHeight)}}");
     return Drawer(
       child: Container(
         color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              height: screenHeight * 0.3,
-              padding: const EdgeInsets.all(16.0),
-              width: double.infinity,
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/backgroud.jpg"),
-                  fit: BoxFit.fill,
-                  colorFilter:
-                      ColorFilter.mode(Colors.black54, BlendMode.srcATop),
+        height: screenHeight,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  // margin: const EdgeInsets.symmetric(
+                  //   vertical: 16,
+                  //   horizontal: 8,
+                  // ),
+                  decoration: BoxDecoration(
+                    // color: Colors.transparent,
+
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Image.asset(
+                    "assets/dscsastra.png",
+                    // height: w * 0.05,
+                    // width: w * 0.5,
+                  ),
+                ),
+                height: screenHeight * 0.18,
+                padding: const EdgeInsets.all(16.0),
+                width: double.infinity,
+                alignment: Alignment.bottomCenter,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/backgroud.jpg"),
+                    fit: BoxFit.fill,
+                    colorFilter:
+                        ColorFilter.mode(Colors.black54, BlendMode.srcATop),
+                  ),
                 ),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+              // Text(
+              //   "Developers Student Club",
+              //   style: TextStyle(
+              //       fontSize: 24,
+              //       color: Colors.white,
+              //       fontWeight: FontWeight.w500),
+              // )
+              // Column(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: drawerItems,
+              // ),
+              ...drawerItems,
+              Container(
+                // color: (screenWidth / screenHeight) > 0.6
+                //     ? Colors.red
+                //     : ((screenWidth / screenHeight) < 0.6
+                //         ? Colors.blue
+                //         : Colors.green),
+                height: screenHeight *
+                    (screenWidth < 360
+                        ? 0.05
+                        : (screenWidth / screenHeight) < 0.6 ? 0.25 : 0.15),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(
-                    height: 64,
+                  Container(
+                    color: Colors.black45,
+                    height: 2,
+                    width: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5, left: 5),
+                    child: Text("Connect",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        )),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(8.0),
-                    // margin: const EdgeInsets.symmetric(
-                    //   vertical: 16,
-                    //   horizontal: 8,
-                    // ),
-                    decoration: BoxDecoration(
-                      // color: Colors.transparent,
-
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Image.asset(
-                      "assets/dscsastra.png",
-                      // height: w * 0.05,
-                      // width: w * 0.5,
-                    ),
+                    color: Colors.black45,
+                    height: 2,
+                    width: 30,
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  // Text(
-                  //   "Developers Student Club",
-                  //   style: TextStyle(
-                  //       fontSize: 24,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.w500),
-                  // )
                 ],
               ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: drawerItems,
+              SizedBox(
+                height: 16,
               ),
-            ),
-            Expanded(child: Container()),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.black45,
-                      height: 2,
-                      width: 30,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5, left: 5),
-                      child: Text("Connect",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          )),
-                    ),
-                    Container(
-                      color: Colors.black45,
-                      height: 2,
-                      width: 30,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        launchURL(dscSASTRALinkedInURL);
-                      },
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        // color: Colors.green,
-                        child: SvgPicture.asset(
-                          "assets/linkedin.svg",
-                          color: Colors.blue,
-                        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      launchURL(dscSASTRALinkedInURL);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      // color: Colors.green,
+                      child: SvgPicture.asset(
+                        "assets/linkedin.svg",
+                        color: Colors.blue,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        launchURL(dscSASTRAMediumURL);
-                      },
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        child: SvgPicture.asset(
-                          "assets/medium.svg",
-                          color: Colors.black,
-                        ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      launchURL(dscSASTRAMediumURL);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      child: SvgPicture.asset(
+                        "assets/medium.svg",
+                        color: Colors.black,
                       ),
                     ),
+                  ),
 
-                    GestureDetector(
-                      onTap: () {
-                        launchURL(dscSASTRAInstaURL);
-                      },
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        child: SvgPicture.asset(
-                          "assets/instagram.svg",
-                          // color: Colors.redAccent,
-                        ),
+                  GestureDetector(
+                    onTap: () {
+                      launchURL(dscSASTRAInstaURL);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      child: SvgPicture.asset(
+                        "assets/instagram.svg",
+                        // color: Colors.redAccent,
                       ),
                     ),
-                    // Image.asset("assets/logo.png")
-                  ],
-                )
-              ],
-            ),
-            Container(height: screenHeight * 0.05),
-          ],
+                  ),
+                  // Image.asset("assets/logo.png")
+                ],
+              ),
+              Container(height: screenHeight * 0.05),
+            ],
+          ),
         ),
       ),
     );

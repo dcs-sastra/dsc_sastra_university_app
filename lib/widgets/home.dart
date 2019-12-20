@@ -2,10 +2,12 @@ import 'package:date_format/date_format.dart';
 import 'package:dsc_sastra_university/api/env.dart';
 import 'package:dsc_sastra_university/api/eventApi.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 
 import '../clusterDisplay.dart';
 import '../eventDisplay.dart';
@@ -154,9 +156,9 @@ Widget showEventsList(bool isLoaded, List<Widget> events) {
 Widget showEmptyPlaceHolder(bool isLoaded) {
   return isLoaded
       ? Padding(
-        padding: const EdgeInsets.only(left:8.0, right:8.0),
-        child: Center(
-          child: Column(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+          child: Center(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -203,8 +205,8 @@ Widget showEmptyPlaceHolder(bool isLoaded) {
                 )
               ],
             ),
-        ),
-      )
+          ),
+        )
       : Container(
           child: Center(
             child: CircularProgressIndicator(),
@@ -254,7 +256,48 @@ Widget socialMediaIconHomePage(String filePath, String url, double height,
 /*
  Popup menu button's action will implement here @choiceAction
  */
-void choiceAction(String choice) {}
+void choiceAction(String choice, BuildContext context) {
+  switch (choice) {
+    case "Share":
+      showDialog(
+        context: context,
+        builder: (ctx) => AssetGiffyDialog(
+          description: Text("Cause sharing is caring"),
+          image: Image.asset(
+            "assets/DSC.gif",
+            fit: BoxFit.fitWidth,
+          ),
+          title: Text(
+            "Mind sharing our app ?",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          buttonOkColor: Colors.blue,
+          onOkButtonPressed: () {
+            // var request = await HttpClient().getUrl(
+            //   Uri.parse(
+            //     "https://dscmescoe.com/images/DSC-Mescoe.gif",
+            //   ),
+            // );
+            // var response = await request.close();
+            // Uint8List bytes =
+            //     await consolidateHttpClientResponseBytes(response);
+            Share.text(
+                "DSC SASTRA University",
+                "*DSC SASTRA University*\n\nDownload our app show your support:\nhttps://play.google.com/store/apps/details?id=dsc.sastra.dsc_sastra_university\n\nVisit us at http://dsc.sastratbi.in/\n\n*Follow us on:*\n\nInstagram\nhttps://www.instagram.com/dsc_sastra_university/\n\nLinkedIn\nhttps://www.linkedin.com/in/dsc-sastra/",
+                // bytes,
+                "text/plain");
+            Navigator.pop(context);
+          },
+          onCancelButtonPressed: () => Navigator.pop(context),
+        ),
+      );
+      break;
+    default:
+  }
+}
 
 /*
  List of options for Popup menu button will be defined @choices - List<String>
