@@ -132,6 +132,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     String lastShown = (prefs.getString('lastShown') ??
         DateTime.now().subtract(Duration(days: 8)).toString());
     bool rated = (prefs.getBool('rated') ?? false);
+    print("Shared Prefs Last Shown : $lastShown\t$rated");
     if (!rated) if (DateTime.parse(lastShown)
             .difference(DateTime.now())
             .inDays >=

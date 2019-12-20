@@ -97,7 +97,7 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
                           initiallyExpanded: false,
                           subtitle: Text("Click to expand"),
                           children: List.generate(
-                            12,
+                            14,
                             (i) {
                               return Container(
                                 margin: EdgeInsets.all(8),
@@ -113,7 +113,7 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
                                   child: Image.asset(
-                                      "assets/dsc/cloud(${i + 1}).jpg"),
+                                      "assets/dsc/cloud(${i}).jpg"),
                                 ),
                               );
                             },
