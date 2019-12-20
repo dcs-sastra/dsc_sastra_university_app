@@ -44,9 +44,11 @@ class TeamDisplayState extends State<TeamDisplay>
 
   @override
   Widget build(BuildContext context) {
-    double dpsize = MediaQuery.of(context).size.width < 600
+    double dpsize = MediaQuery.of(context).orientation == Orientation.portrait ?
+    MediaQuery.of(context).size.width < 600
         ? (MediaQuery.of(context).size.width - 16) / 3
-        : (MediaQuery.of(context).size.width - 16) / 5;
+        : (MediaQuery.of(context).size.width - 16) / 5
+    : (MediaQuery.of(context).size.width - 16) / 10;
 
     return SafeArea(
       child: Scaffold(
@@ -68,28 +70,6 @@ class TeamDisplayState extends State<TeamDisplay>
           // num of clusters + lead
           itemBuilder: (buildContext, i) =>
               Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .width < 600
-                    ? i == 0
-                    ? MediaQuery
-                    .of(context)
-                    .size
-                    .height / 2.5
-                    : MediaQuery
-                    .of(context)
-                    .size
-                    .height / 2.8
-                    : i == 0
-                    ? MediaQuery
-                    .of(context)
-                    .size
-                    .height / 3
-                    : MediaQuery
-                    .of(context)
-                    .size
-                    .height / 3,
                 child: i == 0 // display lead's widget
                     ? Container(
                   /* decoration: BoxDecoration(
@@ -102,7 +82,7 @@ class TeamDisplayState extends State<TeamDisplay>
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, top: 16),
+                        padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
                         child: Text(
                           "DSC Lead",
                           textAlign: TextAlign.center,
@@ -128,14 +108,18 @@ class TeamDisplayState extends State<TeamDisplay>
                 )
                     : Column( // display each cluster's widget
                   children: <Widget>[
-                    Text(
-                      clusters[i - 1],
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16,  right: 16),
+                      child: Text(
+                        clusters[i - 1],
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 12),
                     Container(
                       height: MediaQuery
                           .of(context)
