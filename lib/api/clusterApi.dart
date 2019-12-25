@@ -57,17 +57,13 @@ class ClusterApi {
     clusterGallery["App Development"].add(new ClusterGallery("https://i.postimg.cc/zfTbBv2M/IMG-20191002-155701.jpg"));
 
     clusterGallery["Web Development"] = new List();
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
-    clusterGallery["Web Development"].add(new ClusterGallery(""));
+    clusterGallery["Web Development"].add(new ClusterGallery("https://i.postimg.cc/qM2QSPKx/IMG-20190928-164334-LL.jpg"));
+    clusterGallery["Web Development"].add(new ClusterGallery("https://i.postimg.cc/W12mKhTs/IMG-20190928-164339-LL.jpg"));
+    clusterGallery["Web Development"].add(new ClusterGallery("https://i.postimg.cc/L8nkRGYW/IMG-20190928-164630.jpg"));
+    clusterGallery["Web Development"].add(new ClusterGallery("https://i.postimg.cc/90LTHBWV/IMG-20190928-170620-LL.jpg"));
+    clusterGallery["Web Development"].add(new ClusterGallery("https://i.postimg.cc/wMjy2sDr/IMG-20190928-164811.jpg"));
+    clusterGallery["Web Development"].add(new ClusterGallery("https://i.postimg.cc/635pxxT2/IMG-20190928-180651.jpg"));
+    clusterGallery["Web Development"].add(new ClusterGallery("https://i.postimg.cc/vmPcBZJL/IMG-20190928-180655-LL.jpg"));
 
 
     clusterGallery["Flutter"] = new List();
@@ -90,9 +86,18 @@ class ClusterApi {
     clusterGallery["AR/VR"].add(new ClusterGallery(""));
 
     clusterGallery["Google Cloud Platform"] = new List();
-    clusterGallery["Google Cloud Platform"].add(new ClusterGallery(""));
-    clusterGallery["Google Cloud Platform"].add(new ClusterGallery(""));
-    clusterGallery["Google Cloud Platform"].add(new ClusterGallery(""));
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/sgxFzfJR/IMG-20190809-090006-01.jpg"));
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/GpTZBMN7/IMG-20190809-090042-01.jpg"));
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/h41N7QyB/IMG-20190809-092519-02.jpg"));
+
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/3N16Mz4R/IMG-20190809-092519-01.jpg"));
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/WbpCmpCJ/IMG-20190809-104127-01.jpg"));
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/Pr6cSsnV/IMG-20190809-104202-01.jpg"));
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/wx2bB8Mx/IMG-20190809-120418-01.jpg"));
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/K8k9Q1N4/IMG-20190809-122036-01.jpg"));
+
+    clusterGallery["Google Cloud Platform"].add(new ClusterGallery("https://i.postimg.cc/TPntMBB6/IMG-20190809-WA0031-01.jpg"));
+
 
     clusterGallery["Machine Learning"] = new List();
     clusterGallery["Machine Learning"].add(new ClusterGallery("https://i.postimg.cc/HL5rvnQz/DSC-7012.jpg"));
@@ -108,67 +113,32 @@ class ClusterApi {
     clusterGallery["Machine Learning"].add(new ClusterGallery("https://i.postimg.cc/HL5t0pjD/DSC-7219.jpg"));
     clusterGallery["Machine Learning"].add(new ClusterGallery("https://i.postimg.cc/zvPWZM3F/DSC-7175-JPG.jpg"));
     clusterGallery["Machine Learning"].add(new ClusterGallery("https://i.postimg.cc/448p9KwH/DSC-7290-JPG.jpg"));
-    clusterGallery["Machine Learning"].add(new ClusterGallery(""));
 
-    clusterGallery["Machine Learning"].add(new ClusterGallery(""));
-    clusterGallery["Machine Learning"].add(new ClusterGallery(""));
-    clusterGallery["Machine Learning"].add(new ClusterGallery(""));
-    clusterGallery["Machine Learning"].add(new ClusterGallery(""));
-    clusterGallery["Machine Learning"].add(new ClusterGallery(""));
-    clusterGallery["Machine Learning"].add(new ClusterGallery(""));
-    clusterGallery["Machine Learning"].add(new ClusterGallery(""));
 
-    clusterGallery[""] = new List();
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
+    clusterGallery["Event Coverage"] = new List();
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/448p9KwH/DSC-7290-JPG.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/GtHH0n93/DSC-4580.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/3xgWQBrG/DSC-4582.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/q7wRzv3M/DSC-4583.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/d0f2SFq6/DSC-4625-JPG.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/qBysQWWc/DSC-4660-JPG.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/nc1vfBFC/DSC-4661-JPG.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/zBffWYCw/DSC-4590.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/P59GKsnz/DSC-4663.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/GhTxYZz1/DSC-4666.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/L8dBVN0g/DSC-4671.jpg"));
+    clusterGallery["Event Coverage"].add(new ClusterGallery("https://i.postimg.cc/C53DmxJp/DSC-4695.jpg"));
 
-    clusterGallery[""] = new List();
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
+    
 
-    clusterGallery[""] = new List();
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
+    clusterGallery["Content writing"] = new List();
+    
 
-    clusterGallery[""] = new List();
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
+    clusterGallery["Marketing"] = new List();
+
+
+    clusterGallery["Graphic Designing"] = new List();
+
 
     clusterGallery[""] = new List();
     clusterGallery[""].add(new ClusterGallery(""));

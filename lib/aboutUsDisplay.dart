@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -113,12 +114,16 @@ class AboutUsDisplay extends StatelessWidget {
                       child: Container(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4.0),
-                          child: Text(
+                          child: AutoSizeText(
+                          
+                            
+
                             "dsc.sastra.university@gmail.com",
                             style: TextStyle(
+                              
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                                fontSize: 14),
                           ),
                         ),
                       ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:after_layout/after_layout.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/drawer.dart';
@@ -335,7 +337,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 ),
 
                 Container(
-                  height: screenHeight * 0.75,
+                  height:screenHeight > screenWidth ? screenHeight * 0.75 :  screenWidth * 1.25,
                   child: GridView.count(
                     crossAxisCount: 3,
                     physics: NeverScrollableScrollPhysics(),
