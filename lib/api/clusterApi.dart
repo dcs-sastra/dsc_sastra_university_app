@@ -213,11 +213,6 @@ class ClusterApi {
       clusterGallery["Flutter"].add(ClusterGallery(flutter[i]));
     }
 
-    clusterGallery["AR/VR"] = new List();
-    clusterGallery["AR/VR"].add(new ClusterGallery(""));
-    clusterGallery["AR/VR"].add(new ClusterGallery(""));
-    clusterGallery["AR/VR"].add(new ClusterGallery(""));
-
     clusterGallery["Google Cloud Platform"] = new List();
 
     for (int i = 0; i < gcp.length; i++) {
@@ -239,44 +234,7 @@ class ClusterApi {
 
     clusterGallery["Graphic Designing"] = new List();
 
-    clusterGallery[""] = new List();
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-
-    clusterGallery[""] = new List();
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-
-    clusterGallery[""] = new List();
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
-    clusterGallery[""].add(new ClusterGallery(""));
+    clusterGallery["AR/VR"] = new List();
 
     return clusterGallery;
   }

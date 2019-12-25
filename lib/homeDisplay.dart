@@ -338,7 +338,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 ),
 
                 Container(
-                  height:screenHeight > screenWidth ? screenHeight * 0.75 :  screenWidth * 1.25,
+                  height: screenHeight > screenWidth
+                      ? screenHeight * 0.75
+                      : screenWidth * 1.25,
                   child: GridView.count(
                     crossAxisCount: 3,
                     physics: NeverScrollableScrollPhysics(),
