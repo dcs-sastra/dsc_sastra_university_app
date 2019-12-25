@@ -46,9 +46,7 @@ class ClusterApi {
 
   static getClusterGallery() {
     List<String> MachineLearing = [
-      'https://i.postimg.cc/V6NZqJrG/Whats-App-Image-2019-04-09-at-6-07-18-PM.jpg',
-      'https://i.postimg.cc/Th8XNVnY/DSC-7082-JPG.jpg ',
-      'https://i.postimg.cc/ZYLNpwFq/IMG-20190929-153629-LL.jpg ',
+      'https://i.postimg.cc/ZYLNpwFq/IMG-20190929-153629-LL.jpg',
       'https://i.postimg.cc/4dQYv3c0/IMG-20190929-112427.jpg',
       'https://i.postimg.cc/C5vdt6mH/IMG-20190929-113542.jpg ',
       'https://i.postimg.cc/66z7yyt2/IMG-20190929-103630.jpg',
@@ -56,7 +54,6 @@ class ClusterApi {
       'https://i.postimg.cc/FzKHjVNf/IMG-20190929-113052.jpg',
       'https://i.postimg.cc/NGNMQSkR/IMG-20190929-133809.jpg',
       'https://i.postimg.cc/9Frf0bLK/IMG-20190929-102851.jpg',
-      'https://i.postimg.cc/BQknKFy6/IMG-20190929-112915.jpg',
       'https://i.postimg.cc/6QLWgmQ2/IMG-20190929-112921.jpg',
       'https://i.postimg.cc/kGRk32y1/IMG-20190929-133953.jpg',
       'https://i.postimg.cc/F1tw9hW9/IMG-20190929-112413.jpg',
@@ -67,6 +64,20 @@ class ClusterApi {
       'https://i.postimg.cc/T1CMJzCG/IMG-20190929-113809.jpg ',
       "https://i.postimg.cc/zfZhr6Fq/IMG-20191002-144600.jpg",
       "https://i.postimg.cc/YqTG6ZVQ/IMG-20191002-144620.jpg",
+      'https://i.postimg.cc/V6NZqJrG/Whats-App-Image-2019-04-09-at-6-07-18-PM.jpg',
+      'https://i.postimg.cc/Th8XNVnY/DSC-7082-JPG.jpg ',
+      'https://i.postimg.cc/HL5rvnQz/DSC-7012.jpg',
+      'https://i.postimg.cc/W1qztzfV/DSC-7015.jpg',
+      'https://i.postimg.cc/wvwgwYbF/DSC-7030.jpg',
+      'https://i.postimg.cc/Zn0ZgsGm/DSC-7037.jpg',
+      'https://i.postimg.cc/6pB0Vsny/MG-0679.jpg'
+       'https://i.postimg.cc/fTtDfF7j/DSC-7060.jpg'
+       'https://i.postimg.cc/kXmPW449/DSC-7198.jpg',
+       'https://i.postimg.cc/3NMjdz3r/MG-0712.jpg',
+       'https://i.postimg.cc/W19RRw7b/Whats-App-Image-2019-04-09-at-6-07-23-PM.jpg',
+       'https://i.postimg.cc/HL5t0pjD/DSC-7219.jpg',
+       'https://i.postimg.cc/zvPWZM3F/DSC-7175-JPG.jpg',
+       'https://i.postimg.cc/448p9KwH/DSC-7290-JPG.jpg',
     ];
     List<String> gcp = [
       'https://i.postimg.cc/sgxFzfJR/IMG-20190809-090006-01.jpg',
