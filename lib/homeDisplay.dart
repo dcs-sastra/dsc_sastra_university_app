@@ -338,7 +338,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 ),
 
                 Container(
-                  height:screenHeight > screenWidth ? screenHeight * 0.75 :  screenWidth * 1.25,
+                  height: screenHeight > screenWidth
+                      ? screenHeight * 0.75
+                      : screenWidth * 1.25,
                   child: GridView.count(
                     crossAxisCount: 3,
                     physics: NeverScrollableScrollPhysics(),
@@ -437,150 +439,234 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     );
   }
 
-  Drawer buildDrawer() {
-    print("Screen Height : ${(screenWidth / screenHeight)}}");
+  Widget buildDrawer() {
+    print("Height: ${(screenHeight)}");
+    // Color c = Colors.black;
+    // if (screenHeight.floor() == 1224) {
+    //   c = Colors.blue;
+    // }
+
+    // if (screenHeight.floor() == 533) {
+    //   c = Colors.red;
+    // }
+
+    // if (screenHeight.floor() == 683) {
+    //   c = Colors.amber;
+    // }
+
+    // if (screenHeight.floor() == 756) {
+    //   c = Colors.teal;
+    // }
+
     return Drawer(
-      child: Container(
-        color: Colors.white,
-        height: screenHeight,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  // margin: const EdgeInsets.symmetric(
-                  //   vertical: 16,
-                  //   horizontal: 8,
+      child: screenHeight < 560
+          ? SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      // margin: const EdgeInsets.symmetric(
+                      //   vertical: 16,
+                      //   horizontal: 8,
+                      // ),
+                      decoration: BoxDecoration(
+                        // color: Colors.transparent,
+
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Image.asset(
+                        "assets/dscsastra.png",
+                        // height: w * 0.05,
+                        // width: w * 0.5,
+                      ),
+                    ),
+                    height: screenHeight * 0.18,
+                    padding: const EdgeInsets.all(16.0),
+                    width: double.infinity,
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/backgroud.jpg"),
+                        fit: BoxFit.fill,
+                        colorFilter:
+                            ColorFilter.mode(Colors.black54, BlendMode.srcATop),
+                      ),
+                    ),
+                  ),
+                  // Text(
+                  //   "Developers Student Club",
+                  //   style: TextStyle(
+                  //       fontSize: 24,
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.w500),
+                  // )
+                  // Column(
+                  //   mainAxisSize: MainAxisSize.min,
+                  //   children: drawerItems,
                   // ),
+                  ...drawerItems,
+                  screenWidth / screenHeight > 0.5
+                      ? buildConnect()
+                      : Container()
+                ],
+              ),
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    // margin: const EdgeInsets.symmetric(
+                    //   vertical: 16,
+                    //   horizontal: 8,
+                    // ),
+                    decoration: BoxDecoration(
+                      // color: Colors.transparent,
+
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Image.asset(
+                      "assets/dscsastra.png",
+                      // height: w * 0.05,
+                      // width: w * 0.5,
+                    ),
+                  ),
+                  height: screenHeight * 0.18,
+                  padding: const EdgeInsets.all(16.0),
+                  width: double.infinity,
+                  alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                    // color: Colors.transparent,
-
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Image.asset(
-                    "assets/dscsastra.png",
-                    // height: w * 0.05,
-                    // width: w * 0.5,
+                    image: DecorationImage(
+                      image: AssetImage("assets/backgroud.jpg"),
+                      fit: BoxFit.fill,
+                      colorFilter:
+                          ColorFilter.mode(Colors.black54, BlendMode.srcATop),
+                    ),
                   ),
                 ),
-                height: screenHeight * 0.18,
-                padding: const EdgeInsets.all(16.0),
-                width: double.infinity,
-                alignment: Alignment.bottomCenter,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/backgroud.jpg"),
-                    fit: BoxFit.fill,
-                    colorFilter:
-                        ColorFilter.mode(Colors.black54, BlendMode.srcATop),
+                // Text(
+                //   "Developers Student Club",
+                //   style: TextStyle(
+                //       fontSize: 24,
+                //       color: Colors.white,
+                //       fontWeight: FontWeight.w500),
+                // )
+                // Column(
+                //   mainAxisSize: MainAxisSize.min,
+                //   children: drawerItems,
+                // ),
+                ...drawerItems,
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.bottomCenter,
+                    child: buildConnect(),
                   ),
-                ),
-              ),
-              // Text(
-              //   "Developers Student Club",
-              //   style: TextStyle(
-              //       fontSize: 24,
-              //       color: Colors.white,
-              //       fontWeight: FontWeight.w500),
-              // )
-              // Column(
-              //   mainAxisSize: MainAxisSize.min,
-              //   children: drawerItems,
-              // ),
-              ...drawerItems,
-              Container(
-                // color: (screenWidth / screenHeight) > 0.6
-                //     ? Colors.red
-                //     : ((screenWidth / screenHeight) < 0.6
-                //         ? Colors.blue
-                //         : Colors.green),
-                height: screenHeight *
-                    (screenWidth < 360
-                        ? 0.05
-                        : (screenWidth / screenHeight) < 0.6 ? 0.25 : 0.15),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    color: Colors.black45,
-                    height: 2,
-                    width: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5, left: 5),
-                    child: Text("Connect",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        )),
-                  ),
-                  Container(
-                    color: Colors.black45,
-                    height: 2,
-                    width: 30,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      launchURL(dscSASTRALinkedInURL);
-                    },
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      // color: Colors.green,
-                      child: SvgPicture.asset(
-                        "assets/linkedin.svg",
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      launchURL(dscSASTRAMediumURL);
-                    },
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      child: SvgPicture.asset(
-                        "assets/medium.svg",
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
+                )
+              ],
+            ),
+    );
+  }
 
-                  GestureDetector(
-                    onTap: () {
-                      launchURL(dscSASTRAInstaURL);
-                    },
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      child: SvgPicture.asset(
-                        "assets/instagram.svg",
-                        // color: Colors.redAccent,
-                      ),
-                    ),
-                  ),
-                  // Image.asset("assets/logo.png")
-                ],
-              ),
-              Container(height: screenHeight * 0.05),
-            ],
-          ),
+  Column buildConnect() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              color: Colors.black45,
+              height: 2,
+              width: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 5, left: 5),
+              child: Text("Connect",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  )),
+            ),
+            Container(
+              color: Colors.black45,
+              height: 2,
+              width: 30,
+            ),
+          ],
         ),
-      ),
+        SizedBox(
+          height: 16,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            GestureDetector(
+              onTap: () {
+                launchURL(dscSASTRALinkedInURL);
+              },
+              child: Container(
+                height: 40,
+                width: 40,
+                // color: Colors.green,
+                child: SvgPicture.asset(
+                  "assets/linkedin.svg",
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                launchURL(dscSASTRAMediumURL);
+              },
+              child: Container(
+                height: 40,
+                width: 40,
+                child: SvgPicture.asset(
+                  "assets/medium.svg",
+                  color: Colors.black,
+                ),
+              ),
+            ),
+
+            GestureDetector(
+              onTap: () {
+                launchURL(dscSASTRAInstaURL);
+              },
+              child: Container(
+                height: 40,
+                width: 40,
+                child: SvgPicture.asset(
+                  "assets/instagram.svg",
+                  // color: Colors.redAccent,
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                launchURL("https://twitter.com/dsc_sastra");
+              },
+              child: Container(
+                height: 40,
+                width: 40,
+                child: Image.asset(
+                  "assets/twitter.png",
+                  // color: Colors.redAccent,
+                ),
+              ),
+            ),
+            // Image.asset("assets/logo.png")
+          ],
+        ),
+        Container(height: screenHeight * 0.05),
+      ],
     );
   }
 }

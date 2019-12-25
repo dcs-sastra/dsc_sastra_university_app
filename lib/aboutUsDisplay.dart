@@ -73,17 +73,13 @@ class AboutUsDisplay extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(
                   top: 0, bottom: 8.0, left: 16, right: 16),
               child: Text(
                 aboutUsDSCSubline2,
                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                  letterSpacing: 0.5
-                ),
+                    color: Colors.black, fontSize: 14, letterSpacing: 0.5),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -135,12 +131,8 @@ class AboutUsDisplay extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4.0),
                           child: AutoSizeText(
-                          
-                            
-
                             "dsc.sastra.university@gmail.com",
                             style: TextStyle(
-                              
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14),
@@ -239,7 +231,6 @@ class AboutUsDisplay extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   GestureDetector(
                     onTap: () {
                       launchURL(dscSASTRAMediumURL);
@@ -262,6 +253,19 @@ class AboutUsDisplay extends StatelessWidget {
                       width: aboutUsSocialMediaIconSize,
                       child: SvgPicture.asset(
                         "assets/instagram.svg",
+                        // color: Colors.redAccent,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      launchURL("https://twitter.com/dsc_sastra");
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      child: Image.asset(
+                        "assets/twitter.png",
                         // color: Colors.redAccent,
                       ),
                     ),
