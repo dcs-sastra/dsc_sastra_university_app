@@ -57,11 +57,14 @@ class AboutUsDisplay extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             Padding(
               padding: const EdgeInsets.only(
                   top: 0, bottom: 8.0, left: 16, right: 16),
               child: Text(
-                aboutUsDSCSubline,
+                aboutUsDSCSubline1,
                 style: TextStyle(
                     color: Colors.blue,
                     fontSize: 18,
@@ -69,6 +72,23 @@ class AboutUsDisplay extends StatelessWidget {
                     letterSpacing: 0.5),
                 textAlign: TextAlign.center,
               ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 0, bottom: 8.0, left: 16, right: 16),
+              child: Text(
+                aboutUsDSCSubline2,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                  letterSpacing: 0.5
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.01,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -219,6 +239,7 @@ class AboutUsDisplay extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   GestureDetector(
                     onTap: () {
                       launchURL(dscSASTRAMediumURL);
