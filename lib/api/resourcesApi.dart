@@ -71,6 +71,28 @@ class ResourcesApi {
         "We’ve carefully curated a collection of material from many sources, including Google, that you can use to supplement your classwork or direct your own learning.");
     category.add("References");
 
+    title.add("Google Summer Of Code");
+    url.add("https://summerofcode.withgoogle.com/");
+    imageUrl.add("https://i.postimg.cc/nVS4zpcP/GSo-C-icon-192.png");
+    description.add(
+        "Google Summer of Code is a global program focused on bringing more student developers into open source software development. Students work with an open source organization on a 3 month programming project during their break from school. Spend your summer break writing code and learning about open source development while earning a stipend! Accepted students work with a mentor and become a part of the open source community. Many become lifetime open source developers! Google Summer of Code is open to university students, age 18 and older in most countries");
+    category.add("References");
+
+    title.add("Android Dev");
+    url.add("https://developer.android.com/");
+    imageUrl.add("https://i.postimg.cc/q7bCbxYv/ad-logo-twitter-card.png");
+    description.add(
+        "Whether you’re an experienced developer or creating your first Android app, here are some resources to get you started.\n\nHere you'll find a wide range of documentation that teaches you how to build an app, including how to build your first Android app, how to build layouts that adapt to different screens, how to save data in a local database, how to use device sensors and cameras, and much more.");
+    category.add("References");
+
+    title.add("Android");
+    url.add("https://www.android.com/");
+    imageUrl.add("https://i.postimg.cc/zXB1CSNf/android-logo-black-robot.png");
+    description.add(
+        "Get to know about latest android releases.");
+    category.add("References");
+
+
     title.add("Google Design");
     url.add("https://design.google/resources/");
     imageUrl.add("https://i.postimg.cc/6ptNZjPF/google-design.png");
@@ -112,6 +134,13 @@ class ResourcesApi {
     description.add(
         "Find out all the updates about Google's Product, Events and Developer Communities.");
     category.add("Community");
+
+    title.add("Google Launchpad");
+    url.add("https://developers.google.com/community/launchpad");
+    imageUrl.add("https://i.postimg.cc/ZqBVLn72/launchpad-india-720.jpg");
+    description.add(
+        "A global acceleration program that helps startups build and scale great products by matching them with the best of Google - its people, network, and advanced technologies.");
+    category.add("References");
 
     title.add("Flutter");
     url.add("https://flutter.dev/");
