@@ -121,7 +121,14 @@ class ClusterApi {
       'https://i.postimg.cc/TYrSXLbS/IMG-20191221-095529.jpg',
       'https://i.postimg.cc/DZ9C9nwn/IMG-20191221-164517.jpg',
       'https://i.postimg.cc/rwDrrW9Z/IMG20191221164533.jpg',
-      'https://i.postimg.cc/m2DcvMKZ/IMG-20191221-095952.jpg'
+      'https://i.postimg.cc/m2DcvMKZ/IMG-20191221-095952.jpg',
+      'https://i.postimg.cc/Wz90XYNS/DSC-4718.jpg',
+      'https://i.postimg.cc/mrQM0gZP/DSC-4723.jpg',
+      'https://i.postimg.cc/TwfmGvhC/DSC-4725.jpg',
+      'https://i.postimg.cc/QdVZ4Fbq/IMG20190929121634.jpg',
+      'https://i.postimg.cc/W1KLQsYc/IMG20190929113731.jpg',
+      'https://i.postimg.cc/63xspYNH/IMG20190929162701.jpg',
+      'https://i.postimg.cc/8cTqhccM/IMG20190929113457.jpg'
     ];
     List<String> eventCoverage = [
       'https://i.postimg.cc/9M175Bpb/DSC-4568.jpg',
@@ -146,7 +153,11 @@ class ClusterApi {
       'https://i.postimg.cc/SKbqL29f/IMG-20190824-WA0046.jpg',
       'https://i.postimg.cc/7ZgjkBCS/Whats-App-Image-2019-09-24-at-12-10-28-AM-1.jpg',
       'https://i.postimg.cc/gjCB9RmM/Whats-App-Image-2019-09-24-at-12-10-28-AM.jpg',
-      'https://i.postimg.cc/pXQgNG5z/IMG-20191008-203140.jpg '
+      'https://i.postimg.cc/pXQgNG5z/IMG-20191008-203140.jpg',
+      'https://i.postimg.cc/7ZgjkBCS/Whats-App-Image-2019-09-24-at-12-10-28-AM-1.jpg',
+      'https://i.postimg.cc/gjCB9RmM/Whats-App-Image-2019-09-24-at-12-10-28-AM.jpg',
+      'https://i.postimg.cc/KjG8PKdH/IMG-20190824-WA0035.jpg',
+      'https://i.postimg.cc/QNmtXb7G/IMG-20190824-WA0037.jpg'
     ];
 
     Map<String, List<ClusterGallery>> clusterGallery = new Map();

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:after_layout/after_layout.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/drawer.dart';
@@ -407,7 +405,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           ClusterDisplay(
                               "Event Coverage",
                               aboutCluster.eventCoverage,
-                              "assets/eventsStudents.jpg"),
+                              "assets/event_coverage.jpg"),
                           0xff4285F4,
                           "assets/icons/article.svg"),
                       displaySVGClusterIcon(
@@ -415,7 +413,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           ClusterDisplay(
                               "Content writing",
                               aboutCluster.contentWriting,
-                              "assets/eventsStudents.jpg"),
+                              "assets/content_writing.jpg"),
                           0xff0F9D58,
                           "assets/icons/pen.svg"),
                     ],
