@@ -113,8 +113,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   int c = 0;
   double screenWidth, screenHeight;
 
-  List<Widget> recents = [];
-  List<Widget> upcomingEvents = [];
+  List<Widget> recents = new List();
+  List<Widget> upcomingEvents = new List();
 
   bool isLoaded = false;
 
@@ -156,6 +156,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       else
         recents.add(widget);
     }
+
+    upcomingEvents = upcomingEvents.reversed.toList();
+
     setState(() {
       isLoaded = true;
     });
