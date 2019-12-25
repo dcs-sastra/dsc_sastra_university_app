@@ -187,7 +187,7 @@ class ClusterApi {
         "https://i.postimg.cc/vmPcBZJL/IMG-20190928-180655-LL.jpg"));
 
     clusterGallery["Flutter"] = new List();
-    for (int i = 0; i < MachineLearing.length; i++) {
+    for (int i = 0; i < flutter.length; i++) {
       clusterGallery["Flutter"].add(ClusterGallery(flutter[i]));
     }
 
@@ -198,7 +198,7 @@ class ClusterApi {
 
     clusterGallery["Google Cloud Platform"] = new List();
 
-    for (int i = 0; i < MachineLearing.length; i++) {
+    for (int i = 0; i < gcp.length; i++) {
       clusterGallery["Google Cloud Platform"].add(ClusterGallery(gcp[i]));
     }
 
@@ -207,7 +207,7 @@ class ClusterApi {
       clusterGallery["Machine Learning"].add(ClusterGallery(MachineLearing[i]));
     }
     clusterGallery["Event Coverage"] = new List();
-    for (int i = 0; i < MachineLearing.length; i++) {
+    for (int i = 0; i < eventCoverage.length; i++) {
       clusterGallery["Event Coverage"].add(ClusterGallery(eventCoverage[i]));
     }
 
