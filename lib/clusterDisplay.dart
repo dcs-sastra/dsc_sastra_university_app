@@ -1,9 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:dsc_sastra_university/widgets/cluster.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'api/clusterApi.dart';
 
 class ClusterDisplay extends StatefulWidget {
   String clubName, about, background;
@@ -20,9 +19,15 @@ class ClusterDisplay extends StatefulWidget {
 class _ClusterDisplayState extends State<ClusterDisplay> {
   Color color = Colors.white;
   ScrollController scrollController = ScrollController();
+  List<ClusterGallery> clusterGallery;
 
   @override
   void initState() {
+
+    clusterGallery = ClusterApi.getClusterGallery()[widget.clubName];
+    print("Gallery len");
+    print(clusterGallery.length);
+
     scrollController.addListener(() {
       setState(() {
         color = Color.lerp(
@@ -97,7 +102,7 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
                           initiallyExpanded: false,
                           subtitle: Text("Click to expand"),
                           children: List.generate(
-                            14,
+                            clusterGallery.length,
                             (i) {
                               return Container(
                                 margin: EdgeInsets.all(8),
@@ -112,8 +117,11 @@ class _ClusterDisplayState extends State<ClusterDisplay> {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
-                                  child: Image.asset(
-                                      "assets/dsc/cloud(${i}).jpg"),
+                                  child: Image(
+                                    image: CachedNetworkImageProvider(
+                                        clusterGallery[i].url
+                                    ),
+                                  )
                                 ),
                               );
                             },

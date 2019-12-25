@@ -1,17 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:after_layout/after_layout.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:dsc_sastra_university/utility/utils.dart';
 import 'package:dsc_sastra_university/widgets/drawer.dart';
 import 'package:dsc_sastra_university/widgets/home.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -362,7 +354,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           Cluster("assets/icons/android-logo.svg", 0xff0F9D58)),
                       displayClusterIcon(
                           context,
-                          ClusterDisplay("Web Devlopment", aboutCluster.web,
+                          ClusterDisplay("Web Development", aboutCluster.web,
                               "assets/clusterBackground/wedy.jpg"),
                           Cluster("assets/icons/webdy.svg", 0xffDB4437)),
                       displaySVGClusterIcon(
@@ -373,7 +365,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           "assets/icons/flutter.svg"),
                       displaySVGClusterIcon(
                           context,
-                          ClusterDisplay("Augmented Reality", aboutCluster.ar,
+                          ClusterDisplay("AR/VR", aboutCluster.ar,
                               "assets/clusterBackground/vrBackground.jpeg"),
                           0xffF4B400,
                           "assets/icons/vr.svg"),
