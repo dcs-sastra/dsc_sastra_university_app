@@ -1,1 +1,0 @@
-{"_info":"// This is a generated file; do not edit or check into version control.","dependencyGraph":[{"name":"esys_flutter_share","dependencies":["path_provider"]},{"name":"image_picker","dependencies":[]},{"name":"path_provider","dependencies":[]},{"name":"sqflite","dependencies":[]},{"name":"url_launcher","dependencies":[]}]}
