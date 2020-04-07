@@ -1,4 +1,4 @@
-package com.dsc.app
+package com.dsc.app.test
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
