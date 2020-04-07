@@ -3,8 +3,8 @@ import 'package:app/constants.dart';
 
 import '../../event/event.dart';
 
-class UpcomingEventCard extends StatelessWidget {
-  const UpcomingEventCard({
+class EventCard extends StatelessWidget {
+  const EventCard({
     Key key,
     @required this.title,
     @required this.imageUrl,
@@ -17,7 +17,15 @@ class UpcomingEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (_) => Event()));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => Event(
+              title: title,
+              docId: docId,
+              image: imageUrl,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: edgeInsets24Horizontal.copyWith(bottom: 24),
@@ -41,13 +49,15 @@ class UpcomingEventCard extends StatelessWidget {
                     colorBlendMode: BlendMode.multiply,
                   ),
                 ),
-                Positioned(
-                  bottom: 24,
-                  left: 24,
-                  child: Text(
-                    title,
-                    style: textStyleSize24Bold.copyWith(
-                      color: Colors.white,
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Text(
+                      title,
+                      style: textStyleSize24Bold.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

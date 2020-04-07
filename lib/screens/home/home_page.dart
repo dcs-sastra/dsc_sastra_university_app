@@ -1,162 +1,69 @@
+import 'package:app/screens/home/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/constants.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'widgets/upcoming_event_card.dart';
+import 'widgets/cluster_buttons.dart';
 
 class HomePage extends StatelessWidget {
+  double widthBy3;
+  Color color, inverseColor;
+
   @override
   Widget build(BuildContext context) {
-    double widthBy3 = MediaQuery.of(context).size.width / 3;
+    widthBy3 = MediaQuery.of(context).size.width / 3;
+    color = getColor(context);
+    inverseColor = getInverseColor(context);
     return Scaffold(
       drawer: buildDrawer(),
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: SingleChildScrollView(
+        controller: ScrollController(initialScrollOffset: 400),
+        physics: BouncingScrollPhysics(),
         child: Column(
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 size24Box,
-                Padding(
-                  padding: edgeInsets24Horizontal,
-                  child: Text(
-                    'Upcoming Events',
-                    style: textStyleSize24Bold,
-                  ),
-                ),
-                size24Box,
-                Container(
-                  height: 256,
-                  child: PageView(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      UpcomingEventCard(
-                        title: 'Basics of Photoshop',
-                        imageUrl: 'assets/temp.jpg',
-                        docId: '',
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: edgeInsets24Horizontal,
-                  child: Text(
-                    'Recent',
-                    style: textStyleSize24Bold,
-                  ),
-                ),
+                buildTitle(context, 'News'),
                 size24Box,
                 Container(
                   height: 128,
-                  child: PageView(
+                  child: ListView(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
-                      UpcomingEventCard(
-                        title: 'Basics of Flutter',
-                        imageUrl: 'assets/temp.jpg',
-                        docId: '',
+                      const SizedBox(width: 16),
+                      NewsCard(
+                        title: 'COVID 19 - Coronavirus Awarness',
                       ),
+                      NewsCard(
+                        title: 'COVID 19 - Coronavirus Awarness',
+                      ),
+                      const SizedBox(width: 16),
                     ],
                   ),
                 ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
+                size24Box,
+                buildTitle(context, 'Upcoming Events'),
+                size24Box,
+                buildUpcomingEvents(),
+                buildTitle(context, 'Recent'),
+                size24Box,
+                buildRecents(),
+                Padding(
+                  padding: edgeInsets24Horizontal,
+                  child: Text(
+                    'Clusters',
+                    style: textStyleSize24Bold.copyWith(
+                      color: getColor(context),
+                    ),
                   ),
                 ),
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                ),
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                ),
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                ),
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                ),
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                ),
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Container(
-                  height: widthBy3,
-                  width: widthBy3,
-                  padding: const EdgeInsets.all(24),
-                  child: Container(
-                    color: Colors.black,
-                  ),
-                ),
+                size24Box,
+                buildClusters(context),
               ],
             ),
           ],
@@ -165,8 +72,111 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  AppBar buildAppBar() {
+  Container buildRecents() {
+    return Container(
+      height: 128,
+      child: PageView(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          EventCard(
+            title: 'Basics of Flutter',
+            imageUrl: 'assets/temp.jpg',
+            docId: '',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding buildRecentButton(BuildContext context) {
+    return Padding(
+      padding: edgeInsets24Horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            'Recent',
+            style: textStyleSize24Bold.copyWith(
+              color: getColor(context),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.arrow_forward),
+            onPressed: () {},
+            color: getColor(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildUpcomingEvents() {
+    return Container(
+      height: 196,
+      child: PageView(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          EventCard(
+            title: 'Basics of Photoshop and Flutter',
+            imageUrl: 'assets/temp.jpg',
+            docId: '',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding buildTitle(
+    BuildContext context,
+    String title,
+  ) {
+    return Padding(
+      padding: edgeInsets24Horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            title,
+            style: textStyleSize24Bold.copyWith(
+              color: getColor(context),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.arrow_forward),
+            onPressed: () {},
+            color: getColor(context),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Theme.of(context).brightness == Brightness.light
+          ? Colors.white
+          : Theme.of(context).primaryColorDark,
+      textTheme: Theme.of(context).brightness == Brightness.light
+          ? Theme.of(context)
+              .copyWith(
+                primaryColor: Colors.white,
+                primaryColorBrightness: Brightness.light,
+              )
+              .textTheme
+          : Theme.of(context).textTheme.copyWith(
+                title: Theme.of(context).textTheme.title.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+      iconTheme: Theme.of(context).brightness == Brightness.light
+          ? Theme.of(context)
+              .copyWith(
+                  primaryColor: Colors.white,
+                  primaryColorBrightness: Brightness.light)
+              .iconTheme
+          : Theme.of(context).iconTheme,
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -189,8 +199,202 @@ class HomePage extends StatelessWidget {
   }
 
   Drawer buildDrawer() {
+    const divider = Divider(
+      height: 2,
+      color: Colors.black,
+    );
     return Drawer(
-      child: Container(),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            size24Box,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                size24Box,
+                ClipOval(
+                  child: Image.asset(
+                    'assets/avatar.jpg',
+                    width: 64,
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: edgeInsets24Horizontal,
+                      child: Text(
+                        'Seshan',
+                        style: textStyleSize24Bold.copyWith(
+                          color: color,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: edgeInsets24Horizontal,
+                      child: Text(
+                        '121003255',
+                        style: textStyle18.copyWith(
+                          fontWeight: FontWeight.normal,
+                          color: color,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            size24Box,
+            divider,
+            size24Box,
+            buildDrawerItem(
+              title: 'Home',
+              icon: Icons.home,
+              isHome: true,
+            ),
+            buildDrawerItem(icon: Icons.calendar_today, title: 'Events'),
+            buildDrawerItem(icon: Icons.people, title: 'Team'),
+            buildDrawerItem(icon: Icons.book, title: 'Resources'),
+            buildDrawerItem(icon: Icons.book, title: 'About Us'),
+            Spacer(),
+            buildConnectText(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: SvgPicture.asset(
+                      'assets/li.svg',
+                      height: 32,
+                      width: 32,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: SvgPicture.asset(
+                      'assets/med.svg',
+                      color: color,
+                      height: 32,
+                      width: 32,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: SvgPicture.asset(
+                      'assets/ig.svg',
+                      height: 32,
+                      width: 32,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: SvgPicture.asset(
+                      'assets/twit.svg',
+                      height: 32,
+                      width: 32,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Row buildConnectText() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          width: 64,
+          height: 2,
+          color: color,
+        ),
+        size24Box,
+        Text(
+          'Connect',
+          style: textStyle18.copyWith(
+            color: color,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        size24Box,
+        Container(
+          width: 64,
+          height: 2,
+          color: color,
+        ),
+      ],
+    );
+  }
+
+  Widget buildDrawerItem({
+    @required IconData icon,
+    @required String title,
+    bool isHome = false,
+  }) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 16),
+        margin: EdgeInsets.only(right: 32, top: 8, bottom: 8),
+        decoration: BoxDecoration(
+          color:
+              isHome ? Colors.blue.withOpacity(0.2) : color.withOpacity(0.025),
+          borderRadius: BorderRadius.horizontal(right: Radius.circular(64)),
+        ),
+        child: Row(
+          children: <Widget>[
+            size24Box,
+            Icon(
+              icon,
+              color: isHome ? Colors.blue : color,
+            ),
+            size24Box,
+            Text(
+              title,
+              style: textStyle18.copyWith(
+                fontWeight: isHome ? FontWeight.bold : FontWeight.normal,
+                color: isHome ? Colors.blue : color,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildClusters(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return Container(
+      width: width,
+      height: (width / 3) * (clusters.length / 3).ceil(),
+      padding: edgeInsets24Horizontal,
+      child: GridView.count(
+        physics: NeverScrollableScrollPhysics(),
+        crossAxisSpacing: 24,
+        mainAxisSpacing: 24,
+        crossAxisCount: 3,
+        childAspectRatio: 1,
+        children: clusters.map((f) => ClusterIconButton(f)).toList(),
+      ),
     );
   }
 }

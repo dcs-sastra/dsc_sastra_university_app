@@ -1,3 +1,4 @@
+import 'package:app/screens/landing/landing.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,13 +13,11 @@ class MyApp extends StatelessWidget {
       title: 'DSC Sastra University',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.white,
-        // textTheme: GoogleFonts.montserratTextTheme(),
-        // textTheme: GoogleFonts.robotoTextTheme(),
+        // brightness: Brightness.dark,
         textTheme: GoogleFonts.ubuntuTextTheme(),
       ),
       routes: {
-        '/': (_) => HomePage(),
+        '/': (_) => Landing(),
       },
     );
   }

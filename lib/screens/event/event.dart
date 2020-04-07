@@ -2,10 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 
 class Event extends StatelessWidget {
+  final String title, image, docId;
+
+  Event({
+    Key key,
+    @required this.title,
+    @required this.image,
+    @required this.docId,
+  }) : super(key: key);
+
+  Color color, inverseColor;
   @override
   Widget build(BuildContext context) {
+    color = getColor(context);
+    inverseColor = getInverseColor(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: inverseColor,
+        textTheme: Theme.of(context).textTheme.copyWith(
+              title: Theme.of(context).textTheme.title.copyWith(
+                    color: color,
+                  ),
+            ),
+        iconTheme: Theme.of(context).iconTheme.copyWith(
+              color: color,
+            ),
         title: Text('Flutter Workshop'),
         actions: <Widget>[
           IconButton(
@@ -19,6 +40,7 @@ class Event extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             buildDateTimeVenu(
+              context,
               date: '25 April 2020',
               venue: 'CTV 108',
               time: '9 AM',
@@ -28,16 +50,16 @@ class Event extends StatelessWidget {
             size24Box,
             buildDescription(),
             size24Box,
-            buildPoster(),
+            buildPoster(title),
             size24Box,
             buildRegister(),
             size24Box,
             Padding(
               padding: edgeInsets24Horizontal,
-              child: Text(
-                'Speakers',
-                style: textStyleSize24Bold,
-              ),
+              child: Text('Speakers',
+                  style: textStyleSize24Bold.copyWith(
+                    color: color,
+                  )),
             ),
             size24Box,
             SingleChildScrollView(
@@ -58,6 +80,7 @@ class Event extends StatelessWidget {
                         'Seshan',
                         style: TextStyle(
                           fontSize: 18,
+                          color: color,
                         ),
                       )
                     ],
@@ -102,7 +125,7 @@ class Event extends StatelessWidget {
     );
   }
 
-  Padding buildPoster() {
+  Padding buildPoster(String tag) {
     return Padding(
       padding: edgeInsets24Horizontal,
       child: Card(
@@ -110,7 +133,7 @@ class Event extends StatelessWidget {
         child: ClipRRect(
           borderRadius: borderRadius8,
           child: Hero(
-            tag: 'Basics of Photoshop',
+            tag: tag,
             child: Image.asset('assets/temp.jpg'),
           ),
         ),
@@ -123,11 +146,10 @@ class Event extends StatelessWidget {
       padding: edgeInsets24Horizontal,
       child: Text(
         'In this quarantine pause your boredom and let the colours swirl around while designs dance with imagination as limit and let the esthetic part of your brain enjoy with the mindstruck graphics popping on your laptops. Register using your SASTRA Mail ID. We will be hosting this session on Google Meet platform, make sure you have it ready.',
-        strutStyle: StrutStyle(
-          height: 1.5,
-        ),
         style: TextStyle(
-          letterSpacing: 0.5,
+          color: color,
+          wordSpacing: 1.5,
+          height: 1.5,
           fontSize: 18,
         ),
       ),
@@ -139,17 +161,21 @@ class Event extends StatelessWidget {
       padding: edgeInsets24Horizontal,
       child: Text(
         'Basics of Photoshop',
-        style: textStyleSize24Bold,
+        style: textStyleSize24Bold.copyWith(color: color),
       ),
     );
   }
 
-  Padding buildDateTimeVenu({String time, String date, String venue}) {
+  Padding buildDateTimeVenu(BuildContext context,
+      {String time, String date, String venue}) {
+    print(Theme.of(context).brightness);
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Card(
         shape: roundedRectangleBorder8,
-        color: Colors.blue,
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.blue
+            : Colors.blueGrey,
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
@@ -165,7 +191,7 @@ class Event extends StatelessWidget {
                     size24Box,
                     Text(
                       date,
-                      style: textStyle18White,
+                      style: textStyle18.copyWith(color: Colors.white),
                     ),
                   ],
                 ),
@@ -181,7 +207,9 @@ class Event extends StatelessWidget {
                     size24Box,
                     Text(
                       time,
-                      style: textStyle18White,
+                      style: textStyle18.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -197,7 +225,9 @@ class Event extends StatelessWidget {
                     size24Box,
                     Text(
                       venue,
-                      style: textStyle18White,
+                      style: textStyle18.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
