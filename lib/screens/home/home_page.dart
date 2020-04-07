@@ -1,4 +1,7 @@
+import 'package:after_layout/after_layout.dart';
+import 'package:app/models/user_model.dart';
 import 'package:app/screens/home/widgets/news_card.dart';
+import 'package:app/services/auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/constants.dart';
@@ -6,9 +9,30 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'widgets/upcoming_event_card.dart';
 import 'widgets/cluster_buttons.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   double widthBy3;
   Color color, inverseColor;
+
+  UserModel userModel;
+
+  @override
+  void initState() {
+    userModel = UserModel();
+    super.initState();
+  }
+
+  @override
+  Future<void> afterFirstLayout(BuildContext context) async {
+    userModel = await AuthService().getCachedUser();
+    setState(() {
+      userModel = userModel;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +43,6 @@ class HomePage extends StatelessWidget {
       drawer: buildDrawer(),
       appBar: buildAppBar(context),
       body: SingleChildScrollView(
-        controller: ScrollController(initialScrollOffset: 400),
         physics: BouncingScrollPhysics(),
         child: Column(
           children: <Widget>[
@@ -224,21 +247,31 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: edgeInsets24Horizontal,
-                      child: Text(
-                        'Seshan',
-                        style: textStyleSize24Bold.copyWith(
-                          color: color,
+                      child: Container(
+                        width: 168,
+                        child: Text(
+                          userModel.name ?? '',
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
+                          style: textStyleSize24Bold.copyWith(
+                            color: color,
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(height: 8),
                     Padding(
                       padding: edgeInsets24Horizontal,
-                      child: Text(
-                        '121003255',
-                        style: textStyle18.copyWith(
-                          fontWeight: FontWeight.normal,
-                          color: color,
+                      child: Container(
+                        width: 168,
+                        child: Text(
+                          userModel.email ?? '',
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
+                          style: textStyle18.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: color,
+                          ),
                         ),
                       ),
                     ),
@@ -257,7 +290,7 @@ class HomePage extends StatelessWidget {
             buildDrawerItem(icon: Icons.calendar_today, title: 'Events'),
             buildDrawerItem(icon: Icons.people, title: 'Team'),
             buildDrawerItem(icon: Icons.book, title: 'Resources'),
-            buildDrawerItem(icon: Icons.book, title: 'About Us'),
+            buildDrawerItem(icon: Icons.info, title: 'About Us'),
             Spacer(),
             buildConnectText(),
             Row(
