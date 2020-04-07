@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
                       UpcomingEventCard(
-                        title: 'Basics of Photoshop',
+                        title: 'Basics of Flutter',
                         imageUrl: 'assets/temp.jpg',
                         docId: '',
                       ),
