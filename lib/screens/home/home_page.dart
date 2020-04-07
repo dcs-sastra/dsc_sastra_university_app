@@ -2,6 +2,8 @@ import 'package:after_layout/after_layout.dart';
 import 'package:app/models/user_model.dart';
 import 'package:app/screens/home/widgets/news_card.dart';
 import 'package:app/services/auth.dart';
+import 'package:app/services/database/event_collection.dart';
+import 'package:app/services/database/members_collection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/constants.dart';
@@ -32,6 +34,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     setState(() {
       userModel = userModel;
     });
+    print('Yoooooooooo');
+    // MemberCollection().fetchMembers();
+    EventCollection().fetchUpcomingEvents();
   }
 
   @override
@@ -214,7 +219,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       centerTitle: true,
       actions: <Widget>[
         IconButton(
-          onPressed: () {},
+          onPressed: () async {
+            print('########');
+            await EventCollection().fetchUpcomingEvents();
+          },
           icon: Icon(Icons.more_vert),
         ),
       ],
