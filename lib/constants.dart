@@ -101,4 +101,4 @@ List<ClusterModel> clusters = [
   ),
 ];
 
-const int paginationLimit = 5;
+const int paginationLimit = 2;

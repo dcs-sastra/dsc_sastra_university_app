@@ -12,20 +12,26 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   UserModel userModel = UserModel();
+  FirebaseUser firebaseUser;
 
   @override
-  Widget build(BuildContext context) {
-    final FirebaseUser firebaseUser = ModalRoute.of(context).settings.arguments;
+  void initState() {
+    firebaseUser = ModalRoute.of(context).settings.arguments;
     userModel.name = firebaseUser.displayName;
     userModel.email = firebaseUser.email;
     userModel.phoneNumber = firebaseUser.phoneNumber;
     userModel.year = (firebaseUser.email.contains('sastra.ac.in')
             ? 4 -
                 (int.parse(firebaseUser.email.substring(1, 3)) +
-                    2000 -
+                    2000 -  
                     DateTime.now().year)
             : 0)
         .toString();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),

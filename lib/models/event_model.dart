@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class EventModel extends ModelStructure<EventModel> {
   String title, desc, venue, tag, link, img;
   DateTime dateTime;
-  List<int> speakers;
+  List<dynamic> speakers;
 
   EventModel({
     this.title,
@@ -25,10 +25,21 @@ class EventModel extends ModelStructure<EventModel> {
     link = map['link'];
     tag = map['tag'];
     desc = map['desc'];
+    title = map['title'];
   }
 
   @override
   EventModel fromDocumentSnapshot(DocumentSnapshot dss) {
     return EventModel.fromMap(dss.data);
+  }
+
+  @override
+  EventModel createInstance() {
+    return EventModel();
+  }
+
+  @override
+  String toString() {
+    return 'Title : $title';
   }
 }

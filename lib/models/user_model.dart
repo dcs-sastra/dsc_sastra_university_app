@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class UserModel {
   String name, email, phoneNumber, year;
 

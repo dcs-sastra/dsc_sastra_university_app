@@ -7,7 +7,9 @@ class EventCollection {
 
   Future<List<DocumentSnapshot>> fetchUpcomingEvents(
       {DocumentSnapshot documentSnapshot}) async {
+    print('Getting Docs');
     if (documentSnapshot == null) {
+      print('Doc Null');
       return (await _events
               .where('date', isGreaterThanOrEqualTo: Timestamp.now())
               .orderBy('date')
@@ -15,6 +17,7 @@ class EventCollection {
               .getDocuments())
           .documents;
     } else {
+      print('Last Doc $documentSnapshot');
       return (await _events
               .where('date', isGreaterThanOrEqualTo: Timestamp.now())
               .orderBy('date')

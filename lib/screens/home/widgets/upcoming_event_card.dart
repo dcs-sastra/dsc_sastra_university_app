@@ -1,4 +1,5 @@
 import 'package:app/models/event_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 
@@ -32,8 +33,11 @@ class EventCard extends StatelessWidget {
               children: <Widget>[
                 Hero(
                   tag: event.title,
-                  child: Image.asset(
-                    'assets/temp.jpg',
+                  child: CachedNetworkImage(
+                    placeholder: (_, __) => Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    imageUrl: event.img,
                     fit: BoxFit.cover,
                     height: double.maxFinite,
                     width: double.maxFinite,

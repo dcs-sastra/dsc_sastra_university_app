@@ -36,7 +36,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     setState(() {
       userModel = userModel;
     });
-    print('Yoooooooooo');
     EventCollection().fetchUpcomingEvents();
   }
 
@@ -140,6 +139,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     return Container(
       height: 196,
       child: Paginator<EventModel>(
+          instance: EventModel(),
           fetch: EventCollection().fetchUpcomingEvents,
           builder: (EventModel eventModel) {
             return EventCard(eventModel);
@@ -211,7 +211,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       actions: <Widget>[
         IconButton(
           onPressed: () async {
-            print('########');
             await EventCollection().fetchUpcomingEvents();
           },
           icon: Icon(Icons.more_vert),
