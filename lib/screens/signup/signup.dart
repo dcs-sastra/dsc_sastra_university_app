@@ -91,7 +91,7 @@ class _SignUpState extends State<SignUp> {
               size24Box,
               GestureDetector(
                 onTap: () async {
-                  if (userModel.year == 0) {
+                  if (userModel.year == '0') {
                     showDialog(
                       context: context,
                       builder: (_) => AlertDialog(

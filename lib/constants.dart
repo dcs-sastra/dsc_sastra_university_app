@@ -100,3 +100,5 @@ List<ClusterModel> clusters = [
     image: 'cw',
   ),
 ];
+
+const int paginationLimit = 5;

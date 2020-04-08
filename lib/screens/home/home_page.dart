@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:app/models/user_model.dart';
 import 'package:app/screens/home/widgets/news_card.dart';
+import 'package:app/screens/paginator.dart';
 import 'package:app/services/auth.dart';
 import 'package:app/services/database/event_collection.dart';
 import 'package:app/services/database/members_collection.dart';
@@ -35,7 +36,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       userModel = userModel;
     });
     print('Yoooooooooo');
-    // MemberCollection().fetchMembers();
     EventCollection().fetchUpcomingEvents();
   }
 
@@ -142,17 +142,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Container buildUpcomingEvents() {
     return Container(
       height: 196,
-      child: PageView(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          EventCard(
-            title: 'Basics of Photoshop and Flutter',
-            imageUrl: 'assets/temp.jpg',
-            docId: '',
-          ),
-        ],
-      ),
+      child: Paginator(fetch: EventCollection().fetchUpcomingEvents, builder: null);
     );
   }
 

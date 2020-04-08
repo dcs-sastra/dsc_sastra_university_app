@@ -1,38 +1,47 @@
-import 'package:app/models/event_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:app/constants.dart';
 
 class EventCollection {
   CollectionReference _events = Firestore.instance.collection('event');
 
-  Future<EventModel> fetchUpcomingEvents() async {
-    (await _events
-            .where(
-              'date',
-              isGreaterThanOrEqualTo: Timestamp.now(),
-            )
-            .orderBy('date')
-            .getDocuments())
-        .documents
-        .forEach(
-          (f) => print(f.data),
-        );
-
-    return null;
+  Future<List<DocumentSnapshot>> fetchUpcomingEvents(
+      {DocumentSnapshot documentSnapshot}) async {
+    if (documentSnapshot == null) {
+      return (await _events
+              .where('date', isGreaterThanOrEqualTo: Timestamp.now())
+              .orderBy('date')
+              .limit(paginationLimit)
+              .getDocuments())
+          .documents;
+    } else {
+      return (await _events
+              .where('date', isGreaterThanOrEqualTo: Timestamp.now())
+              .orderBy('date')
+              .limit(paginationLimit)
+              .startAfterDocument(documentSnapshot)
+              .getDocuments())
+          .documents;
+    }
   }
 
-  Future<EventModel> fetchRecents() async {
-    (await _events
-            .where(
-              'date',
-              isLessThanOrEqualTo: Timestamp.now(),
-            )
-            .orderBy('date')
-            .getDocuments())
-        .documents
-        .forEach(
-          (f) => print(f.data),
-        );
-
-    return null;
+  Future<List<DocumentSnapshot>> fetchRecents(
+      {DocumentSnapshot documentSnapshot}) async {
+    if (documentSnapshot == null) {
+      return (await _events
+              .where('date', isLessThan: Timestamp.now())
+              .orderBy('date')
+              .limit(paginationLimit)
+              .getDocuments())
+          .documents;
+    } else {
+      return (await _events
+              .where('date', isLessThan: Timestamp.now())
+              .orderBy('date')
+              .limit(paginationLimit)
+              .startAfterDocument(documentSnapshot)
+              .getDocuments())
+          .documents;
+    }
   }
 }

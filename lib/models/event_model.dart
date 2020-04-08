@@ -1,6 +1,7 @@
+import 'package:app/models/model_structure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EventModel {
+class EventModel extends ModelStructure<EventModel> {
   String title, desc, venue, tag, link, img;
   DateTime dateTime;
   List<int> speakers;
@@ -24,5 +25,10 @@ class EventModel {
     link = map['link'];
     tag = map['tag'];
     desc = map['desc'];
+  }
+
+  @override
+  EventModel fromDocumentSnapshot(DocumentSnapshot dss) {
+    return EventModel.fromMap(dss.data);
   }
 }
