@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:app/models/event_model.dart';
 import 'package:app/models/user_model.dart';
 import 'package:app/screens/home/widgets/news_card.dart';
 import 'package:app/screens/paginator.dart';
@@ -107,11 +108,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          EventCard(
-            title: 'Basics of Flutter',
-            imageUrl: 'assets/temp.jpg',
-            docId: '',
-          ),
+          // EventCard(),
         ],
       ),
     );
@@ -142,7 +139,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Container buildUpcomingEvents() {
     return Container(
       height: 196,
-      child: Paginator(fetch: EventCollection().fetchUpcomingEvents, builder: null);
+      child: Paginator<EventModel>(
+          fetch: EventCollection().fetchUpcomingEvents,
+          builder: (EventModel eventModel) {
+            return EventCard(eventModel);
+          }),
     );
   }
 

@@ -1,15 +1,11 @@
+import 'package:app/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 
 class Event extends StatelessWidget {
-  final String title, image, docId;
+  final EventModel event;
 
-  Event({
-    Key key,
-    @required this.title,
-    @required this.image,
-    @required this.docId,
-  }) : super(key: key);
+  Event(this.event, {Key key}) : super(key: key);
 
   Color color, inverseColor;
   @override
@@ -50,7 +46,7 @@ class Event extends StatelessWidget {
             size24Box,
             buildDescription(),
             size24Box,
-            buildPoster(title),
+            buildPoster(event.img),
             size24Box,
             buildRegister(),
             size24Box,

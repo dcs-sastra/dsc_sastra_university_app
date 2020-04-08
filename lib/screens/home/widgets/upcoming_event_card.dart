@@ -1,17 +1,13 @@
+import 'package:app/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 
 import '../../event/event.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({
-    Key key,
-    @required this.title,
-    @required this.imageUrl,
-    @required this.docId,
-  }) : super(key: key);
+  const EventCard(this.event, {Key key}) : super(key: key);
 
-  final title, imageUrl, docId;
+  final EventModel event;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +15,7 @@ class EventCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => Event(
-              title: title,
-              docId: docId,
-              image: imageUrl,
-            ),
+            builder: (_) => Event(event),
           ),
         );
       },
@@ -39,7 +31,7 @@ class EventCard extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Hero(
-                  tag: title,
+                  tag: event.title,
                   child: Image.asset(
                     'assets/temp.jpg',
                     fit: BoxFit.cover,
@@ -54,7 +46,7 @@ class EventCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: Text(
-                      title,
+                      event.title,
                       style: textStyleSize24Bold.copyWith(
                         color: Colors.white,
                       ),
