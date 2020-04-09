@@ -1,5 +1,6 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:app/models/model_structure.dart';
+import 'package:app/services/database/event_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class PaginatorList<T extends ModelStructure<T>> extends StatefulWidget {
 class _PaginatorListState<T extends ModelStructure<T>>
     extends State<PaginatorList> with AfterLayoutMixin {
   DocumentSnapshot lastDoc;
-  List<dynamic> tModel = [];
+  List<dynamic> tModel = [null];
   List<String> docsIds = [];
 
   final Widget Function(T) builder;
@@ -36,6 +37,7 @@ class _PaginatorListState<T extends ModelStructure<T>>
   int last = 0;
 
   _PaginatorListState(this.fetch, this.builder);
+  int count;
 
   @override
   void initState() {
@@ -54,9 +56,11 @@ class _PaginatorListState<T extends ModelStructure<T>>
   }
 
   @override
-  void afterFirstLayout(BuildContext context) {
+  Future<void> afterFirstLayout(BuildContext context) async {
+    count = await EventCollection().getLength();
     setState(() {
       tModel = tModel;
+      count = count;
     });
   }
 
@@ -66,6 +70,7 @@ class _PaginatorListState<T extends ModelStructure<T>>
       initialData: [],
       future: fetchDocs(),
       builder: (_, ass) {
+        if (tModel.isNotEmpty) tModel.removeLast();
         if (ass.data.isNotEmpty) {
           lastDoc = ass.data.last;
         }
@@ -77,15 +82,13 @@ class _PaginatorListState<T extends ModelStructure<T>>
             }
           },
         );
+        tModel.add(null);
+
         return NotificationListener<ScrollNotification>(
           onNotification: (scrollNotification) {
             if (scrollNotification is ScrollUpdateNotification) {
               {
-                if ((tModel.length - last) <= (paginationLimit + 1)
-                    // &&
-                    //     (!docsIds.contains(lastDoc.documentID))
-                    ) {
-                  // print('Listened');
+                if ((tModel.length - last) <= (paginationLimit + 1)) {
                   setState(() {
                     lastDoc = lastDoc;
                   });
@@ -95,14 +98,29 @@ class _PaginatorListState<T extends ModelStructure<T>>
           },
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: tModel.length,
+            itemCount: tModel.length + 1,
             controller: _controller,
             scrollDirection: Axis.horizontal,
             addAutomaticKeepAlives: false,
             itemBuilder: (_, i) {
-              // print('########');
-              // print('$i ${tModel.length} $last');
+              print('$count ${tModel.length}');
+              // if ()
+              //   tModel.remove(null);
+              if (i == 0) return size24Box;
+              --i;
               last = i;
+              if (tModel[i] == null) {
+                print('Nuhl');
+                if (count != null && count == (tModel.length - 1))
+                  return size24Box;
+                else
+                  return Padding(
+                    padding: edgeInsets24Horizontal,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+              }
               return builder(tModel[i]);
             },
           ),

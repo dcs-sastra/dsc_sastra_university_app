@@ -9,15 +9,15 @@ class EventCollection {
     if (isNews) _events = Firestore.instance.collection('news');
   }
 
-  getLength() async {
-    print('Documents ${(await _events.getDocuments()).documents.length}');
+  Future<int> getLength() async {
+    return (await Firestore.instance.document('others/event').get())
+        .data['count'];
   }
 
   Future<List<DocumentSnapshot>> fetchUpcomingEvents(
       {DocumentSnapshot documentSnapshot}) async {
     print('Getting Docs');
     if (documentSnapshot == null) {
-      print('Doc Null');
       return (await _events
               // .where('date', isGreaterThanOrEqualTo: Timestamp.now())
               .orderBy('date')
