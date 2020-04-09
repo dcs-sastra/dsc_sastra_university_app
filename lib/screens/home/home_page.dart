@@ -328,7 +328,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SvgPicture.asset(
-                      'assets/twit.svg',
+                      'assets/tw.svg',
                       height: 32,
                       width: 32,
                     ),

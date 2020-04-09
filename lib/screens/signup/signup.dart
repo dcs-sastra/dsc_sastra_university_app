@@ -15,23 +15,20 @@ class _SignUpState extends State<SignUp> {
   FirebaseUser firebaseUser;
 
   @override
-  void initState() {
-    firebaseUser = ModalRoute.of(context).settings.arguments;
-    userModel.name = firebaseUser.displayName;
-    userModel.email = firebaseUser.email;
-    userModel.phoneNumber = firebaseUser.phoneNumber;
-    userModel.year = (firebaseUser.email.contains('sastra.ac.in')
-            ? 4 -
-                (int.parse(firebaseUser.email.substring(1, 3)) +
-                    2000 -  
-                    DateTime.now().year)
-            : 0)
-        .toString();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    if (firebaseUser == null) {
+      firebaseUser = ModalRoute.of(context).settings.arguments;
+      userModel.name = firebaseUser.displayName;
+      userModel.email = firebaseUser.email;
+      userModel.phoneNumber = firebaseUser.phoneNumber;
+      userModel.year = (firebaseUser.email.contains('sastra.ac.in')
+              ? 4 -
+                  (int.parse(firebaseUser.email.substring(1, 3)) +
+                      2000 -
+                      DateTime.now().year)
+              : 0)
+          .toString();
+    }
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),

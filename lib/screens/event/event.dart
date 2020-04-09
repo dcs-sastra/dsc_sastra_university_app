@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Event extends StatelessWidget {
   final EventModel event;
@@ -139,7 +138,7 @@ class Event extends StatelessWidget {
             borderRadius: BorderRadius.horizontal(right: Radius.circular(64)),
             onTap: () {
               if (!event.link.contains('/viewform?usp=pp_url'))
-                _launchURL(event.link);
+                launchURL(event.link);
               else {
                 FlutterWebviewPlugin webviewPlugin = FlutterWebviewPlugin();
                 webviewPlugin.onUrlChanged.listen((url) {
@@ -252,12 +251,6 @@ class Event extends StatelessWidget {
             ),
           )
         : Container();
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    }
   }
 
   Widget buildPoster() {

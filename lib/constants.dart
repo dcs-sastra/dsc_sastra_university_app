@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'models/cluster_model.dart';
 
 const size24Box = const SizedBox(
@@ -33,6 +34,12 @@ Color getInverseColor(BuildContext context) {
   return Theme.of(context).brightness == Brightness.dark
       ? Colors.black
       : Colors.white;
+}
+
+launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  }
 }
 
 List<ClusterModel> clusters = [

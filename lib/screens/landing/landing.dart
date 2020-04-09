@@ -88,7 +88,9 @@ class _LandingState extends State<Landing> with AfterLayoutMixin {
       ),
       size24Box,
       FlatButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('/home');
+        },
         child: Text(
           'Enter as Guest',
           style: TextStyle(
