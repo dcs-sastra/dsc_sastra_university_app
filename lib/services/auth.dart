@@ -12,11 +12,14 @@ class AuthService {
     return (await _auth.currentUser() != null);
   }
 
-  void signOut() {
-    _auth.signOut();
+  Future<void> signOut(BuildContext context) async {
+    await _auth.signOut();
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+    Navigator.of(context).pushReplacementNamed('/');
   }
 
-  Future cacheUser(Map<String, String> user) async {
+  Future cacheUser(Map<String, dynamic> user) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     user.keys.forEach((f) {
       sharedPreferences.setString(f, user[f]);
@@ -28,10 +31,10 @@ class AuthService {
     Set<String> keys = sharedPreferences.getKeys()..remove('mode');
     Map<String, String> userMap = {};
     keys.forEach((f) => userMap[f] = sharedPreferences.get(f));
-    return UserModel.fromMap(userMap);
+    return userMap == {} ? null : UserModel.fromMap(userMap);
   }
 
-  Future googleSignIn(BuildContext context) async {
+  Future<AuthResult> googleSignIn(BuildContext context) async {
     GoogleSignInAccount googleSignInAccount = await GoogleSignIn(scopes: [
       'email',
       'https://www.googleapis.com/auth/userinfo.profile',
@@ -61,14 +64,19 @@ class AuthService {
               .toString(),
         ).toMap();
         await UserCollection().createUser(temp);
-        await cacheUser(temp);
         Navigator.of(context).pushNamed(
           '/signup',
           arguments: authResult.user,
         );
-      } else
+      } else {
+        if ((await getCachedUser()).email == null)
+          await cacheUser(
+              await UserCollection().getUser(authResult.user.email));
         Navigator.of(context).pushNamed('/home');
+      }
     }
+
+    print(authResult);
     return authResult;
   }
 }

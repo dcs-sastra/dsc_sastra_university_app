@@ -13,6 +13,17 @@ class _LandingState extends State<Landing> with AfterLayoutMixin {
   bool isSignedIn = true;
 
   @override
+  Future<void> afterFirstLayout(BuildContext context) async {
+    isSignedIn = await AuthService().isSignedIn();
+    if (isSignedIn) {
+      Navigator.of(context).pushReplacementNamed('/home');
+    } else
+      setState(() {
+        isSignedIn = isSignedIn;
+      });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return buildLanding(context);
   }
@@ -101,16 +112,5 @@ class _LandingState extends State<Landing> with AfterLayoutMixin {
         ),
       )
     ];
-  }
-
-  @override
-  Future<void> afterFirstLayout(BuildContext context) async {
-    isSignedIn = await AuthService().isSignedIn();
-    if (isSignedIn) {
-      Navigator.of(context).pushReplacementNamed('/home');
-    } else
-      setState(() {
-        isSignedIn = isSignedIn;
-      });
   }
 }

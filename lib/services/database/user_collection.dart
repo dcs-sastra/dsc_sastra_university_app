@@ -12,4 +12,8 @@ class UserCollection {
     print('Updating User');
     return await _user.document(user['e']).updateData(user);
   }
+
+  Future<Map<String, dynamic>> getUser(String email) async {
+    return (await _user.document(email).get()).data;
+  }
 }

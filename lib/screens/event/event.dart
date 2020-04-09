@@ -1,15 +1,35 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:app/models/event_model.dart';
+import 'package:app/models/user_model.dart';
+import 'package:app/services/auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Event extends StatelessWidget {
+class Event extends StatefulWidget {
   final EventModel event;
   final bool news;
   Event(this.event, {Key key, this.news = false}) : super(key: key);
 
+  @override
+  _EventState createState() => _EventState();
+}
+
+class _EventState extends State<Event> with AfterLayoutMixin {
+  UserModel userModel = UserModel();
   Color color, inverseColor;
+
+  @override
+  Future<void> afterFirstLayout(BuildContext context) async {
+    userModel = await AuthService().getCachedUser();
+    setState(() {
+      userModel = userModel;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     color = getColor(context);
@@ -25,7 +45,7 @@ class Event extends StatelessWidget {
         iconTheme: Theme.of(context).iconTheme.copyWith(
               color: color,
             ),
-        title: Text(event.title),
+        title: Text(widget.event.title),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.share),
@@ -40,8 +60,8 @@ class Event extends StatelessWidget {
           children: <Widget>[
             buildDateTimeVenu(
               context,
-              venue: event.venue,
-              dateTime: event.dateTime,
+              venue: widget.event.venue,
+              dateTime: widget.event.dateTime,
             ),
             size24Box,
             buildTag(),
@@ -61,7 +81,7 @@ class Event extends StatelessWidget {
   }
 
   List<Widget> buildSpeaker() {
-    return event.speakers == null
+    return widget.event.speakers == null
         ? []
         : [
             Padding(
@@ -79,8 +99,8 @@ class Event extends StatelessWidget {
               child: Row(
                 children: [
                   SizedBox(width: 16),
-                  if (event.speakers != null)
-                    ...event.speakers
+                  if (widget.event.speakers != null)
+                    ...widget.event.speakers
                         .map(
                           (f) => Padding(
                             padding: const EdgeInsets.symmetric(
@@ -131,97 +151,171 @@ class Event extends StatelessWidget {
     }[i];
   }
 
+  handleRegister() async {
+    if (!widget.news && userModel.email == null) {
+      showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                title: Text(
+                  'Signin required',
+                  style: textStyleSize24Bold.copyWith(color: color),
+                ),
+                content: Text(
+                  'Click ok to continue',
+                  style: TextStyle(color: color),
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                      onPressed: () async {
+                        while (Navigator.of(context).canPop()) {
+                          Navigator.of(context).pop();
+                        }
+                        Navigator.of(context).pushNamed('/');
+                      },
+                      child: Text('Ok')),
+                  FlatButton(
+                    onPressed: () => Navigator.of(ctx).pop(),
+                    child: Text('Cancel'),
+                  ),
+                ],
+              ));
+      return;
+    }
+    if (!widget.event.link.contains('/viewform?usp=pp_url')) {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      bool inAppBrowser = sharedPreferences.getBool('inAppBrowser');
+      print('In App Broswer $inAppBrowser');
+      switch (inAppBrowser) {
+        case true:
+          openWebView();
+          break;
+        case false:
+          launchURL(widget.event.link);
+          break;
+        default:
+          showDialog(
+              context: context,
+              builder: (_) {
+                return MyAlertDialog(
+                  widget: widget,
+                  openWebView: openWebView,
+                );
+              });
+          return;
+      }
+    } else {
+      openWebView();
+    }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => SafeArea(
+          child: WebviewScaffold(
+            url: widget.event.link,
+          ),
+        ),
+      ),
+    );
+  }
+
+  openWebView() {
+    FlutterWebviewPlugin webviewPlugin = FlutterWebviewPlugin();
+    webviewPlugin.onUrlChanged.listen((url) {
+      if (url.endsWith('/formResponse')) {
+        Future.delayed(Duration(seconds: 2), () async {
+          await webviewPlugin.hide();
+          showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Yes'),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          webviewPlugin.show();
+                        },
+                        child: Text('No'),
+                      )
+                    ],
+                    title: Text('Form Submitted'),
+                    content: Text(
+                      'Do you want to leave ?',
+                      strutStyle: StrutStyle(
+                        height: 1.5,
+                      ),
+                    ),
+                  ));
+        });
+      }
+    });
+    webviewPlugin.onBack.listen((_) async {
+      print('Back');
+      if (await webviewPlugin.canGoBack()) {
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        webviewPlugin.close();
+                      },
+                      child: Text('Yes'),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('No'),
+                    )
+                  ],
+                  title: Text('Form not submitted'),
+                  content: Text(
+                    'Do you want to leave ?',
+                    strutStyle: StrutStyle(
+                      height: 1.5,
+                    ),
+                  ),
+                ));
+      } else
+        webviewPlugin.goBack();
+    });
+    widget.event.link.replaceFirst('%3Cname%3C', userModel.name);
+    widget.event.link.replaceFirst('%3Cemail%3C', userModel.email);
+    String year = 'First+Year';
+    switch (userModel.year) {
+      case '1':
+        break;
+      case '2':
+        year = 'Second+Year';
+        break;
+      case '3':
+        year = 'Third+Year';
+        break;
+      case '4':
+        year = 'Fourth+Year';
+        break;
+      case '5':
+        year = 'Fifth+Year';
+        break;
+    }
+    widget.event.link.replaceFirst('%3Cyear%3C', year);
+    webviewPlugin.launch(widget.event.link);
+  }
+
   Widget buildRegister(BuildContext context) {
-    return event.link != null
+    return widget.event.link != null
         ? InkWell(
             splashColor: Colors.red,
             borderRadius: BorderRadius.horizontal(right: Radius.circular(64)),
-            onTap: () {
-              if (!event.link.contains('/viewform?usp=pp_url'))
-                launchURL(event.link);
-              else {
-                FlutterWebviewPlugin webviewPlugin = FlutterWebviewPlugin();
-                webviewPlugin.onUrlChanged.listen((url) {
-                  print('UUUUUUUUUUUUUURRRRRRRRRRRRRLLLLLLLLLLL');
-                  print(url);
-                  if (url.endsWith('/formResponse')) {
-                    Future.delayed(Duration(seconds: 2), () async {
-                      await webviewPlugin.hide();
-                      showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                                actions: <Widget>[
-                                  FlatButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('Yes'),
-                                  ),
-                                  FlatButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      webviewPlugin.show();
-                                    },
-                                    child: Text('No'),
-                                  )
-                                ],
-                                title: Text('Form Submitted'),
-                                content: Text(
-                                  'Do you want to leave ?',
-                                  strutStyle: StrutStyle(
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ));
-                    });
-                  }
-                });
-                webviewPlugin.onBack.listen((_) async {
-                  print('Back');
-                  if (await webviewPlugin.canGoBack()) {
-                    showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                              actions: <Widget>[
-                                FlatButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    webviewPlugin.close();
-                                  },
-                                  child: Text('Yes'),
-                                ),
-                                FlatButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text('No'),
-                                )
-                              ],
-                              title: Text('Form not submitted'),
-                              content: Text(
-                                'Do you want to leave ?',
-                                strutStyle: StrutStyle(
-                                  height: 1.5,
-                                ),
-                              ),
-                            ));
-                  } else
-                    webviewPlugin.goBack();
-                });
-                webviewPlugin.launch(event.link);
-              }
-
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => SafeArea(
-                    child: WebviewScaffold(
-                      url: event.link,
-                    ),
-                  ),
-                ),
-              );
-            },
+            onTap: handleRegister,
             child: Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 24,
@@ -238,7 +332,7 @@ class Event extends StatelessWidget {
                 children: <Widget>[
                   size24Box,
                   Text(
-                    news ? 'Link' : 'Register',
+                    widget.news ? 'Link' : 'Register',
                     style: TextStyle(
                       fontSize: 24,
                       color: Colors.red,
@@ -254,7 +348,7 @@ class Event extends StatelessWidget {
   }
 
   Widget buildPoster() {
-    return event.img == null
+    return widget.event.img == null
         ? Container()
         : Padding(
             padding: edgeInsets24Horizontal,
@@ -263,12 +357,12 @@ class Event extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: borderRadius8,
                 child: Hero(
-                  tag: event.title,
+                  tag: widget.event.title,
                   child: CachedNetworkImage(
                     placeholder: (_, __) => Center(
                       child: CircularProgressIndicator(),
                     ),
-                    imageUrl: event.img,
+                    imageUrl: widget.event.img,
                   ),
                 ),
               ),
@@ -277,11 +371,11 @@ class Event extends StatelessWidget {
   }
 
   Widget buildDescription() {
-    return event.desc != null
+    return widget.event.desc != null
         ? Padding(
             padding: edgeInsets24Horizontal,
             child: Text(
-              event.desc,
+              widget.event.desc,
               style: TextStyle(
                 color: color,
                 wordSpacing: 1.5,
@@ -294,11 +388,11 @@ class Event extends StatelessWidget {
   }
 
   Widget buildTag() {
-    return event.tag != null
+    return widget.event.tag != null
         ? Padding(
             padding: edgeInsets24Horizontal,
             child: Text(
-              event.tag,
+              widget.event.tag,
               style: textStyleSize24Bold.copyWith(color: color),
             ),
           )
@@ -380,5 +474,66 @@ class Event extends StatelessWidget {
           ),
         ),
       );
+  }
+}
+
+class MyAlertDialog extends StatefulWidget {
+  MyAlertDialog({
+    Key key,
+    @required this.widget,
+    @required this.openWebView,
+  }) : super(key: key);
+
+  final Event widget;
+  final Function openWebView;
+
+  @override
+  _MyAlertDialogState createState() => _MyAlertDialogState(openWebView);
+}
+
+class _MyAlertDialogState extends State<MyAlertDialog> {
+  bool alwaysUse = true;
+  final Function openWebView;
+
+  _MyAlertDialogState(this.openWebView);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Use in app browser ?'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          CheckboxListTile(
+              selected: alwaysUse,
+              title: Text('Always use in-app browser'),
+              subtitle: Text('You can always change this in settings'),
+              value: alwaysUse,
+              onChanged: (val) {
+                print(alwaysUse);
+                setState(() {
+                  alwaysUse = val;
+                });
+              }),
+        ],
+      ),
+      actions: <Widget>[
+        FlatButton(
+            onPressed: () async {
+              if (alwaysUse) {
+                SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+                sharedPreferences.setBool('useInApp', true);
+              }
+              openWebView();
+            },
+            child: Text('Yes')),
+        FlatButton(
+            onPressed: () {
+              launchURL(widget.widget.event.link);
+            },
+            child: Text('No')),
+      ],
+    );
   }
 }

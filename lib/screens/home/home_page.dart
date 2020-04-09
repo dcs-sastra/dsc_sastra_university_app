@@ -37,6 +37,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     setState(() {
       userModel = userModel;
     });
+    print('Name');
+    print(userModel.name);
   }
 
   @override
@@ -207,7 +209,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       centerTitle: true,
       actions: <Widget>[
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, '/home');
+          },
           icon: Icon(Icons.more_vert),
         ),
       ],
@@ -235,41 +240,51 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                     width: 64,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: edgeInsets24Horizontal,
-                      child: Container(
-                        width: 168,
+                userModel.email == null
+                    ? FlatButton(
+                        onPressed: () async {
+                          print((await AuthService().googleSignIn(context)));
+                        },
                         child: Text(
-                          userModel.name ?? '',
-                          softWrap: false,
-                          overflow: TextOverflow.fade,
-                          style: textStyleSize24Bold.copyWith(
-                            color: color,
-                          ),
+                          'Click here to Login',
+                          style: TextStyle(color: color),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Padding(
-                      padding: edgeInsets24Horizontal,
-                      child: Container(
-                        width: 168,
-                        child: Text(
-                          userModel.email ?? '',
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
-                          style: textStyle18.copyWith(
-                            fontWeight: FontWeight.normal,
-                            color: color,
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: edgeInsets24Horizontal,
+                            child: Container(
+                              width: 168,
+                              child: Text(
+                                userModel.name ?? '',
+                                softWrap: false,
+                                overflow: TextOverflow.fade,
+                                style: textStyleSize24Bold.copyWith(
+                                  color: color,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(height: 8),
+                          Padding(
+                            padding: edgeInsets24Horizontal,
+                            child: Container(
+                              width: 168,
+                              child: Text(
+                                userModel.email ?? '',
+                                overflow: TextOverflow.fade,
+                                softWrap: false,
+                                style: textStyle18.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                  color: color,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
               ],
             ),
             size24Box,
@@ -284,6 +299,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             buildDrawerItem(icon: Icons.people, title: 'Team'),
             buildDrawerItem(icon: Icons.book, title: 'Resources'),
             buildDrawerItem(icon: Icons.info, title: 'About Us'),
+            RaisedButton(onPressed: () async {
+              await AuthService().signOut(context);
+            }),
             Spacer(),
             buildConnectText(),
             Row(
