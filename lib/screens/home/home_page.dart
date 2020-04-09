@@ -6,10 +6,12 @@ import 'package:app/screens/paginator.dart';
 import 'package:app/services/auth.dart';
 import 'package:app/services/database/event_collection.dart';
 import 'package:app/services/database/members_collection.dart';
+import 'package:app/services/database/news_collection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../paginator_list.dart';
 import 'widgets/upcoming_event_card.dart';
 import 'widgets/cluster_buttons.dart';
 
@@ -36,7 +38,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     setState(() {
       userModel = userModel;
     });
-    EventCollection().fetchUpcomingEvents();
   }
 
   @override
@@ -57,23 +58,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 size24Box,
                 buildTitle(context, 'News'),
                 size24Box,
-                Container(
-                  height: 128,
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      const SizedBox(width: 16),
-                      NewsCard(
-                        title: 'COVID 19 - Coronavirus Awarness',
-                      ),
-                      NewsCard(
-                        title: 'COVID 19 - Coronavirus Awarness',
-                      ),
-                      const SizedBox(width: 16),
-                    ],
-                  ),
-                ),
+                buildNews(),
                 size24Box,
                 buildTitle(context, 'Upcoming Events'),
                 size24Box,
@@ -100,17 +85,33 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     );
   }
 
-  Container buildRecents() {
+  Container buildNews() {
     return Container(
       height: 128,
-      child: PageView(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          // EventCard(),
-        ],
+      child: PaginatorList<EventModel>(
+        fetch: NewsCollection().fetchNews,
+        instance: EventModel(),
+        builder: (EventModel event) {
+          return NewsCard(event);
+        },
       ),
     );
+  }
+
+  Container buildRecents() {
+    return Container();
+    // print('Recents here');
+    // return Container(
+    //     height: 128,
+    //     child: Paginator<EventModel>(
+    //       fetch: NewsCollection().fetchNews,
+    //       builder: (EventModel eventModel) {
+    //         print('Getting News');
+    //         print(eventModel);
+    //         return NewsCard(eventModel);
+    //       },
+    //       instance: EventModel(),
+    //     ));
   }
 
   Padding buildRecentButton(BuildContext context) {
@@ -140,7 +141,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       height: 196,
       child: Paginator<EventModel>(
           instance: EventModel(),
-          fetch: EventCollection().fetchUpcomingEvents,
+          fetch: EventCollection(isNews: true).fetchUpcomingEvents,
           builder: (EventModel eventModel) {
             return EventCard(eventModel);
           }),
@@ -210,9 +211,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       centerTitle: true,
       actions: <Widget>[
         IconButton(
-          onPressed: () async {
-            await EventCollection().fetchUpcomingEvents();
-          },
+          onPressed: () {},
           icon: Icon(Icons.more_vert),
         ),
       ],

@@ -18,7 +18,7 @@ class EventModel extends ModelStructure<EventModel> {
   });
 
   EventModel.fromMap(Map<String, dynamic> map) {
-    dateTime = (map['date'] as Timestamp).toDate();
+    dateTime = ((map['date'] as Timestamp) ?? Timestamp.now()).toDate();
     venue = map['venue'];
     img = map['img'];
     speakers = map['spkrs'];
@@ -34,12 +34,10 @@ class EventModel extends ModelStructure<EventModel> {
   }
 
   @override
-  EventModel createInstance() {
-    return EventModel();
-  }
-
-  @override
   String toString() {
     return 'Title : $title';
   }
+
+  @override
+  EventModel createInstance() => EventModel();
 }

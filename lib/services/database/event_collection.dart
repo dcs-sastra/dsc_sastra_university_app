@@ -5,13 +5,21 @@ import 'package:app/constants.dart';
 class EventCollection {
   CollectionReference _events = Firestore.instance.collection('event');
 
+  EventCollection({isNews: false}) {
+    if (isNews) _events = Firestore.instance.collection('news');
+  }
+
+  getLength() async {
+    print('Documents ${(await _events.getDocuments()).documents.length}');
+  }
+
   Future<List<DocumentSnapshot>> fetchUpcomingEvents(
       {DocumentSnapshot documentSnapshot}) async {
     print('Getting Docs');
     if (documentSnapshot == null) {
       print('Doc Null');
       return (await _events
-              .where('date', isGreaterThanOrEqualTo: Timestamp.now())
+              // .where('date', isGreaterThanOrEqualTo: Timestamp.now())
               .orderBy('date')
               .limit(paginationLimit)
               .getDocuments())

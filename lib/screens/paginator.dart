@@ -46,24 +46,18 @@ class _PaginatorState<T extends ModelStructure<T>> extends State<Paginator>
       initialData: [],
       future: fetch(documentSnapshot: lastDoc),
       builder: (_, ass) {
-        print('***************');
-        print(ass.data.length);
         ass.data.forEach(
           (f) {
-            print('Cehcking if doc exists');
             if (!docsIds.contains(f.documentID)) {
-              print('${f.data['title']} Doc is new');
               docsIds.add(f.documentID);
-              tModel.add(
-                widget.instance.fromDocumentSnapshot(f),
-              );
+              tModel.add(widget.instance.fromDocumentSnapshot(f));
             }
           },
         );
         return PageView.builder(
+          physics: BouncingScrollPhysics(),
           itemCount: tModel.length,
           onPageChanged: (i) {
-            print(tModel.length);
             if ((i % paginationLimit == 1) && ((tModel.length - i) <= 1)) {
               setState(() {
                 lastDoc = ass.data[i];

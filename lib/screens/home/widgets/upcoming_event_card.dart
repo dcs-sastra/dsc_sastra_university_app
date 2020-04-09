@@ -33,17 +33,19 @@ class EventCard extends StatelessWidget {
               children: <Widget>[
                 Hero(
                   tag: event.title,
-                  child: CachedNetworkImage(
-                    placeholder: (_, __) => Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    imageUrl: event.img,
-                    fit: BoxFit.cover,
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                    color: Colors.black38,
-                    colorBlendMode: BlendMode.multiply,
-                  ),
+                  child: event.img == null || event.img == ""
+                      ? Image.asset('assets/temp.jpg')
+                      : CachedNetworkImage(
+                          placeholder: (_, __) => Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          imageUrl: event.img,
+                          fit: BoxFit.cover,
+                          height: double.maxFinite,
+                          width: double.maxFinite,
+                          color: Colors.black38,
+                          colorBlendMode: BlendMode.multiply,
+                        ),
                 ),
                 Align(
                   alignment: Alignment.bottomLeft,
