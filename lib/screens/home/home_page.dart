@@ -114,21 +114,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Padding buildRecentButton(BuildContext context) {
     return Padding(
       padding: edgeInsets24Horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            'Recent',
-            style: textStyleSize24Bold.copyWith(
-              color: getColor(context),
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.arrow_forward),
-            onPressed: () {},
-            color: getColor(context),
-          ),
-        ],
+      child: Text(
+        'Recent',
+        style: textStyleSize24Bold.copyWith(
+          color: getColor(context),
+        ),
       ),
     );
   }
@@ -151,23 +141,32 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   ) {
     return Padding(
       padding: edgeInsets24Horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            title,
-            style: textStyleSize24Bold.copyWith(
-              color: getColor(context),
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.arrow_forward),
-            onPressed: () {},
-            color: getColor(context),
-          )
-        ],
+      child: Text(
+        title,
+        style: textStyleSize24Bold.copyWith(
+          color: getColor(context),
+        ),
       ),
     );
+    // return Padding(
+    //   padding: edgeInsets24Horizontal,
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //     children: <Widget>[
+    //       Text(
+    //         title,
+    //         style: textStyleSize24Bold.copyWith(
+    //           color: getColor(context),
+    //         ),
+    //       ),
+    //       IconButton(
+    //         icon: Icon(Icons.arrow_forward),
+    //         onPressed: () {},
+    //         color: getColor(context),
+    //       )
+    //     ],
+    //   ),
+    // );
   }
 
   Widget buildAppBar(BuildContext context) {
@@ -378,7 +377,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     bool isHome = false,
   }) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed('/${title.replaceAll(' ', '').toLowerCase()}');
+      },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         margin: EdgeInsets.only(right: 32, top: 8, bottom: 8),

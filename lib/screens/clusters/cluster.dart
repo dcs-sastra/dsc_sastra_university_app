@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:app/models/cluster_model.dart';
 import 'package:app/services/database/gallery_collection.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -15,16 +14,17 @@ class Cluster extends StatefulWidget {
   _ClusterState createState() => _ClusterState();
 }
 
-class _ClusterState extends State<Cluster> with AfterLayoutMixin {
-  List<dynamic> images;
+class _ClusterState extends State<Cluster> {
+  List<dynamic> images = [];
   Color color, inverseColor;
+  bool isLoaded = false;
+
+  ScrollController _controller;
 
   @override
-  Future<void> afterFirstLayout(BuildContext context) async {
-    images = await ClusterCollection(widget.cluster.image).getImages();
-    setState(() {
-      images = images;
-    });
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
   }
 
   @override
@@ -51,6 +51,8 @@ class _ClusterState extends State<Cluster> with AfterLayoutMixin {
         ],
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        controller: _controller,
         child: Column(
           children: <Widget>[
             Image.asset('assets/clusters/${widget.cluster.image}.jpg'),
@@ -60,30 +62,69 @@ class _ClusterState extends State<Cluster> with AfterLayoutMixin {
               child: Text(
                 widget.cluster.description,
                 style: textStyle18.copyWith(
+                  color: color,
                   fontWeight: FontWeight.normal,
                 ),
               ),
             ),
             size24Box,
-            if (images != null)
-              ExpansionTile(
-                title: Text('Gallery'),
-                children: images
-                    .map(
-                      (f) => Padding(
+            ExpansionTile(
+              onExpansionChanged: (expanded) async {
+                if (!isLoaded) {
+                  images =
+                      await ClusterCollection(widget.cluster.image).getImages();
+                  setState(() {
+                    images = images;
+                    isLoaded = true;
+                  });
+                  if (images.isNotEmpty)
+                    _controller.animateTo(200,
+                        duration: Duration(milliseconds: 200),
+                        curve: Curves.easeInOut);
+                } else if (expanded && images.isNotEmpty)
+                  Future.delayed(Duration(milliseconds: 200), () {
+                    _controller.animateTo(200,
+                        duration: Duration(milliseconds: 200),
+                        curve: Curves.easeInOut);
+                  });
+              },
+              title: Text(
+                'Gallery',
+                style: TextStyle(color: color),
+              ),
+              children: (!isLoaded)
+                  ? [
+                      Padding(
                         padding: const EdgeInsets.all(24.0),
-                        child: Card(
-                          elevation: 8,
-                          shape: roundedRectangleBorder8,
-                          child: ClipRRect(
-                            borderRadius: borderRadius8,
-                            child: CachedNetworkImage(imageUrl: f),
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              )
+                        child: CircularProgressIndicator(),
+                      )
+                    ]
+                  : (images.isEmpty
+                      ? [
+                          Padding(
+                            padding: EdgeInsets.all(24.0),
+                            child: Text(
+                              'Sorry, there are no images for "${widget.cluster.cluster}" cluster',
+                              style: TextStyle(color: color),
+                            ),
+                          )
+                        ]
+                      : images
+                          .map(
+                            (f) => Padding(
+                              padding: const EdgeInsets.all(24.0),
+                              child: Card(
+                                elevation: 8,
+                                shape: roundedRectangleBorder8,
+                                child: ClipRRect(
+                                  borderRadius: borderRadius8,
+                                  child: CachedNetworkImage(imageUrl: f),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList()),
+            )
           ],
         ),
       ),
