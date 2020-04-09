@@ -7,8 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Event extends StatelessWidget {
   final EventModel event;
-
-  Event(this.event, {Key key}) : super(key: key);
+  final bool news;
+  Event(this.event, {Key key, this.news = false}) : super(key: key);
 
   Color color, inverseColor;
   @override
@@ -49,10 +49,22 @@ class Event extends StatelessWidget {
             size24Box,
             buildDescription(),
             size24Box,
-            buildPoster(event.img),
+            buildPoster(),
             size24Box,
             buildRegister(context),
             size24Box,
+            ...buildSpeaker(),
+            size24Box,
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> buildSpeaker() {
+    return event.speakers == null
+        ? []
+        : [
             Padding(
               padding: edgeInsets24Horizontal,
               child: Text(
@@ -68,42 +80,39 @@ class Event extends StatelessWidget {
               child: Row(
                 children: [
                   SizedBox(width: 16),
-                  ...event.speakers
-                      .map(
-                        (f) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              ClipOval(
-                                child: Image.asset(
-                                  'assets/avatar.jpg',
-                                  height: 64,
+                  if (event.speakers != null)
+                    ...event.speakers
+                        .map(
+                          (f) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                ClipOval(
+                                  child: Image.asset(
+                                    'assets/avatar.jpg',
+                                    height: 64,
+                                  ),
                                 ),
-                              ),
-                              size24Box,
-                              Text(
-                                f.toString(),
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: color,
-                                ),
-                              )
-                            ],
+                                size24Box,
+                                Text(
+                                  f.toString(),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: color,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                      .toList(),
+                        )
+                        .toList(),
                   SizedBox(width: 16),
                 ],
               ),
-            ),
-            size24Box,
-          ],
-        ),
-      ),
-    );
+            )
+          ];
   }
 
   getMonthName(int i) {
@@ -129,7 +138,7 @@ class Event extends StatelessWidget {
             splashColor: Colors.red,
             borderRadius: BorderRadius.horizontal(right: Radius.circular(64)),
             onTap: () {
-              if (event.link.contains('/viewform?usp=pp_url'))
+              if (!event.link.contains('/viewform?usp=pp_url'))
                 _launchURL(event.link);
               else {
                 FlutterWebviewPlugin webviewPlugin = FlutterWebviewPlugin();
@@ -230,7 +239,7 @@ class Event extends StatelessWidget {
                 children: <Widget>[
                   size24Box,
                   Text(
-                    'Register',
+                    news ? 'Link' : 'Register',
                     style: TextStyle(
                       fontSize: 24,
                       color: Colors.red,
@@ -251,24 +260,27 @@ class Event extends StatelessWidget {
     }
   }
 
-  Padding buildPoster(String tag) {
-    return Padding(
-      padding: edgeInsets24Horizontal,
-      child: Card(
-        shape: roundedRectangleBorder8,
-        child: ClipRRect(
-          borderRadius: borderRadius8,
-          child: Hero(
-              tag: tag,
-              child: CachedNetworkImage(
-                placeholder: (_, __) => Center(
-                  child: CircularProgressIndicator(),
+  Widget buildPoster() {
+    return event.img == null
+        ? Container()
+        : Padding(
+            padding: edgeInsets24Horizontal,
+            child: Card(
+              shape: roundedRectangleBorder8,
+              child: ClipRRect(
+                borderRadius: borderRadius8,
+                child: Hero(
+                  tag: event.title,
+                  child: CachedNetworkImage(
+                    placeholder: (_, __) => Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    imageUrl: event.img,
+                  ),
                 ),
-                imageUrl: event.img,
-              )),
-        ),
-      ),
-    );
+              ),
+            ),
+          );
   }
 
   Widget buildDescription() {

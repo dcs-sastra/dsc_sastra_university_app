@@ -1,6 +1,5 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:app/models/model_structure.dart';
-import 'package:app/services/database/event_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -11,15 +10,18 @@ class PaginatorList<T extends ModelStructure<T>> extends StatefulWidget {
       {DocumentSnapshot documentSnapshot}) fetch;
   final Widget Function(T) builder;
   final T instance;
+  final Function getLength;
 
   const PaginatorList({
     Key key,
     @required this.fetch,
     @required this.builder,
     @required this.instance,
+    @required this.getLength,
   }) : super(key: key);
   @override
-  _PaginatorListState createState() => _PaginatorListState<T>(fetch, builder);
+  _PaginatorListState createState() =>
+      _PaginatorListState<T>(fetch, builder, getLength);
 }
 
 class _PaginatorListState<T extends ModelStructure<T>>
@@ -31,12 +33,17 @@ class _PaginatorListState<T extends ModelStructure<T>>
   final Widget Function(T) builder;
   final Future<List<DocumentSnapshot>> Function(
       {DocumentSnapshot documentSnapshot}) fetch;
+  final Function getLength;
 
   ScrollController _controller;
 
   int last = 0;
 
-  _PaginatorListState(this.fetch, this.builder);
+  _PaginatorListState(
+    this.fetch,
+    this.builder,
+    this.getLength,
+  );
   int count;
 
   @override
@@ -57,7 +64,7 @@ class _PaginatorListState<T extends ModelStructure<T>>
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
-    count = await EventCollection().getLength();
+    count = await getLength();
     setState(() {
       tModel = tModel;
       count = count;
@@ -95,6 +102,7 @@ class _PaginatorListState<T extends ModelStructure<T>>
                 }
               }
             }
+            return false;
           },
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
@@ -103,14 +111,10 @@ class _PaginatorListState<T extends ModelStructure<T>>
             scrollDirection: Axis.horizontal,
             addAutomaticKeepAlives: false,
             itemBuilder: (_, i) {
-              print('$count ${tModel.length}');
-              // if ()
-              //   tModel.remove(null);
               if (i == 0) return size24Box;
               --i;
               last = i;
               if (tModel[i] == null) {
-                print('Nuhl');
                 if (count != null && count == (tModel.length - 1))
                   return size24Box;
                 else

@@ -3,7 +3,6 @@ import 'package:app/constants.dart';
 import 'package:app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class Landing extends StatefulWidget {
   @override

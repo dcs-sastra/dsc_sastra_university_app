@@ -16,7 +16,11 @@ class NewsCard extends StatelessWidget {
             ? [Colors.blue.shade900, Colors.blue]
             : [Colors.blueGrey, Colors.blueGrey.shade100]);
     return GestureDetector(
-      onTap: () => Event(event),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => Event(
+                event,
+                news: true,
+              ))),
       child: Container(
         height: double.maxFinite,
         width: width * 0.6,

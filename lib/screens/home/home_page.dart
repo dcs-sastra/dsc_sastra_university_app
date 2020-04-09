@@ -5,7 +5,6 @@ import 'package:app/screens/home/widgets/news_card.dart';
 import 'package:app/screens/paginator.dart';
 import 'package:app/services/auth.dart';
 import 'package:app/services/database/event_collection.dart';
-import 'package:app/services/database/members_collection.dart';
 import 'package:app/services/database/news_collection.dart';
 import 'package:flutter/material.dart';
 
@@ -89,6 +88,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     return Container(
       height: 128,
       child: PaginatorList<EventModel>(
+        getLength: NewsCollection().getLength,
         fetch: NewsCollection().fetchNews,
         instance: EventModel(),
         builder: (EventModel event) {
@@ -99,19 +99,16 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   Container buildRecents() {
-    return Container();
-    // print('Recents here');
-    // return Container(
-    //     height: 128,
-    //     child: Paginator<EventModel>(
-    //       fetch: NewsCollection().fetchNews,
-    //       builder: (EventModel eventModel) {
-    //         print('Getting News');
-    //         print(eventModel);
-    //         return NewsCard(eventModel);
-    //       },
-    //       instance: EventModel(),
-    //     ));
+    return Container(
+      height: 128,
+      child: Paginator<EventModel>(
+        fetch: EventCollection().fetchRecents,
+        builder: (EventModel eventModel) {
+          return EventCard(eventModel);
+        },
+        instance: EventModel(),
+      ),
+    );
   }
 
   Padding buildRecentButton(BuildContext context) {
@@ -141,7 +138,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       height: 196,
       child: Paginator<EventModel>(
           instance: EventModel(),
-          fetch: EventCollection(isNews: true).fetchUpcomingEvents,
+          fetch: EventCollection().fetchUpcomingEvents,
           builder: (EventModel eventModel) {
             return EventCard(eventModel);
           }),
