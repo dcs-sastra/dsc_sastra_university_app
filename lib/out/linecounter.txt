@@ -1,0 +1,46 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2020-04-10 02:19:25
+count workspace : d:\Projects\DSC\dsc_sastra_university_app\lib
+total files : 29
+total code lines : 2244
+total comment lines : 30
+total blank lines : 150
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |          .dart|           2244|             30|            150| 1.0e+2|
+   -------------------------------------------------------------------------
+constants.dart, code is 101, comment is 0, blank is 10.
+main.dart, code is 25, comment is 1, blank is 3.
+models\cluster_model.dart, code is 11, comment is 0, blank is 2.
+models\event_model.dart, code is 37, comment is 0, blank is 6.
+models\gallery_model.dart, code is 0, comment is 0, blank is 0.
+models\member_model.dart, code is 9, comment is 0, blank is 1.
+models\model_structure.dart, code is 5, comment is 0, blank is 1.
+models\user_model.dart, code is 27, comment is 0, blank is 4.
+screens\aboutsus\aboutus.dart, code is 0, comment is 0, blank is 0.
+screens\clusters\cluster.dart, code is 125, comment is 0, blank is 8.
+screens\event\event.dart, code is 518, comment is 0, blank is 21.
+screens\home\home_page.dart, code is 411, comment is 19, blank is 17.
+screens\home\widgets\cluster_buttons.dart, code is 34, comment is 0, blank is 3.
+screens\home\widgets\news_card.dart, code is 44, comment is 0, blank is 3.
+screens\home\widgets\upcoming_event_card.dart, code is 65, comment is 0, blank is 4.
+screens\landing\landing.dart, code is 110, comment is 0, blank is 6.
+screens\members\team.dart, code is 40, comment is 0, blank is 3.
+screens\members\widgets\cluster_members.dart, code is 134, comment is 0, blank is 3.
+screens\members\widgets\social_media_button.dart, code is 22, comment is 0, blank is 4.
+screens\paginator.dart, code is 66, comment is 0, blank is 8.
+screens\paginator_list.dart, code is 117, comment is 10, blank is 13.
+screens\signup\signup.dart, code is 147, comment is 0, blank is 4.
+services\auth.dart, code is 76, comment is 0, blank is 9.
+services\database\event_collection.dart, code is 47, comment is 0, blank is 5.
+services\database\gallery_collection.dart, code is 16, comment is 0, blank is 3.
+services\database\members_collection.dart, code is 16, comment is 0, blank is 2.
+services\database\news_collection.dart, code is 26, comment is 0, blank is 3.
+services\database\user_collection.dart, code is 15, comment is 0, blank is 4.
+style.dart, code is 0, comment is 0, blank is 0.
+===============================================================================

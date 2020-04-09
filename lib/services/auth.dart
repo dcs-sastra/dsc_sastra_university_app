@@ -9,7 +9,11 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<bool> isSignedIn() async {
-    return (await _auth.currentUser() != null);
+    FirebaseUser user = await _auth.currentUser();
+    if ((user != null) && (await getCachedUser()).email == null) {
+      cacheExistingUser(user.email);
+    }
+    return user != null;
   }
 
   Future<void> signOut(BuildContext context) async {
@@ -28,9 +32,13 @@ class AuthService {
 
   Future<UserModel> getCachedUser() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    Set<String> keys = sharedPreferences.getKeys()..remove('mode');
+    Set<String> keys = sharedPreferences.getKeys()
+      ..remove('mode')
+      ..remove('inAppBrowser');
     Map<String, String> userMap = {};
-    keys.forEach((f) => userMap[f] = sharedPreferences.get(f));
+    keys.forEach((f) {
+      userMap[f] = sharedPreferences.get(f);
+    });
     return userMap == {} ? null : UserModel.fromMap(userMap);
   }
 
@@ -70,13 +78,14 @@ class AuthService {
         );
       } else {
         if ((await getCachedUser()).email == null)
-          await cacheUser(
-              await UserCollection().getUser(authResult.user.email));
-        Navigator.of(context).pushNamed('/home');
+          cacheExistingUser(authResult.user.email);
+        Navigator.of(context).pushReplacementNamed('/home');
       }
     }
-
-    print(authResult);
     return authResult;
+  }
+
+  cacheExistingUser(String email) async {
+    await cacheUser(await UserCollection().getUser(email));
   }
 }

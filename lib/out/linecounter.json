@@ -1,0 +1,198 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "d:\\Projects\\DSC\\dsc_sastra_university_app\\lib",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2020-04-10 02:19:25",
+            "filesum": 29,
+            "codesum": 2244,
+            "commentsum": 30,
+            "blanksum": 150,
+            "statistics": {
+                ".dart": {
+                    "code": 2244,
+                    "comment": 30,
+                    "blank": 150
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 10,
+                    "code": 101,
+                    "comment": 0,
+                    "filename": "constants.dart"
+                },
+                {
+                    "blank": 3,
+                    "code": 25,
+                    "comment": 1,
+                    "filename": "main.dart"
+                },
+                {
+                    "blank": 2,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "models\\cluster_model.dart"
+                },
+                {
+                    "blank": 6,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "models\\event_model.dart"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "models\\gallery_model.dart"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "models\\member_model.dart"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "models\\model_structure.dart"
+                },
+                {
+                    "blank": 4,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "models\\user_model.dart"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "screens\\aboutsus\\aboutus.dart"
+                },
+                {
+                    "blank": 8,
+                    "code": 125,
+                    "comment": 0,
+                    "filename": "screens\\clusters\\cluster.dart"
+                },
+                {
+                    "blank": 21,
+                    "code": 518,
+                    "comment": 0,
+                    "filename": "screens\\event\\event.dart"
+                },
+                {
+                    "blank": 17,
+                    "code": 411,
+                    "comment": 19,
+                    "filename": "screens\\home\\home_page.dart"
+                },
+                {
+                    "blank": 3,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "screens\\home\\widgets\\cluster_buttons.dart"
+                },
+                {
+                    "blank": 3,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "screens\\home\\widgets\\news_card.dart"
+                },
+                {
+                    "blank": 4,
+                    "code": 65,
+                    "comment": 0,
+                    "filename": "screens\\home\\widgets\\upcoming_event_card.dart"
+                },
+                {
+                    "blank": 6,
+                    "code": 110,
+                    "comment": 0,
+                    "filename": "screens\\landing\\landing.dart"
+                },
+                {
+                    "blank": 3,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "screens\\members\\team.dart"
+                },
+                {
+                    "blank": 3,
+                    "code": 134,
+                    "comment": 0,
+                    "filename": "screens\\members\\widgets\\cluster_members.dart"
+                },
+                {
+                    "blank": 4,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "screens\\members\\widgets\\social_media_button.dart"
+                },
+                {
+                    "blank": 8,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "screens\\paginator.dart"
+                },
+                {
+                    "blank": 13,
+                    "code": 117,
+                    "comment": 10,
+                    "filename": "screens\\paginator_list.dart"
+                },
+                {
+                    "blank": 4,
+                    "code": 147,
+                    "comment": 0,
+                    "filename": "screens\\signup\\signup.dart"
+                },
+                {
+                    "blank": 9,
+                    "code": 76,
+                    "comment": 0,
+                    "filename": "services\\auth.dart"
+                },
+                {
+                    "blank": 5,
+                    "code": 47,
+                    "comment": 0,
+                    "filename": "services\\database\\event_collection.dart"
+                },
+                {
+                    "blank": 3,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "services\\database\\gallery_collection.dart"
+                },
+                {
+                    "blank": 2,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "services\\database\\members_collection.dart"
+                },
+                {
+                    "blank": 3,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "services\\database\\news_collection.dart"
+                },
+                {
+                    "blank": 4,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "services\\database\\user_collection.dart"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "style.dart"
+                }
+            ]
+        }
+    ]
+}

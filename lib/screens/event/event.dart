@@ -21,6 +21,7 @@ class Event extends StatefulWidget {
 class _EventState extends State<Event> with AfterLayoutMixin {
   UserModel userModel = UserModel();
   Color color, inverseColor;
+  FlutterWebviewPlugin webviewPlugin;
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
@@ -30,51 +31,76 @@ class _EventState extends State<Event> with AfterLayoutMixin {
     });
   }
 
+  bool canGoBack = false;
+
   @override
   Widget build(BuildContext context) {
     color = getColor(context);
     inverseColor = getInverseColor(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: inverseColor,
-        textTheme: Theme.of(context).textTheme.copyWith(
-              title: Theme.of(context).textTheme.title.copyWith(
-                    color: color,
-                  ),
+    return WillPopScope(
+      onWillPop: () async {
+        if (webviewPlugin != null) {
+          try {
+            webviewPlugin.canGoBack().then((val) {
+              setState(() {
+                canGoBack = val;
+              });
+            });
+          } catch (e) {
+            return null;
+          }
+          if (canGoBack) {
+            webviewPlugin.goBack();
+            return false;
+          } else {
+            webviewPlugin.hide();
+            webviewPlugin.close();
+          }
+        }
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: inverseColor,
+          textTheme: Theme.of(context).textTheme.copyWith(
+                title: Theme.of(context).textTheme.title.copyWith(
+                      color: color,
+                    ),
+              ),
+          iconTheme: Theme.of(context).iconTheme.copyWith(
+                color: color,
+              ),
+          title: Text(widget.event.title),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () {},
             ),
-        iconTheme: Theme.of(context).iconTheme.copyWith(
-              color: color,
-            ),
-        title: Text(widget.event.title),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            buildDateTimeVenu(
-              context,
-              venue: widget.event.venue,
-              dateTime: widget.event.dateTime,
-            ),
-            size24Box,
-            buildTag(),
-            size24Box,
-            buildDescription(),
-            size24Box,
-            buildPoster(),
-            size24Box,
-            buildRegister(context),
-            size24Box,
-            ...buildSpeaker(),
-            size24Box,
           ],
+        ),
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              buildDateTimeVenu(
+                context,
+                venue: widget.event.venue,
+                dateTime: widget.event.dateTime,
+              ),
+              size24Box,
+              buildTag(),
+              size24Box,
+              buildDescription(),
+              size24Box,
+              buildPoster(),
+              size24Box,
+              buildRegister(context),
+              size24Box,
+              ...buildSpeaker(),
+              size24Box,
+            ],
+          ),
         ),
       ),
     );
@@ -170,7 +196,7 @@ class _EventState extends State<Event> with AfterLayoutMixin {
                         while (Navigator.of(context).canPop()) {
                           Navigator.of(context).pop();
                         }
-                        Navigator.of(context).pushNamed('/');
+                        Navigator.of(context).pushReplacementNamed('/');
                       },
                       child: Text('Ok')),
                   FlatButton(
@@ -220,7 +246,7 @@ class _EventState extends State<Event> with AfterLayoutMixin {
   }
 
   openWebView() {
-    FlutterWebviewPlugin webviewPlugin = FlutterWebviewPlugin();
+    webviewPlugin = FlutterWebviewPlugin();
     webviewPlugin.onUrlChanged.listen((url) {
       if (url.endsWith('/formResponse')) {
         Future.delayed(Duration(seconds: 2), () async {
@@ -255,40 +281,42 @@ class _EventState extends State<Event> with AfterLayoutMixin {
         });
       }
     });
-    webviewPlugin.onBack.listen((_) async {
-      print('Back');
-      if (await webviewPlugin.canGoBack()) {
-        showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-                  actions: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        webviewPlugin.close();
-                      },
-                      child: Text('Yes'),
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('No'),
-                    )
-                  ],
-                  title: Text('Form not submitted'),
-                  content: Text(
-                    'Do you want to leave ?',
-                    strutStyle: StrutStyle(
-                      height: 1.5,
-                    ),
-                  ),
-                ));
-      } else
-        webviewPlugin.goBack();
-    });
-    widget.event.link.replaceFirst('%3Cname%3C', userModel.name);
-    widget.event.link.replaceFirst('%3Cemail%3C', userModel.email);
+    // webviewPlugin.onBack.listen((_) async {
+    //   print('Back');
+    //   if (await webviewPlugin.canGoBack()) {
+    //     showDialog(
+    //         context: context,
+    //         builder: (_) => AlertDialog(
+    //               actions: <Widget>[
+    //                 FlatButton(
+    //                   onPressed: () {
+    //                     Navigator.of(context).pop();
+    //                     webviewPlugin.close();
+    //                   },
+    //                   child: Text('Yes'),
+    //                 ),
+    //                 FlatButton(
+    //                   onPressed: () {
+    //                     Navigator.of(context).pop();
+    //                   },
+    //                   child: Text('No'),
+    //                 )
+    //               ],
+    //               title: Text('Form not submitted'),
+    //               content: Text(
+    //                 'Do you want to leave ?',
+    //                 strutStyle: StrutStyle(
+    //                   height: 1.5,
+    //                 ),
+    //               ),
+    //             ));
+    //   } else
+    //     webviewPlugin.goBack();
+    // });
+    widget.event.link =
+        widget.event.link.replaceFirst('%3Cname%3C', userModel.name);
+    widget.event.link =
+        widget.event.link.replaceFirst('%3Cemail%3C', userModel.email);
     String year = 'First+Year';
     switch (userModel.year) {
       case '1':
@@ -306,7 +334,7 @@ class _EventState extends State<Event> with AfterLayoutMixin {
         year = 'Fifth+Year';
         break;
     }
-    widget.event.link.replaceFirst('%3Cyear%3C', year);
+    widget.event.link = widget.event.link.replaceFirst('%3Cyear%3C', year);
     webviewPlugin.launch(widget.event.link);
   }
 
@@ -520,10 +548,11 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
       actions: <Widget>[
         FlatButton(
             onPressed: () async {
+              Navigator.of(context).pop();
               if (alwaysUse) {
                 SharedPreferences sharedPreferences =
                     await SharedPreferences.getInstance();
-                sharedPreferences.setBool('useInApp', true);
+                sharedPreferences.setBool('inAppBrowser', true);
               }
               openWebView();
             },
@@ -531,6 +560,7 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
         FlatButton(
             onPressed: () {
               launchURL(widget.widget.event.link);
+              Navigator.of(context).pop();
             },
             child: Text('No')),
       ],

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'package:app/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../paginator_list.dart';
 import 'widgets/upcoming_event_card.dart';
 import 'widgets/cluster_buttons.dart';
@@ -43,6 +44,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
+    print('BUilding Home');
     widthBy3 = MediaQuery.of(context).size.width / 3;
     color = getColor(context);
     inverseColor = getInverseColor(context);
@@ -209,7 +211,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       centerTitle: true,
       actions: <Widget>[
         IconButton(
-          onPressed: () {
+          onPressed: () async {
+            SharedPreferences sharedPreferences =
+                await SharedPreferences.getInstance();
+            sharedPreferences.clear();
             Navigator.pop(context);
             Navigator.pushNamed(context, '/home');
           },

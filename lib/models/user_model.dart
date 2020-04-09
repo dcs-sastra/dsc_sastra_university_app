@@ -26,6 +26,9 @@ class UserModel {
     }
     return temp;
   }
-}
 
-enum Gender { MALE, FEMALE }
+  @override
+  String toString() {
+    return '$name\t$email';
+  }
+}
